@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.snake-main {
+  position: relative;
+  margin: 0 auto;
+  width: 500px;
+  height: 550px;
+  box-shadow: 0 0 5px rgba(156, 156, 156, 0.308);
+}
+.snake-main .commonWH {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+.snake-main #food {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+.snake-main #snake div {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+}
+#snake-boder {
+  width: inherit;
+  height: 500px;
+  border: 1px solid #000;
+}
+.main-down {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
