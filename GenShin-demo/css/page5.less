@@ -1,0 +1,70 @@
+@import url('./index.less');
+
+#page5 {
+  &:extend(.common);
+  &:extend(.section-background);
+  background-image: url('../images/backgrounds/5背景图.jpg');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  .swiper-characteristic {
+    position: relative;
+    width: 1200px;
+    height: 600px;
+    background-color: #fff;
+    >span {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 120px;
+      height: 120px;
+      &:extend(.section-background);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .arrow_left {
+      left: 0;
+      transform: translateX(-80%);
+      background-image: url(../images/icons/按钮left.png);
+      &:hover {
+        background-image: url(../images/icons/按钮left-亮.png);
+      }
+    }
+    .arrow_right {
+      right: 0;
+      transform: translateX(80%);
+      background-image: url(../images/icons/按钮right.png);
+      &:hover {
+        background-image: url(../images/icons/按钮right-亮.png);
+      }
+    }
+  }
+  .swiper-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      &:extend(.section-background);
+      background-image: url(../images/icons/轮播图点.png);
+      cursor: pointer;
+      &:hover {
+        background-image: url(../images/icons/轮播图点-亮.png);
+      }
+    }
+  }
+  .channel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    img {
+      width: 160px;
+      object-fit: cover;
+      margin-right: 30px;
+    }
+  }
+}

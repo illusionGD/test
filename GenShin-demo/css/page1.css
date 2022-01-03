@@ -1,0 +1,99 @@
+.common,
+#page1 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.section-background,
+#page1,
+#page1 .page1-title .down-btn {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#mark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.253);
+}
+#page1 {
+  background-image: url('../images/backgrounds/1背景图.jpg');
+}
+#page1 .logo-text {
+  position: absolute;
+  object-fit: cover;
+  top: 20px;
+  left: 20px;
+}
+#page1 .official-link {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  object-fit: cover;
+  cursor: pointer;
+}
+#page1 .official-link:hover {
+  content: url(../images/icons/进入官网-亮.png);
+}
+#page1 .page1-title {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+#page1 .page1-title .title {
+  position: relative;
+  display: flex;
+}
+#page1 .page1-title .title img {
+  object-fit: cover;
+  transform: scale(0.95);
+}
+#page1 .page1-title .title img:first-child {
+  width: 5.208333rem;
+}
+#page1 .page1-title .title #page1-player-btn {
+  position: absolute;
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+#page1 .page1-title .title #page1-player-btn:hover {
+  content: url(../images/icons/播放视频按钮-亮.png);
+}
+#page1 .page1-title .down-btn {
+  width: 400px;
+  height: 100px;
+  background-image: url(../images/icons/pc-down.png);
+  cursor: pointer;
+}
+#page1 .page1-title .down-btn:hover {
+  background-image: url(../images/icons/pc-down-light.png);
+}
+#page1 .age-limit {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: 100px;
+  object-fit: cover;
+  z-index: 1;
+}
+#page1 .page1-snow {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+}

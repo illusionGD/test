@@ -1,0 +1,22 @@
+.common {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.section-background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#mark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.253);
+}

@@ -1,0 +1,78 @@
+@import url('./index.less');
+#page1 {
+  &:extend(.common);
+  &:extend(.section-background);
+  background-image: url('../images/backgrounds/1背景图.jpg');
+  .logo-text {
+    position: absolute;
+    object-fit: cover;
+    top: 20px;
+    left: 20px;
+  }
+  .official-link {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    object-fit: cover;
+    cursor: pointer;
+    &:hover {
+      content: url(../images/icons/进入官网-亮.png);
+    }
+  }
+  .page1-title {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    .title {
+      position: relative;
+      display: flex;
+      img {
+        object-fit: cover;
+        transform: scale(0.95);
+        &:first-child {
+          width: 5.208333rem;
+        }
+      }
+      #page1-player-btn {
+        position: absolute;
+        right: -5%;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        &:hover {
+          content: url(../images/icons/播放视频按钮-亮.png);
+        }
+      }
+    }
+    .down-btn {
+      width: 400px;
+      height: 100px;
+      background-image: url(../images/icons/pc-down.png);
+      &:extend(.section-background);
+      cursor: pointer;
+      &:hover {
+        background-image: url(../images/icons/pc-down-light.png);
+      }
+    }
+    z-index: 1;
+  }
+  .age-limit {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    width: 100px;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .page1-snow {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+}

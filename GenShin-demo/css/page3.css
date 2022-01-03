@@ -1,0 +1,72 @@
+.common,
+#page3 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+.section-background,
+#page3,
+#page3 .page3-content .chartor-info {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#page3 {
+  background-image: url('../images/backgrounds/3背景图.jpg');
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+#page3 .page3-content {
+  position: relative;
+  width: 1200px;
+}
+#page3 .page3-content .chartor-name {
+  position: absolute;
+  left: 0;
+  top: 20%;
+}
+#page3 .page3-content .chartor-name img:first-child {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  transform: translateX(-35%);
+  z-index: 1;
+  cursor: pointer;
+}
+#page3 .page3-content .chartor-name img:first-child:hover {
+  content: url(../images/icons/播放按钮2-亮.png);
+}
+#page3 .page3-content .chartor-img {
+  position: absolute;
+  width: 850px;
+  object-fit: cover;
+  bottom: 0;
+}
+#page3 .page3-content .chartor-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  padding: 0 20px;
+  right: -30px;
+  top: 48%;
+  width: 500px;
+  height: 560px;
+  background-image: url('../images/backgrounds/角色背景线.png');
+  transform: translateY(-50%);
+}
+#page3 .page3-content .chartor-info > img {
+  margin-bottom: 30px;
+}
+#page3 .page3-content .chartor-info .chartor-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+#page3 .page3-content .chartor-info .chartor-list img {
+  width: calc(100% / 4);
+  object-fit: cover;
+  cursor: pointer;
+}

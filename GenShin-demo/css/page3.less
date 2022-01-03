@@ -1,0 +1,64 @@
+@import url('./index.less');
+
+#page3 {
+  &:extend(.common);
+  &:extend(.section-background);
+  background-image: url('../images/backgrounds/3背景图.jpg');
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  .page3-content {
+    position: relative;
+    width: 1200px;
+    .chartor-name {
+      position: absolute;
+      left: 0;
+      top: 20%;
+      img:first-child {
+        position: absolute;
+        top: 15%;
+        left: 0;
+        transform: translateX(-35%);
+        z-index: 1;
+        cursor: pointer;
+        &:hover {
+          content: url(../images/icons/播放按钮2-亮.png);
+        }
+      }
+    }
+    .chartor-img {
+      position: absolute;
+      width: 850px;
+      object-fit: cover;
+      bottom: 0;
+    }
+    .chartor-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      padding: 0 20px;
+      right: -30px;
+      top: 48%;
+      width: 500px;
+      height: 560px;
+      &:extend(.section-background);
+      background-image: url('../images/backgrounds/角色背景线.png');
+      transform: translateY(-50%);
+      >img {
+        margin-bottom: 30px;
+      }
+      .chartor-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        img {
+          width: calc(100% / 4);
+          object-fit: cover;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

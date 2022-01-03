@@ -1,0 +1,15 @@
+@import url('./index.less');
+
+#page2 {
+  &:extend(.common);
+  &:extend(.section-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('../images/backgrounds/2背景图.jpg');
+  .page2-activities {
+    img:first-child {
+      margin-right: 50px;
+    }
+  }
+}
