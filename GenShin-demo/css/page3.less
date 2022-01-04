@@ -9,7 +9,7 @@
   overflow: hidden;
   .page3-content {
     position: relative;
-    width: 1200px;
+    width: 6.25rem;
     .chartor-name {
       position: absolute;
       left: 0;
@@ -19,16 +19,21 @@
         top: 15%;
         left: 0;
         transform: translateX(-35%);
+        width: .520833rem;
         z-index: 1;
         cursor: pointer;
         &:hover {
           content: url(../images/icons/播放按钮2-亮.png);
         }
       }
+      img:last-child {
+        // width: .78125rem;
+      }
     }
     .chartor-img {
       position: absolute;
-      width: 850px;
+      // width: 4.166667rem;
+      height: 100%;
       object-fit: cover;
       bottom: 0;
     }
@@ -37,16 +42,18 @@
       flex-direction: column;
       align-items: center;
       position: absolute;
-      padding: 0 20px;
-      right: -30px;
+      padding: 0 .104167rem;
+      right: -0.15625rem;
       top: 48%;
-      width: 500px;
-      height: 560px;
+      width: 2.604167rem;
+      height: 2.916667rem;
       &:extend(.section-background);
       background-image: url('../images/backgrounds/角色背景线.png');
       transform: translateY(-50%);
+      z-index: 1;
       >img {
-        margin-bottom: 30px;
+        margin-bottom: .15625rem;
+        width: 2.34375rem;
       }
       .chartor-list {
         display: flex;

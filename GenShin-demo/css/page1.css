@@ -31,11 +31,13 @@
   object-fit: cover;
   top: 20px;
   left: 20px;
+  width: 0.833333rem;
 }
 #page1 .official-link {
   position: absolute;
   top: 25px;
   right: 30px;
+  width: 1.041667rem;
   object-fit: cover;
   cursor: pointer;
 }
@@ -61,12 +63,13 @@
   transform: scale(0.95);
 }
 #page1 .page1-title .title img:first-child {
-  width: 5.208333rem;
+  width: 4.166667rem;
 }
 #page1 .page1-title .title #page1-player-btn {
   position: absolute;
   right: -5%;
   top: 50%;
+  width: 0.520833rem;
   transform: translateY(-50%);
   cursor: pointer;
 }
@@ -74,8 +77,8 @@
   content: url(../images/icons/播放视频按钮-亮.png);
 }
 #page1 .page1-title .down-btn {
-  width: 400px;
-  height: 100px;
+  width: 2.083333rem;
+  height: 0.520833rem;
   background-image: url(../images/icons/pc-down.png);
   cursor: pointer;
 }
@@ -86,7 +89,7 @@
   position: absolute;
   left: 20px;
   bottom: 20px;
-  width: 100px;
+  width: 0.520833rem;
   object-fit: cover;
   z-index: 1;
 }

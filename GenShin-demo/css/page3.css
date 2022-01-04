@@ -11,6 +11,18 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+#mark {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.253);
+}
 #page3 {
   background-image: url('../images/backgrounds/3背景图.jpg');
   display: flex;
@@ -19,7 +31,7 @@
 }
 #page3 .page3-content {
   position: relative;
-  width: 1200px;
+  width: 6.25rem;
 }
 #page3 .page3-content .chartor-name {
   position: absolute;
@@ -31,6 +43,7 @@
   top: 15%;
   left: 0;
   transform: translateX(-35%);
+  width: 0.520833rem;
   z-index: 1;
   cursor: pointer;
 }
@@ -39,7 +52,7 @@
 }
 #page3 .page3-content .chartor-img {
   position: absolute;
-  width: 850px;
+  height: 100%;
   object-fit: cover;
   bottom: 0;
 }
@@ -48,16 +61,18 @@
   flex-direction: column;
   align-items: center;
   position: absolute;
-  padding: 0 20px;
-  right: -30px;
+  padding: 0 0.104167rem;
+  right: -0.15625rem;
   top: 48%;
-  width: 500px;
-  height: 560px;
+  width: 2.604167rem;
+  height: 2.916667rem;
   background-image: url('../images/backgrounds/角色背景线.png');
   transform: translateY(-50%);
+  z-index: 1;
 }
 #page3 .page3-content .chartor-info > img {
-  margin-bottom: 30px;
+  margin-bottom: 0.15625rem;
+  width: 2.34375rem;
 }
 #page3 .page3-content .chartor-info .chartor-list {
   display: flex;

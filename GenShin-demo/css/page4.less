@@ -10,17 +10,19 @@
   justify-content: space-evenly;
   .swiper-activity {
     position: relative;
-    width: 1160px;
-    height: 834px;
+    width: 5.104167rem;
+    height: 3.445833rem;
     > div {
+      position: relative;
+      height: inherit;
       overflow: hidden;
     }
     >span {
       position: absolute;
       top: 40%;
       transform: translateY(-50%);
-      width: 120px;
-      height: 120px;
+      width: .625rem;
+      height: .625rem;
       &:extend(.section-background);
       cursor: pointer;
       z-index: 10;
@@ -42,13 +44,16 @@
       }
     }
     ul {
-      width: 4000px;
+      // width: 20.833333rem;
+      position: absolute;
+      left: 0;
+      top: 0;
       height: inherit;
       overflow: hidden;
       li {
         position: relative;
         box-sizing: border-box;
-        width: 1160px;
+        width: 5.104167rem;
         height: inherit;
         float: left;
         &:extend(.section-background);
@@ -58,27 +63,38 @@
           left: 0;
           width: inherit;
           height: inherit;
-          z-index: 1;
-          object-fit: contain;
-        }
-        >div {
-          position: relative;
-          box-sizing: border-box;
-          width: inherit;
-          padding: 20px 30px 20px 15px;
           z-index: 0;
-          .activity-item {
-            position: absolute;
-            top: 25px;
-            left: 20px;
-            p {
-              margin-top: 20px;
-              font-size: 18px;
-              color: rgb(85, 93, 126);
-              text-align: center;
-            }
+          object-fit: cover;
+        }
+        .activity-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: inherit;
+          height: inherit;
+          z-index: 1;
+          p {
+            margin-top: .104167rem;
+            font-size: .09375rem;
+            color: rgb(85, 93, 126);
+            text-align: center;
+          }
+          img {
+            width: 98%;
+            // height: 70%;
+            object-fit: contain;
           }
         }
+        // >div {
+        //   position: relative;
+        //   box-sizing: border-box;
+        //   width: inherit;
+        //   padding: .104167rem .15625rem .104167rem .078125rem;
+        //   z-index: 0;
+        // }
       }
     }
   }
