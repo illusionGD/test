@@ -63,3 +63,24 @@ export const activities = [
     des: '迷城之外的一切都无法带入其中。挑选冒险队的成员，携手并进，向着最深处的秘密出发吧'
   }
 ]
+
+export const characteristy = [
+  {
+    url: './images/cards/characteristies1.png'
+  },
+  {
+    url: './images/cards/characteristies2.png'
+  },
+  {
+    url: './images/cards/characteristies3.png'
+  },
+  {
+    url: './images/cards/characteristies4.png'
+  },
+  {
+    url: './images/cards/characteristies5.png'
+  },
+  {
+    url: './images/cards/characteristies6.png'
+  }
+]

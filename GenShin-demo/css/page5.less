@@ -15,7 +15,6 @@
     position: relative;
     width: 6.25rem;
     height: 3.125rem;
-    background-color: #fff;
     >span {
       position: absolute;
       top: 40%;
@@ -42,11 +41,32 @@
         background-image: url(../images/icons/按钮right-亮.png);
       }
     }
+    >div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      overflow: hidden;
+      ul {
+        display: flex;
+        align-items: center;
+        left: 0;
+        top: 0;
+        height: inherit;
+        img {
+          position: absolute;
+          width: 4.166667rem;
+        }
+      }
+    }
   }
   .swiper-circle {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10;
     span {
       margin-right: .052083rem;
       width: .104167rem;
@@ -69,5 +89,27 @@
       object-fit: cover;
       margin-right: .15625rem;
     }
+  }
+  .swiper-slide {
+    transform: scale(0.7);
+    filter: brightness(0.5);
+    left: 10%;
+    z-index: 0;
+    transition: all .5s;
+  }
+  .swiper-slide-active {
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: all .5s;
+  }
+  .swiper-slide-pre {
+    left: 0;
+    z-index: 1;
+  }
+  .swiper-slide-next {
+    left: 35%;
+    right: 0;
+    z-index: 1;
   }
 }

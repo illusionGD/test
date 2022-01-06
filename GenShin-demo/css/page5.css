@@ -38,7 +38,6 @@
   position: relative;
   width: 6.25rem;
   height: 3.125rem;
-  background-color: #fff;
 }
 #page5 .swiper-characteristic > span {
   position: absolute;
@@ -65,10 +64,31 @@
 #page5 .swiper-characteristic .arrow_right:hover {
   background-image: url(../images/icons/按钮right-亮.png);
 }
+#page5 .swiper-characteristic > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  overflow: hidden;
+}
+#page5 .swiper-characteristic > div ul {
+  display: flex;
+  align-items: center;
+  left: 0;
+  top: 0;
+  height: inherit;
+}
+#page5 .swiper-characteristic > div ul img {
+  position: absolute;
+  width: 4.166667rem;
+}
 #page5 .swiper-circle {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 #page5 .swiper-circle span {
   margin-right: 0.052083rem;
@@ -90,4 +110,26 @@
   width: 0.833333rem;
   object-fit: cover;
   margin-right: 0.15625rem;
+}
+#page5 .swiper-slide {
+  transform: scale(0.7);
+  filter: brightness(0.5);
+  left: 10%;
+  z-index: 0;
+  transition: all 0.5s;
+}
+#page5 .swiper-slide-active {
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: all 0.5s;
+}
+#page5 .swiper-slide-pre {
+  left: 0;
+  z-index: 1;
+}
+#page5 .swiper-slide-next {
+  left: 35%;
+  right: 0;
+  z-index: 1;
 }
