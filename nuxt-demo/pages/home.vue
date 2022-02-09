@@ -2,6 +2,7 @@
   <div class="home">
     home
     <nuxt-link :to="{path: '/home/child1'}">childe1</nuxt-link>
+    <p>{{}}</p>
     <!-- <nuxt-link :to="{path: '/home/125', params: {id: 1234}}">id</nuxt-link> -->
     <nuxt-child/>
   </div>
@@ -9,11 +10,18 @@
 
 <script>
 import axios from 'axios'
+import {mapMutations} from 'vuex';
+
 export default {
   name: "Home",
   data() {
     return {
 
+    }
+  },
+  head() {
+    return {
+      title: 'home'
     }
   },
   asyncData ({params}) {
@@ -31,6 +39,10 @@ export default {
   },
   created() {
     console.log(this.dataList)
+    this.todo();
+  },
+  methods: {
+    ...mapMutations(['todo']),
   }
 };
 </script>
