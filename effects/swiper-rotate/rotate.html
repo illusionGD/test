@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.main {
+    position: relative;
+    position: relative;
+    display: flex;
+    margin: 300px auto 0;
+    width: 500px;
+    height: 500px;
+    /* background-color: #fff; */
+}
+.rotate-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: rgb(255, 174, 0); */
+}
+.rotate-item {
+    position: absolute;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+.arrow {
+    margin-right: 20px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.mark {
+    position: absolute;
+    top: 50%;
+    left: -90px;
+    z-index: 10;
+    width: 100%;
+    height: 150%;
+    background-color: #2d2d2d;
+    transform: translateY(-50%);
+}
+
+
+    </style>
+</head>
+<body style="background-color: #2D2D2D">
+    <div class="main">
+        <div class="mark">
+
+        </div>
+        <div class="rotate-main">
+            <span class="rotate-item">3</span>
+            <span class="rotate-item">4</span>
+            <span class="rotate-item">5</span>
+            <span class="rotate-item">6</span>
+            <span class="rotate-item">7</span>
+            <span class="rotate-item">8</span>
+            <span class="rotate-item">1</span>
+            <span class="rotate-item">2</span>
+            <span class="rotate-item">3</span>
+            <span class="rotate-item">4</span>
+            <span class="rotate-item">5</span>
+            <span class="rotate-item">6</span>
+            <span class="rotate-item">7</span>
+            <span class="rotate-item">8</span>
+            <span class="rotate-item">1</span>
+            <span class="rotate-item">2</span>
+        </div>
+    </div>
+    <span class="arrow">zuo</span>
+    <span class="arrow">you</span>
+    <script src="./jquery-1.11.0.min.js"></script>
+    <script>
+        $(function() {
+            let radius = 200;
+            const itemList = $('.rotate-item');
+            const container = $('.rotate-main');
+            const width = container.width();
+            const height = container.height();
+            const step = (2*Math.PI) / itemList.length;
+            let angle = 0;
+            radius = width/2;
+            
+            itemList.each(function() {
+                const x = Math.round(width/2 + radius * Math.cos(angle) - $(this).width()/2);
+                const y = Math.round(height/2 + radius * Math.sin(angle) - $(this).height()/2);
+
+                $(this).css({
+                    left: x + 'px',
+                    top: y + 'px'
+                });
+                angle += step;
+            });
+
+            let i = 1;
+            const btn= $('.arrow');
+            const rotate_main = $('.rotate-main');
+
+            btn.on('click', function() {
+                const r_deg = `rotate(${i * (360 / itemList.length)}deg)`;
+                const self_deg = `rotate(${-i * (360 / itemList.length)}deg)`;
+                
+                rotate_main.css({
+                    transform: r_deg,
+                    transition: '1s'
+                });
+
+                itemList.css({
+                    transform: self_deg,
+                    transition: '1s'
+                })
+                i++;
+            })
+        })
+        
+    </script>
+</body>
+</html>
