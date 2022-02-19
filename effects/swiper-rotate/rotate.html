@@ -45,13 +45,15 @@
 .mark {
     position: absolute;
     top: 50%;
-    left: -90px;
+    left: -100px;
     z-index: 10;
     width: 100%;
     height: 150%;
     background-color: #2d2d2d;
     transform: translateY(-50%);
 }
+
+
 
 
     </style>
@@ -80,8 +82,8 @@
             <span class="rotate-item">2</span>
         </div>
     </div>
-    <span class="arrow">zuo</span>
-    <span class="arrow">you</span>
+    <span class="arrow arrow-left">zuo</span>
+    <span class="arrow arrow-right">you</span>
     <script src="./jquery-1.11.0.min.js"></script>
     <script>
         $(function() {
@@ -105,25 +107,38 @@
                 angle += step;
             });
 
-            let i = 1;
-            const btn= $('.arrow');
+            let i = 0;
+            const btn_left= $('.arrow-left');
+            const btn_right= $('.arrow-right');
             const rotate_main = $('.rotate-main');
 
-            btn.on('click', function() {
-                const r_deg = `rotate(${i * (360 / itemList.length)}deg)`;
-                const self_deg = `rotate(${-i * (360 / itemList.length)}deg)`;
-                
-                rotate_main.css({
-                    transform: r_deg,
-                    transition: '1s'
-                });
+            btn_right.on('click', function() {
+                const deg = ++i * (360 / itemList.length);
 
-                itemList.css({
-                    transform: self_deg,
-                    transition: '1s'
-                })
-                i++;
-            })
+                rotateFn(deg)();
+            });
+            btn_left.on('click', function() {
+                const deg = --i * (360 / itemList.length)
+                
+                rotateFn(deg)();
+            });
+
+            function rotateFn (deg) {
+                return function() {
+                    const r_deg = `rotate(${deg}deg)`;
+                    const self_deg = `rotate(${-deg}deg)`;
+                    
+                    rotate_main.css({
+                        transform: r_deg,
+                        transition: '1s'
+                    });
+
+                    itemList.css({
+                        transform: self_deg,
+                        transition: '1s'
+                    })
+                }
+            }
         })
         
     </script>
