@@ -64,12 +64,6 @@
 
         </div>
         <div class="rotate-main">
-            <span class="rotate-item">3</span>
-            <span class="rotate-item">4</span>
-            <span class="rotate-item">5</span>
-            <span class="rotate-item">6</span>
-            <span class="rotate-item">7</span>
-            <span class="rotate-item">8</span>
             <span class="rotate-item">1</span>
             <span class="rotate-item">2</span>
             <span class="rotate-item">3</span>
@@ -80,6 +74,12 @@
             <span class="rotate-item">8</span>
             <span class="rotate-item">1</span>
             <span class="rotate-item">2</span>
+            <span class="rotate-item">3</span>
+            <span class="rotate-item">4</span>
+            <span class="rotate-item">5</span>
+            <span class="rotate-item">6</span>
+            <span class="rotate-item">7</span>
+            <span class="rotate-item">8</span>
         </div>
     </div>
     <span class="arrow arrow-left">zuo</span>
@@ -93,7 +93,7 @@
             const width = container.width();
             const height = container.height();
             const step = (2*Math.PI) / itemList.length;
-            let angle = 0;
+            let angle = - 2 * step;
             radius = width/2;
             
             itemList.each(function() {
