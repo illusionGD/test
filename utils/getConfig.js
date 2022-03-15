@@ -2,7 +2,7 @@
  * @Author: Hollow 
  * @Date: 2022-03-14 21:37:59 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2022-03-14 22:30:41
+ * @Last Modified time: 2022-03-15 22:12:14
  * @description 获取设备信息，判断pc、mb、ios、Android、微信等
  */
 
@@ -53,12 +53,11 @@
     }
 
     /**判断是否为Android */
-    static isAndroid() {
+    static isAndroid(ua) {
         return /(Android|Adr)/i.test(ua);
     }
 
     getDeivce() {
-        console.log(this);
         return this.device;
     }
 }
