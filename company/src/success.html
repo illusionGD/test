@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://restn-download.movergames.com/res_tn/common/js/cookie.js"></script>
+    <script src="https://restw-download.vsplay.com/res_tw/common/js/Load.js"></script>
+    <script>
+        var cookieFlag = request.from,
+            htmlPage = "",
+            loginId = "";
+        var userId = "",
+            userName = "",
+            loginSign = "",
+            loginTimestamp = "",
+            phone = "",
+            type = "";
+
+        window.onload = function () {
+            var _userId = getCookie("efunUserid");
+            var _sign = getCookie("mySign");
+            var _timestamp = getCookie("timestamp");
+            if (!!_userId) {
+                userId = _userId;
+                addCookie(cookieFlag + "userId", userId);
+                addCookie(cookieFlag + "loginId", userId);
+            }
+            if (!!_sign) {
+                loginSign = _sign;
+                addCookie(cookieFlag + "loginSign", loginSign);
+            }
+            if (!!_timestamp) {
+                loginTimestamp = _timestamp;
+                addCookie(cookieFlag + "loginTimestamp", loginTimestamp);
+            }
+            setTimeout(skipIndex, 200);
+        }
+
+        function skipIndex() {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+
+<body>
+    <center>登錄成功，正在跳轉...</center>
+</body>
+
+</html>
