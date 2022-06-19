@@ -17,10 +17,11 @@ export class UserService {
             throw new Error("用户已注册");
         }
         const createModel = new this.userModel(user);
+        createModel.save();
+
         return this.response = {
             code: '1000',
             message: ' 注册成功'
         }
-        
     }
 }
