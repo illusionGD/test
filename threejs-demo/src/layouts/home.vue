@@ -4,44 +4,47 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { Scene, PerspectiveCamera, WebGLRenderer, Vector3 } from "three";
-import { createPolygon } from "../utils/polygon";
+// import { Scene, PerspectiveCamera, WebGLRenderer, AxesHelper } from "three";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import {
+    createPolygon,
+    createAndAddPolygon,
+    addPolygonToScene,
+} from "../utils/polygon";
 import { useMouseClickPosition } from "../hooks/mouse";
 
 const threeWrap = ref(null);
 
-const scene = new Scene();
-const camera = new PerspectiveCamera(
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
     1,
     500
 );
-camera.position.set(0, 0, 100);
+camera.position.set(0, 0, 10);
 camera.lookAt(0, 0, 0);
 
-const renderer = new WebGLRenderer();
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-const cube = createPolygon({
+// 创建物体
+const cube = createAndAddPolygon({
     type: "box",
-    position: [1, 1, 1],
+    vector: [1, 1, 1],
     material: { color: 0x00ff00 },
+    scene,
 });
 
-const points = [];
-points.push(new Vector3(0, 0, 0));
-points.push(new Vector3(1, 1, 0));
-let line = createPolygon({
-    type: "line",
-    material: { color: 0x00ff00 },
-    points,
-});
-useMouseClickPosition(window, (x, y) => {
-    console.log(line);
+// 创建控制器
+const control = new OrbitControls(camera, renderer.domElement);
 
-    scene.add(line);
-});
+const axesHelper = new THREE.AxesHelper(2);
+scene.add(axesHelper);
+
+addPolygonToScene(control, scene);
+
 onMounted(() => {
     threeWrap.value.appendChild(renderer.domElement);
 
@@ -60,5 +63,4 @@ function animate() {
     width: 100%;
     background-color: #000;
 }
-
 </style>
