@@ -33,7 +33,7 @@ export function createAndAddPolygon({
     }
     const polygon = createPolygon(options)
     addPolygonToScene(polygon, scene)
-    return true
+    return polygon
 }
 
 /**

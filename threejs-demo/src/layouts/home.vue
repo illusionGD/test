@@ -1,5 +1,17 @@
+<!--
+ * @Author: IT-hollow
+ * @Date: 2022-06-19 20:05:47
+ * @LastEditors: hollow
+ * @LastEditTime: 2022-07-18 23:35:01
+ * @FilePath: \threejs-demo\src\layouts\home.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by efun, All Rights Reserved. 
+-->
 <template>
-    <div class="three-wrap" ref="threeWrap"></div>
+    <div class="three-wrap" ref="threeWrap">
+        <div class="timer">{{ timer }}</div>
+    </div>
 </template>
 
 <script setup>
@@ -12,8 +24,9 @@ import {
     createAndAddPolygon,
     addPolygonToScene,
 } from "../utils/polygon";
-import { useMouseClickPosition } from "../hooks/mouse";
-
+import { useMouseClickPosition, useMouseDoubleClick } from "../hooks/mouse";
+import * as dat from "dat.gui";
+const timer = ref(0);
 const threeWrap = ref(null);
 
 const scene = new THREE.Scene();
@@ -41,9 +54,15 @@ const cube = createAndAddPolygon({
 const control = new OrbitControls(camera, renderer.domElement);
 
 const axesHelper = new THREE.AxesHelper(2);
-scene.add(axesHelper);
+addPolygonToScene(axesHelper, scene);
 
 addPolygonToScene(control, scene);
+console.log(cube.position);
+const gui = new dat.GUI();
+gui.add(cube.position, "x").min(0).max(5).step(0.1).name("X轴");
+
+// 时钟
+const clock = new THREE.Clock();
 
 onMounted(() => {
     threeWrap.value.appendChild(renderer.domElement);
@@ -51,7 +70,19 @@ onMounted(() => {
     animate();
 });
 
+useMouseDoubleClick(window, () => {
+    const fullscreenElement =
+        document.fullscreenElement || document.webkitFullscreenElement;
+    if (!fullscreenElement) {
+        renderer.domElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+});
+
 function animate() {
+    const time = clock.getElapsedTime();
+    timer.value = Math.ceil(time);
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
@@ -62,5 +93,8 @@ function animate() {
     min-height: 100vh;
     width: 100%;
     background-color: #000;
+}
+.timer {
+    color: red;
 }
 </style>
