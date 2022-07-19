@@ -40,7 +40,7 @@ let line = createPolygon({
 useMouseClickPosition(window, (x, y) => {
     console.log(line);
 
-    scene.add(line);
+    scene.add(cube);
 });
 onMounted(() => {
     threeWrap.value.appendChild(renderer.domElement);
@@ -60,5 +60,4 @@ function animate() {
     width: 100%;
     background-color: #000;
 }
-
 </style>
