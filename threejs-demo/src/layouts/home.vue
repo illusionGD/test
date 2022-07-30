@@ -1,13 +1,3 @@
-<!--
- * @Author: IT-hollow
- * @Date: 2022-06-19 20:05:47
- * @LastEditors: hollow
- * @LastEditTime: 2022-07-19 22:47:12
- * @FilePath: \threejs-demo\src\layouts\home.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by efun, All Rights Reserved. 
--->
 <template>
     <div class="three-wrap" ref="threeWrap">
         <div class="timer">{{ timer }}</div>
@@ -103,4 +93,5 @@ function animate() {
 .timer {
     color: red;
 }
+
 </style>
