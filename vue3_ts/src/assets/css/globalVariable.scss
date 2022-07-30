@@ -4,4 +4,17 @@ body, ul, li, p {
     list-style: none;
 }
 
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex-row-center {
+    display: flex;
+    justify-content: center;
+}
+.flex-colum-center {
+    display: flex;
+    align-items: center;
+}
 
