@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2022-06-19 20:05:47
  * @LastEditors: hollow
- * @LastEditTime: 2022-07-18 23:35:01
+ * @LastEditTime: 2022-07-19 22:47:12
  * @FilePath: \threejs-demo\src\layouts\home.vue
  * @Description: 
  * 
@@ -26,6 +26,7 @@ import {
 } from "../utils/polygon";
 import { useMouseClickPosition, useMouseDoubleClick } from "../hooks/mouse";
 import * as dat from "dat.gui";
+import imgUrl from "../assets/logo.png";
 const timer = ref(0);
 const threeWrap = ref(null);
 
@@ -50,6 +51,12 @@ const cube = createAndAddPolygon({
     scene,
 });
 
+// 纹理
+const loader = new THREE.TextureLoader();
+loader.load(imgUrl, (texture) => {
+    console.log(texture);
+});
+
 // 创建控制器
 const control = new OrbitControls(camera, renderer.domElement);
 
@@ -57,7 +64,6 @@ const axesHelper = new THREE.AxesHelper(2);
 addPolygonToScene(axesHelper, scene);
 
 addPolygonToScene(control, scene);
-console.log(cube.position);
 const gui = new dat.GUI();
 gui.add(cube.position, "x").min(0).max(5).step(0.1).name("X轴");
 
