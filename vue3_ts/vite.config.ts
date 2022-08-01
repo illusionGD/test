@@ -4,10 +4,10 @@ import vue from '@vitejs/plugin-vue'
 const commonConfig = {
   plugins: [vue()],
   resolve: {
+    extension: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: {
       '@': '/src'
-    },
-    extension: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']
+    }
   },
   css: {
     //css预处理
