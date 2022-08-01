@@ -67,14 +67,9 @@ const itemStep = computeItemRotateDeg()
 
 let rotating = ref(true);
 let itemRotateDeg = ref(0)
+const turntableMain = ref<HTMLElement>()
+const turntableItem = ref<HTMLElement>()
 
-// const timer = customerInterVal(() => {
-// console.log(1);
-// }, 100)
-    const turntableMain = ref<HTMLElement>()
-    const turntableItem = ref<HTMLElement>()
-
-    console.log(turntableItem);
 function stopRotate() {
     const dom = turntableMain.value as HTMLElement
     // 获取整体旋转角度，并停止旋转
@@ -98,7 +93,7 @@ function startRotate() {
 }
 
 /**
- * @description: true
+ * @description: 注入每个小圆的坐标
  * @return {*}
  */
 function getPosition() {
@@ -117,8 +112,7 @@ function getPosition() {
         const temp = {
             ...item,
             x,
-            y,
-            deg: 0
+            y
         };
         return temp;
     });

@@ -54,6 +54,7 @@ const pathList: turntable_type[] = reactive([
 .home {
     width: 100%;
     height: 100vh;
+    overflow: hidden;
     background-color: $bg_color;
 
 @extend .flex-center;
