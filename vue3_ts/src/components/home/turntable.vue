@@ -1,22 +1,12 @@
-
 <template>
     <div class="turntable">
-        <ul
-            ref="turntableMain"
-            :class="{ 'rotation-infinite': rotating }"
-            :style="{
-                width: radius * 2 + 'px',
-                height: radius * 2 + 'px',
-                'animation-duration': speed + 's'
-            }"
-        >
-            <li
-                ref="turntableItem"
-                class="turntable-item"
-                :class="{ 'rotation-infinite-reverse': rotating }"
-                v-for="(item, index) in list"
-                :key="index"
-                :style="{
+        <ul ref="turntableMain" :class="{ 'rotation-infinite': rotating }" :style="{
+            width: radius * 2 + 'px',
+            height: radius * 2 + 'px',
+            'animation-duration': speed + 's'
+        }">
+            <rli ref="turntableItem" class="turntable-item" :class="{ 'rotation-infinite-reverse': rotating }"
+                v-for="(item, index) in list" :key="index" :style="{
                     width: itemRadius * 2 + 'px',
                     height: itemRadius * 2 + 'px',
                     left: item.x + 'px',
@@ -24,10 +14,10 @@
                     'animation-duration': speed + 's'
                 }"
                 @mouseenter="stopRotate"
-            @mouseout="startRotate"
-            >
+                @mouseout="startRotate"
+                @click="gotoPage(item)">
                 {{ item.title }}
-            </li>
+            </rli>
         </ul>
     </div>
 </template>
@@ -35,13 +25,12 @@
 <script setup lang="ts">
 import {
     computed,
-    onMounted,
     PropType,
-    reactive,
     ref,
 } from "@vue/runtime-core";
 import { turntable_type } from "@/types/home";
-import { customerInterVal, getDomRotateDeg } from "@/utils";
+import { getDomRotateDeg } from "@/utils";
+import { useRouter } from "vue-router";
 const props = defineProps({
     pathList: {
         type: Array as unknown as PropType<turntable_type[]>,
@@ -63,23 +52,25 @@ const props = defineProps({
     }
 });
 const list = computed(getPosition);
-const itemStep = computeItemRotateDeg()
 
 let rotating = ref(true);
-let itemRotateDeg = ref(0)
 const turntableMain = ref<HTMLElement>()
 const turntableItem = ref<HTMLElement>()
-
-function stopRotate() {
+const router = useRouter()
+/**
+ * @description: 停止旋转
+ * @return {*}
+ */
+function stopRotate(): void {
     const dom = turntableMain.value as HTMLElement
     // 获取整体旋转角度，并停止旋转
     const str = window.getComputedStyle(dom).transform
-    const rotateDeg =  getDomRotateDeg(str)
+    const rotateDeg = getDomRotateDeg(str)
     dom.style.transform = `rotate(${rotateDeg}deg)`
 
     // 获取每个小圆的旋转角度，并停止旋转
     if (turntableItem.value instanceof Array) {
-        
+
         turntableItem.value.forEach((item: HTMLElement) => {
             item.style.transform = `rotate(${-rotateDeg}deg)`
         });
@@ -88,7 +79,11 @@ function stopRotate() {
     rotating.value = false
 }
 
-function startRotate() {
+/**
+ * @description: 开始旋转
+ * @return {*}
+ */
+function startRotate(): void {
     rotating.value = true
 }
 
@@ -120,11 +115,8 @@ function getPosition() {
     return resList;
 }
 
-function computeItemRotateDeg() {
-    const speed = props.speed
-    const step = (2 * Math.PI) / speed
-
-    return step
+function gotoPage(item: turntable_type) {
+    router.push(item.path)
 }
 </script>
 
@@ -135,28 +127,34 @@ function computeItemRotateDeg() {
         transform-origin: center;
         // background-color: aliceblue;
     }
+
     &-item {
-        cursor: pointer;
         position: absolute;
         display: flex;
         border-radius: 50%;
         background-color: #fff;
         text-align: center;
+        cursor: pointer;
         transform-origin: center;
+
 @extend .flex-center;
     }
 }
+
 .rotation-infinite {
-    animation: rotation infinite  linear;
+    animation: rotation infinite linear;
 }
+
 .rotation-infinite-reverse {
     animation: rotation-reverse infinite linear;
 }
+
 @keyframes rotation {
     to {
         transform: rotate(360deg);
     }
 }
+
 @keyframes rotation-reverse {
     to {
         transform: rotate(-360deg);

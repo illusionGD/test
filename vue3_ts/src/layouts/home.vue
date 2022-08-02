@@ -1,24 +1,18 @@
 <template>
     <div class="home">
-        <Turntable
-            :pathList="pathList"
-            :itemRadius="80"
-            :radius="300"
-            :speed="60"
-        ></Turntable>
+        <Turntable :pathList="pathList" :itemRadius="80" :radius="300" :speed="60"></Turntable>
     </div>
 </template>
 
 <script setup lang="ts">
 import Turntable from "@/components/home/turntable.vue";
-import { reactive, ref } from "@vue/reactivity";
-import { defineComponent } from "@vue/runtime-core";
+import { reactive } from "@vue/reactivity";
 import { turntable_type } from "../types/home";
 
 const pathList: turntable_type[] = reactive([
     {
-        path: "/",
-        title: "1",
+        path: "/user",
+        title: "user",
     },
     {
         path: "/",
@@ -52,12 +46,11 @@ const pathList: turntable_type[] = reactive([
 </script>
 <style lang="scss" scoped>
 .home {
+    overflow: hidden;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
     background-color: $bg_color;
 
-@extend .flex-center;
+    @extend .flex-center;
 }
-
 </style>

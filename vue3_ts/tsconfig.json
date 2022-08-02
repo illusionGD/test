@@ -17,6 +17,6 @@
     },
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/postcss.config.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
