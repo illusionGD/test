@@ -62,7 +62,12 @@ export function getUrlParamsObject() {
     return params
 }
 
-export function getDomRotateDeg(matrix: string) {
+/**
+ * @description: 获取dom节点的旋转角度
+ * @param {string} matrix matrix字符串
+ * @return {number}
+ */
+export function getDomRotateDeg(matrix: string): number {
     const values = matrix.split('(')[1].split(')')[0].split(',');
     const a = parseFloat(values[0]);
     const b = parseFloat(values[1]);
@@ -71,4 +76,20 @@ export function getDomRotateDeg(matrix: string) {
 
     const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
     return angle
+}
+
+/**
+ * @description: px转rem单位
+ * @param {string} unit
+ * @return {*}
+ */
+export function pxToRemUnit(unit: string | number): string {
+    let num = 0
+    if (typeof unit === 'string') {
+        num = Number(unit.split('p')[0])
+    } else {
+        num = unit
+    }
+
+    return num / import.meta.env.VITE_FIX_UNIT + 'rem'
 }

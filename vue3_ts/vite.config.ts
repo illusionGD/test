@@ -1,58 +1,51 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import pxtorem from 'postcss-pxtorem'
-
-/**
- * @description: px转rem单位
- */
-const pxtorem_p = pxtorem({
-  rootValue: 19.2,
-  propList: ['*'],
-  replace: true,
-  mediaQuery: false,
-  minPixelValue: 3,
-  exclude: /node_modules/i
-})
-
-/**
- * @description: css前缀，兼容
- */
-const autoprefixer_p = autoprefixer({
-  overrideBrowserslist: [
-    "Android 4.1",
-    "iOS 7.1",
-    "Chrome > 31",
-    "ff > 31",
-    "ie >= 8",
-    "last 2 versions",
-  ],
-  grid: true
-})
-
 /**
  * @description: 公共配置对象
  */
-const commonConfig = {
-  plugins: [
-    vue()
-  ],
-
-  resolve: {
-    extension: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
-    alias: {
-      '@': '/src'
-    }
-  },
-  css: {
-    postcss: {
-      plugins: [pxtorem_p, autoprefixer_p]
+const getCommonConfig = function (mode: string) {
+  return {
+    plugins: [
+      vue()
+    ],
+    resolve: {
+      extension: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+      alias: {
+        '@': '/src'
+      }
     },
-    //css预处理
-    preprocessorOptions: {
-      scss: {
-        charset: false,
-        additionalData: '@import "@/assets/css/globalVariable.scss";'
+    css: {
+      postcss: {
+        plugins: [
+          pxtorem({
+            rootValue: loadEnv(mode, process.cwd()).VITE_FIX_UNIT,
+            propList: ['*'],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 3,
+            exclude: /node_modules/i
+          }),
+          autoprefixer({
+            overrideBrowserslist: [
+              "Android 4.1",
+              "iOS 7.1",
+              "Chrome > 31",
+              "ff > 31",
+              "ie >= 8",
+              "last 2 versions",
+            ],
+            grid: true
+          })
+        ]
+      },
+      //css预处理
+      preprocessorOptions: {
+        scss: {
+          charset: false,
+          additionalData: '@import "@/assets/css/globalVariable.scss";'
+        }
       }
     }
   }
@@ -80,6 +73,7 @@ const prodConfig = {
 }
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
+  const commonConfig = getCommonConfig(mode)
   let newConfig = {
     ...commonConfig
   }
