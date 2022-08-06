@@ -1,7 +1,7 @@
-import { turntable_type } from "@/types/home";
+import { RespondData_Type } from "@/interfaces/common.interface";
 import request from "./request";
 
-export function getHomePaths(): Promise<turntable_type[]> {
+export function getHomePaths(): Promise<RespondData_Type> {
     return new Promise((resolve, reject) => {
         request({
             url: 'common/getHomePaths'

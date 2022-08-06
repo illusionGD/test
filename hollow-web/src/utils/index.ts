@@ -1,4 +1,4 @@
-import { interValTimer_type } from "../types/common"
+import { InterValTimer_type } from "@/interfaces/common.interface";
 
 /**
  * @description: 循环调用计时器
@@ -6,8 +6,8 @@ import { interValTimer_type } from "../types/common"
  * @param {number} time
  * @return {*}
  */
-export function customerInterVal(fn: Function, time: number): interValTimer_type {
-    const interValTimer: interValTimer_type = {
+export function customerInterVal(fn: Function, time: number): InterValTimer_type {
+    const interValTimer: InterValTimer_type = {
         flag: true
     }
 
@@ -92,4 +92,16 @@ export function pxToRemUnit(unit: string | number): string {
     }
 
     return num / import.meta.env.VITE_FIX_UNIT + 'rem'
+}
+
+/**
+ * @description: 十六进制颜色随机
+ * @return {*}
+ */
+export function randomColor16(){
+    const r = Math.floor(Math.random()*256);
+    const g = Math.floor(Math.random()*256);
+    const b = Math.floor(Math.random()*256);
+    const color = '#'+(Array(6).join('0') + (r.toString(16)+g.toString(16)+b.toString(16))).slice(-6);
+    return color;
 }

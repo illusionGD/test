@@ -11,8 +11,8 @@ import { pxToRemUnit } from '@/utils/index.js';
 
 <style lang="scss" scoped>
 .user {
-    width: 600px;
-    height: 500px;
-    background-color: aqua;
+    min-height: 100vh;
+    background-color: $bg_color;
 }
+
 </style>

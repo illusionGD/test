@@ -1,14 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import { homePathList_type } from 'src/types/common';
-
+import { HomePathList_type } from 'src/interfaces/common.interface';
+import { backMsg } from 'src/utils/common';
 @Controller('common')
 export class CommonController {
   @Get('getHomePaths')
   async getHomePaths() {
-    const pathList: homePathList_type = [
+    const pathList: HomePathList_type = [
       {
         path: '/user',
-        title: 'user',
+        title: '空间',
       },
       {
         path: '/',
@@ -39,6 +39,6 @@ export class CommonController {
         title: '8',
       },
     ];
-    return pathList;
+    return backMsg('', '', pathList);
   }
 }

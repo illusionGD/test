@@ -1,36 +1,45 @@
 <template>
     <div class="turntable">
-        <ul ref="turntableMain" :class="{ 'rotation-infinite': rotating }" :style="{
-            width: radius * 2 + 'px',
-            height: radius * 2 + 'px',
-            'animation-duration': speed + 's'
-        }">
-            <rli ref="turntableItem" class="turntable-item" :class="{ 'rotation-infinite-reverse': rotating }"
-                v-for="(item, index) in list" :key="index" :style="{
+        <ul
+            ref="turntableMain"
+            :class="{ 'rotation-infinite': rotating }"
+            :style="{
+                width: radius * 2 + 'px',
+                height: radius * 2 + 'px',
+                'animation-duration': speed + 's',
+            }"
+        >
+            <li
+                ref="turntableItem"
+                class="turntable-item"
+                :class="{
+                    'rotation-infinite-reverse': rotating,
+                    'border-light': activeIndex === index,
+                }"
+                v-for="(item, index) in list"
+                :key="index"
+                :style="{
                     width: itemRadius * 2 + 'px',
                     height: itemRadius * 2 + 'px',
                     left: item.x + 'px',
                     top: item.y + 'px',
-                    'animation-duration': speed + 's'
+                    'animation-duration': speed + 's',
                 }"
-                @mouseenter="stopRotate"
+                @mouseenter="stopRotate(index)"
                 @mouseout="startRotate"
-                @click="gotoPage(item)">
+                @click="gotoPage(item)"
+            >
                 {{ item.title }}
-            </rli>
+            </li>
         </ul>
     </div>
 </template>
 
 <script setup lang="ts">
-import {
-    computed,
-    PropType,
-    ref,
-} from "@vue/runtime-core";
-import { turntable_type } from "@/types/home";
+import { computed, PropType, ref } from "@vue/runtime-core";
 import { getDomRotateDeg } from "@/utils";
 import { useRouter } from "vue-router";
+import { turntable_type } from "@/interfaces/home.interface";
 const props = defineProps({
     pathList: {
         type: Array as unknown as PropType<turntable_type[]>,
@@ -48,35 +57,36 @@ const props = defineProps({
     // 旋转速度
     speed: {
         type: Number,
-        default: 60
-    }
+        default: 60,
+    },
 });
 const list = computed(getPosition);
 
 let rotating = ref(true);
-const turntableMain = ref<HTMLElement>()
-const turntableItem = ref<HTMLElement>()
-const router = useRouter()
+let activeIndex = ref(-1);
+const turntableMain = ref<HTMLElement>();
+const turntableItem = ref<HTMLElement>();
+const router = useRouter();
 /**
  * @description: 停止旋转
  * @return {*}
  */
-function stopRotate(): void {
-    const dom = turntableMain.value as HTMLElement
+function stopRotate(index: number): void {
+    activeIndex.value = index;
+    const dom = turntableMain.value as HTMLElement;
     // 获取整体旋转角度，并停止旋转
-    const str = window.getComputedStyle(dom).transform
-    const rotateDeg = getDomRotateDeg(str)
-    dom.style.transform = `rotate(${rotateDeg}deg)`
+    const str = window.getComputedStyle(dom).transform;
+    const rotateDeg = getDomRotateDeg(str);
+    dom.style.transform = `rotate(${rotateDeg}deg)`;
 
     // 获取每个小圆的旋转角度，并停止旋转
     if (turntableItem.value instanceof Array) {
-
         turntableItem.value.forEach((item: HTMLElement) => {
-            item.style.transform = `rotate(${-rotateDeg}deg)`
+            item.style.transform = `rotate(${-rotateDeg}deg)`;
         });
     }
 
-    rotating.value = false
+    rotating.value = false;
 }
 
 /**
@@ -84,7 +94,8 @@ function stopRotate(): void {
  * @return {*}
  */
 function startRotate(): void {
-    rotating.value = true
+    activeIndex.value = -1;
+    rotating.value = true;
 }
 
 /**
@@ -107,7 +118,7 @@ function getPosition() {
         const temp = {
             ...item,
             x,
-            y
+            y,
         };
         return temp;
     });
@@ -116,11 +127,13 @@ function getPosition() {
 }
 
 function gotoPage(item: turntable_type) {
-    router.push(item.path)
+    router.push(item.path);
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/css/animation.scss";
+
 .turntable {
     ul {
         position: relative;
@@ -132,13 +145,20 @@ function gotoPage(item: turntable_type) {
         position: absolute;
         display: flex;
         border-radius: 50%;
-        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.233);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.425);
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.89);
         text-align: center;
+        font-weight: 600;
         cursor: pointer;
         transform-origin: center;
 
-@extend .flex-center;
+        @extend .flex-center;
     }
+}
+
+.border-light {
+    @include anBorderLightDiffusion();
 }
 
 .rotation-infinite {
@@ -160,5 +180,4 @@ function gotoPage(item: turntable_type) {
         transform: rotate(-360deg);
     }
 }
-
 </style>
