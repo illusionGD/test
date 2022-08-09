@@ -146,8 +146,9 @@ function gotoPage(item: turntable_type) {
         display: flex;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.233);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.425);
-        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.89);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.137),
+            inset 0 0 10px rgba(255, 255, 255, 0.89);
+        // box-shadow: ;
         text-align: center;
         font-weight: 600;
         cursor: pointer;
@@ -158,7 +159,9 @@ function gotoPage(item: turntable_type) {
 }
 
 .border-light {
-    @include anBorderLightDiffusion();
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.63),
+        inset 0 0 10px rgba(255, 255, 255, 0.89);
+    // @include anBorderLightDiffusion();
 }
 
 .rotation-infinite {

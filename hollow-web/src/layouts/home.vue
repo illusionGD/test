@@ -1,6 +1,7 @@
 <template>
     <div class="home bg-cover">
         <Turntable
+            class="turntable"
             :pathList="pathList"
             :itemRadius="80"
             :radius="300"
@@ -41,6 +42,9 @@ async function init() {
     background-image: url("../assets/images/bg_nav.jpg");
 
     @extend .flex-center;
+    .turntable {
+        z-index: 1;
+    }
     .particle-wrap {
         overflow: hidden;
         top: 0;
@@ -48,6 +52,7 @@ async function init() {
         position: absolute;
         width: inherit;
         height: inherit;
+        z-index: 0;
     }
 }
 </style>
