@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { HomePathList_type } from 'src/interfaces/common.interface';
-import { backMsg } from 'src/utils/common';
+import { CommonUtil } from 'src/utils/common';
 @Controller('common')
 export class CommonController {
   @Get('getHomePaths')
@@ -11,8 +11,8 @@ export class CommonController {
         title: '空间',
       },
       {
-        path: '/',
-        title: '2',
+        path: '/laboratory',
+        title: '实验室',
       },
       {
         path: '/',
@@ -39,6 +39,6 @@ export class CommonController {
         title: '8',
       },
     ];
-    return backMsg('', '', pathList);
+    return CommonUtil.backMsg('', '', pathList);
   }
 }

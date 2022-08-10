@@ -98,10 +98,11 @@ export function pxToRemUnit(unit: string | number): string {
  * @description: 十六进制颜色随机
  * @return {*}
  */
-export function randomColor16(){
-    const r = Math.floor(Math.random()*256);
-    const g = Math.floor(Math.random()*256);
-    const b = Math.floor(Math.random()*256);
-    const color = '#'+(Array(6).join('0') + (r.toString(16)+g.toString(16)+b.toString(16))).slice(-6);
+export function randomColor16() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    const color = '#' + (Array(6).join('0') + (r.toString(16) + g.toString(16) + b.toString(16))).slice(-6);
     return color;
 }
+

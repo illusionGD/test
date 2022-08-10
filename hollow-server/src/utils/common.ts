@@ -5,10 +5,27 @@ const BackCodeMap: BackCodeMap_Type = {
   RETURN_SUCCESS: '200',
 };
 
-export function backMsg(code?: string, message?: string, data?: any) {
-  return {
-    code: code || BackCodeMap.RETURN_SUCCESS,
-    message: message || 'success',
-    data,
-  };
-}
+export const CommonUtil = {
+  /**
+   * 返回JSON数据到前端
+   * @param {String} code 可选，默认值为成功code
+   * @param {String} message 可选，默认值为success
+   * @param {Object} data 可选
+   * @returns {String | Object} jsonp-string,other-json
+   */
+  backMsg(code?: string, message?: string, data?: any) {
+    return {
+      code: code || BackCodeMap.RETURN_SUCCESS,
+      message: message || 'success',
+      data,
+    };
+  },
+
+  /**
+   * 获取前端传来的参数，自动判断是get/post 返回对应的参数
+   * @param {Object} 一整个Request对象，包含headers属性的，不能为Query
+   */
+  getUrlParams(request) {
+    return request.method === 'GET' ? request.query : request.body;
+  },
+};
