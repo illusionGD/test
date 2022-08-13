@@ -15,6 +15,10 @@ const routes = [
     {
         path: '/laboratory',
         component: () => import('../layouts/laboratory.vue')
+    },
+    {
+        path: '/relax',
+        component: () => import('../layouts/relax.vue')
     }
 ]
 

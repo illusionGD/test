@@ -15,8 +15,8 @@ export class CommonController {
         title: '实验室',
       },
       {
-        path: '/',
-        title: '3',
+        path: '/relax',
+        title: '放松室',
       },
       {
         path: '/',

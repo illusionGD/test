@@ -6,7 +6,7 @@ import { InterValTimer_type } from "@/interfaces/common.interface";
  * @param {number} time
  * @return {*}
  */
-export function customerInterVal(fn: Function, time: number): InterValTimer_type {
+export function customerInterVal(fn: Function, time: number, first?: boolean): InterValTimer_type {
     const interValTimer: InterValTimer_type = {
         flag: true
     }
@@ -20,7 +20,9 @@ export function customerInterVal(fn: Function, time: number): InterValTimer_type
             timeout(fn, time)
         }, time)
     }
-
+    if (first) {
+        fn();
+    }
     timeout(fn, time)
 
     return interValTimer

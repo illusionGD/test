@@ -1,5 +1,6 @@
 $bg_color: #434756;
 
+
 body, ul, li, p {
     margin: 0;
     padding: 0;
@@ -28,4 +29,16 @@ a {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.bg-contain {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.p-left-center {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
 }
