@@ -112,7 +112,7 @@ function changeYear(num: number = 1) {
     background-image: url("../assets/images/bg_relax.jpg");
     color: #fff;
 
-@extend .bg-cover;
+    @extend .bg-cover;
 }
 .time {
     position: absolute;
@@ -122,7 +122,7 @@ function changeYear(num: number = 1) {
         font-weight: 100;
         font-size: 80px;
 
-@extend .flex-center;
+        @extend .flex-center;
     }
     .week {
         margin-left: 30px;
@@ -132,7 +132,6 @@ function changeYear(num: number = 1) {
     position: absolute;
     left: 50px;
 
-@extend .p-left-center;
+    @extend .p-left-center;
 }
-
 </style>
