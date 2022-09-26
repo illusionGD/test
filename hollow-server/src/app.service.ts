@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { createClient } from 'redis'
-
+import { RedisService } from './utils/redis.service';
 @Injectable()
 export class AppService {
+  constructor(
+    public readonly redisService: RedisService
+  ) {
+
+  }
   async getHello(): Promise<string> {
-    const client = createClient()
-
-    client.on('ready', () => {
-      console.log('redis ready');
-
-    })
-    await client.connect();
+    const v1 = await this.redisService.expire('k1', 100)
+    console.log(v1)
     return 'Hello World!';
   }
 }

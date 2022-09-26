@@ -1,4 +1,5 @@
 import { BackCodeMap_Type } from 'src/interfaces/common.interface';
+import { Request } from 'express';
 
 const BackCodeMap: BackCodeMap_Type = {
   /**返回成功-200 */
@@ -27,5 +28,18 @@ export const CommonUtil = {
    */
   getUrlParams(request) {
     return request.method === 'GET' ? request.query : request.body;
+  },
+
+  getClientIp(request: Request): string {
+    const ip = (request.headers['x-forwarded-for'] ||
+      request.connection.remoteAddress ||
+      request.socket.remoteAddress ||
+      (request.connection as any).socket.remoteAddress) as string;
+
+    if (ip.includes(',')) {
+      const ipArr = ip.split(',');
+      return ipArr[ipArr.length - 1].trim();
+    }
+    return ip;
   },
 };
