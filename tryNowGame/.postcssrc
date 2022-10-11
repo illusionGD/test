@@ -1,0 +1,5 @@
+{
+    "plugins": {
+        "@postcss/webp-in-css/plugin": false
+    }
+}

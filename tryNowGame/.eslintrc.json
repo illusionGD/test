@@ -1,0 +1,35 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "prettier",
+        "prettier/vue",
+        "prettier/standard"
+    ],
+    "plugins": ["prettier", "@typescript-eslint"],
+    "globals": {
+        "gtag": false,
+        "ga": false,
+        "$": false,
+        "fbq": false
+    },
+    "rules": {
+        //强制使用单引号
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        //强制不使用分号结尾
+        "semi": ["error", "never"],
+        "no-unused-vars": 1,
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
+    }
+}

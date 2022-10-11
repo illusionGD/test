@@ -1,0 +1,67 @@
+{
+  "name": "efe-workflow",
+  "version": "1.0.0",
+  "description": "前端组活动开发工作流",
+  "types": "dist/index.d.ts",
+  "targets": {
+    "types": false
+  },
+  "engines": {
+    "node": "15.16.1",
+    "parcel": "2.7.0"
+  },
+  "scripts": {
+    "cdn": "efe c",
+    "clean": "rimraf dist",
+    "img-min": "efe i-m",
+    "img-min:cover": "efe i-m -c",
+    "img-min:efeConfig": "efe i-m -e",
+    "ftp:online": "efe f PC_FTP_URL dist sea && efe f MB_FTP_URL dist sea",
+    "ftp:pre": "efe f PC_PRE_FTP_URL dist sea && efe f MB_PRE_FTP_URL dist sea",
+    "dev": "npm run clean && parcel src/*.html --no-cache --no-source-maps --port 40350",
+    "build": "npm run clean && parcel build src/*.html --no-cache --no-source-maps --dist-dir dist --public-url ./ && npm run copy:public",
+    "build:cdn": "npm run clean && parcel build src/*.html --no-cache --no-source-maps --dist-dir dist --public-url https://res-download.vsplay.com/res_eu/no/no && npm run copy:public",
+    "ftp:all": "npm run ftp:online && npm run ftp:pre",
+    "deploy:all": "npm run build && npm run ftp:pre && npm run ftp:online",
+    "deploy:pre": "npm run build && npm run ftp:pre",
+    "deploy:online": "npm run build && npm run ftp:online",
+    "deploy:cdn-all": "npm run build:cdn && npm run ftp:pre && npm run ftp:online",
+    "deploy:cdn-pre": "npm run build:cdn && npm run ftp:pre",
+    "deploy:cdn-online": "npm run build:cdn && npm run ftp:online",
+    "copy:public": "efe copy src/public dist/public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://172.16.7.10/group_web/team-cli/efe-workflow.git"
+  },
+  "keywords": [
+    "workout",
+    "efe",
+    "activity"
+  ],
+  "author": "DodoMonster",
+  "license": "ISC",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "devDependencies": {
+    "@parcel/config-default": "^2.7.0",
+    "@parcel/resolver-html-href-ignore": "^1.0.2",
+    "@parcel/transformer-typescript-tsc": "^2.6.0",
+    "@parcel/validator-typescript": "^2.6.0",
+    "@types/jquery": "^3.5.14",
+    "eslint": "^8.17.0",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.0",
+    "typescript": "^4.7.3",
+    "@postcss/webp-in-css": "^1.0.1",
+    "postcss": "^8.4.14"
+  },
+  "alias": {
+    "@": "./src/*",
+    "~": "./src/*"
+  },
+  "source": [
+    "src/*.html",
+    "src/**/*.html"
+  ],
+  "dependencies": {}
+}
