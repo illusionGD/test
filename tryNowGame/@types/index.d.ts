@@ -2058,7 +2058,7 @@ declare module PIXI {
         /**
         * Sets-up the given blendMode from WebGL's point of view.
         * 
-        * @param blendMode the blendMode, should be a Pixi const, such as PIXI.BlendModes.ADD
+        * @param blendMode the blendMode, should be a Pixi var, such as PIXI.BlendModes.ADD
         */
         setBlendMode(blendMode: number): boolean;
 
@@ -7805,9 +7805,9 @@ declare module Phaser {
 
             class AStarPath {
 
-                constructor(nodes?: {x: number, y: number}[], start?: Phaser.Plugin.AStar.AStarNode, goal?: Phaser.Plugin.AStar.AStarNode);
+                constructor(nodes?: { x: number, y: number }[], start?: Phaser.Plugin.AStar.AStarNode, goal?: Phaser.Plugin.AStar.AStarNode);
 
-                nodes: {x: number, y: number}[];
+                nodes: { x: number, y: number }[];
                 start: Phaser.Plugin.AStar.AStarNode;
                 goal: Phaser.Plugin.AStar.AStarNode;
                 visited: Phaser.Plugin.AStar.AStarNode[];
@@ -7978,7 +7978,7 @@ declare module Phaser {
     }
 
     interface PluginConstructorOf<T> {
-        new (...parameters: any[]): T;
+        new(...parameters: any[]): T;
     }
 
     class PluginManager implements IStateCycle {
@@ -9254,11 +9254,11 @@ declare module Phaser {
         wrap: boolean;
 
         destroy(): void;
-        getRayCastTiles(layer: Phaser.TilemapLayer|Phaser.TilemapLayerGL, line: Phaser.Line, stepRate?: number, collides?: boolean, interestingFace?: boolean): Phaser.Tile[];
-        getTiles(layer: Phaser.TilemapLayer|Phaser.TilemapLayerGL, x: number, y: number, width: number, height: number, collides?: boolean, interestingFace?: boolean): Phaser.Tile[];
-        getTileX(layer: Phaser.TilemapLayer|Phaser.TilemapLayerGL, x: number): number;
-        getTileXY(layer: Phaser.TilemapLayer|Phaser.TilemapLayerGL, x: number, y: number, point: Phaser.Point): Phaser.Point;
-        getTileY(layer: Phaser.TilemapLayer|Phaser.TilemapLayerGL, y: number): number;
+        getRayCastTiles(layer: Phaser.TilemapLayer | Phaser.TilemapLayerGL, line: Phaser.Line, stepRate?: number, collides?: boolean, interestingFace?: boolean): Phaser.Tile[];
+        getTiles(layer: Phaser.TilemapLayer | Phaser.TilemapLayerGL, x: number, y: number, width: number, height: number, collides?: boolean, interestingFace?: boolean): Phaser.Tile[];
+        getTileX(layer: Phaser.TilemapLayer | Phaser.TilemapLayerGL, x: number): number;
+        getTileXY(layer: Phaser.TilemapLayer | Phaser.TilemapLayerGL, x: number, y: number, point: Phaser.Point): Phaser.Point;
+        getTileY(layer: Phaser.TilemapLayer | Phaser.TilemapLayerGL, y: number): number;
         postUpdate(): void;
         render(): void;
         resize(width: number, height: number): void;
@@ -9739,7 +9739,7 @@ declare module Phaser {
         bulletFrame: string;
         bulletFrameCycle: boolean;
         bulletFrameRandom: boolean;
-        bulletFrames:  any[];
+        bulletFrames: any[];
         bulletGravity: Phaser.Point;
         bulletInheritSpriteSpeed: boolean;
         bulletKey: string;
