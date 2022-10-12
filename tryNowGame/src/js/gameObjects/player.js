@@ -5,6 +5,7 @@ class Player {
             bulletDis: 500,
             bulletSpeed: 500
         }
+        this.isDead = false;
         this.fireTime = new Date().getTime();
         this.init()
     }
@@ -40,6 +41,8 @@ class Player {
         // 子弹组
         this.bullets = game.add.group();
         this.bullets.enableBody = true;
+
+        this.isDead = false;
     }
 
     /**
@@ -47,7 +50,8 @@ class Player {
      */
     initVirtualJoystick() {
         this.pad = game.plugins.add(Phaser.VirtualJoystick);
-        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + 250, 200, 'joystick');
+        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + 250, 200, keyMap.joystick);
+        this.stick.scale = 0.8
     }
 
     /**
@@ -63,15 +67,24 @@ class Player {
             }
             this.fire();
         } else {
-            this.player.body.velocity.set(0);
-            this.animations.frame = 4;
+            this.stop();
         }
+    }
+
+    stop() {
+        this.animations.stop();
+        this.player.body.velocity.set(0);
+        this.animations.frame = 4;
     }
 
     /**
      * @description: 角色射击
      */
     fire() {
+        if (this.isDead) {
+            return;
+        }
+
         const dis = new Date().getTime() - this.fireTime;
 
         if (dis > this.config.bulletDis) {
@@ -106,5 +119,10 @@ class Player {
                 bullet.body.velocity.x = this.config.bulletSpeed;
             }
         })
+    }
+
+    dead() {
+        this.player.kill();
+        this.isDead = true;
     }
 }

@@ -4,7 +4,6 @@ const screenH = document.documentElement.clientHeight;
 
 var game = new Phaser.Game(screenW, screenH, Phaser.CANVAS, 'game');
 
-
 /**
  * @description: 资源key集合对象
  */
