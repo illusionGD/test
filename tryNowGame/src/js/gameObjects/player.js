@@ -139,4 +139,38 @@ class Player {
     injury() {
         this.life -= 1;
     }
+
+    addTornadoSkill(num = 6) {
+        this.tornados = game.add.group();
+        this.tornados.enableBody = true;
+        this.tornados.pivot.x = this.player.x;
+        this.tornados.pivot.y = this.player.y;
+        const angle = (2 * Math.PI) / num;
+        const l = 200;
+
+        for (let i = 0; i < num; i++) {
+            const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.ball);
+            const pointX = this.player.x + Math.sin(angle * i) * l;
+            const pointY = this.player.y + Math.cos(angle * i) * l;
+
+            // 扩散动画
+            const tween = game.add.tween(tornado).to({
+                x: pointX,
+                y: pointY
+            }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+        }
+    }
+
+    tornadosRotate() {
+        if (this.tornados.stop) {
+            return;
+        }
+        this.tornados.x = this.player.x;
+        this.tornados.y = this.player.y;
+
+        this.tornados.rotation -= 0.05;
+    }
+    stopTornadosRotate() {
+        this.tornados.stop = true;
+    }
 }

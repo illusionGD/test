@@ -21,6 +21,7 @@ var gameStartState = function () {
         player = new Player();
         game.camera.follow(player.player);
         game.world.setBounds(0, 0, 1920, 1920);
+        player.addTornadoSkill()
 
         // 创建敌人工厂
         enemies = new EnemyFactory();
@@ -52,7 +53,7 @@ var gameStartState = function () {
         // awardPop.addChild(btnClose)
         // awardPop.scale.set(1);
         document.querySelector('.pop').addEventListener('click', function () {
-            this.style.display = 'none'
+            closePop();
         })
     }
 
@@ -66,13 +67,18 @@ var gameStartState = function () {
         }
         // 角色移动
         player.run();
+        player.tornadosRotate();
         // 敌人移动
         enemies.move(player.player.x, player.player.y);
+
         // 创建敌人
-        enemies.createEnemy(game.camera.position.x - (game.camera.width / 2) + Math.random() * game.camera.width, game.camera.position.y - (game.camera.height / 2) + Math.random() * game.camera.height);
+        var enemyX = game.camera.position.x - (game.camera.width / 2) + Math.random() * game.camera.width;
+        var enemy = game.camera.position.y - (game.camera.height / 2) + Math.random() * game.camera.height;
+        enemies.createEnemy(enemyX, enemy);
         // 碰撞检测
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.player, playerHitEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, tornadoHitEnemy, null, this);
     }
 
     this.render = function () {
@@ -81,18 +87,26 @@ var gameStartState = function () {
 
     function bulletHitEnemy(enemy, bullet) {
         bullet.kill();
-        enemy.kill();
-        killCount += 1;
-        if (killCount === 3) {
-            stopGame();
-            awardPopUp();
-            killCount = 0;
-        }
+        killEnemy(enemy);
     }
 
     function playerHitEnemy(p, enemy) {
         player.injury()
         enemy.kill();
+    }
+
+    function tornadoHitEnemy(enemy, t) {
+        killEnemy(enemy);
+    }
+
+    function killEnemy(enemy) {
+        enemy.kill();
+        killCount += 1;
+        // if (killCount === 3) {
+        //     stopGame();
+        //     awardPopUp();
+        //     killCount = 0;
+        // }
     }
 
     /**
@@ -114,6 +128,7 @@ var gameStartState = function () {
         //     x: 0,
         //     y: 0
         // }, 500, Phaser.Easing.Elastic.OInt, true);
+        isGameStop = false;
         timeout.timer.paused = false;
     }
 
@@ -124,7 +139,6 @@ var gameStartState = function () {
         isGameEnd = true;
         stopGame();
         endPopUp();
-
     }
 
     function awardPopUp() {

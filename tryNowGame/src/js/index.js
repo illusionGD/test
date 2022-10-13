@@ -16,6 +16,7 @@ const keyMap = {
     enemy: 'enemy',
     popBgImg: 'popBgImg',
     btnClose: 'btnClose',
+    ball: 'ball',
 }
 
 const utils = {
