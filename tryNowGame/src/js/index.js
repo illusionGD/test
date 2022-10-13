@@ -17,10 +17,7 @@ const keyMap = {
     popBgImg: 'popBgImg',
     btnClose: 'btnClose',
 }
-document.querySelector('.pop').addEventListener('click', function () {
-    console.log(1);
-    this.style.display = 'none'
-})
+
 const utils = {
     /**
      * @description: 计算物体到目标的
