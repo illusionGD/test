@@ -6,6 +6,7 @@ class Player {
             bulletSpeed: 500
         }
         this.isDead = false;
+        this.life = 1;
         this.fireTime = new Date().getTime();
         this.init()
     }
@@ -68,13 +69,16 @@ class Player {
             this.fire();
         } else {
             this.stop();
+            this.animations.frame = 4;
         }
     }
 
+    /**
+     * @description: 停止移动
+     */
     stop() {
         this.animations.stop();
         this.player.body.velocity.set(0);
-        this.animations.frame = 4;
     }
 
     /**
@@ -121,8 +125,18 @@ class Player {
         })
     }
 
+    /**
+     * @description: 角色死亡
+     */
     dead() {
         this.player.kill();
         this.isDead = true;
+    }
+
+    /**
+     * @description: 受伤
+     */
+    injury() {
+        this.life -= 1;
     }
 }

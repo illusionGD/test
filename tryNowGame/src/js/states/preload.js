@@ -9,6 +9,9 @@ var preloadState = function () {
         });
         game.load.image(keyMap.startBgImg, './assets/images/play_bg.png');
         game.load.image(keyMap.playerBullet1, './assets/images/player_bullet1.png');
+        game.load.image(keyMap.popBgImg, './assets/images/bg_pop.png');
+        game.load.image(keyMap.btnClose, './assets/images/btn_close.png');
+        game.load.image(keyMap.enemy, './assets/images/enemy.png');
         game.load.spritesheet(keyMap.player, './assets/images/player.png', 32, 48, 9);
         game.load.atlas(keyMap.joystick, './assets/images/joystick.png', './assets/json/joystick.json');
         game.load.onFileComplete.add(onLoading);
