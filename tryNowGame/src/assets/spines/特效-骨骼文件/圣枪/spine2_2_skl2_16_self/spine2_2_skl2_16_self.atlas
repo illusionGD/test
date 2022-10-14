@@ -1,0 +1,97 @@
+
+spine2_2_skl2_16_self.png
+size: 893,228
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_sqs_a01
+  rotate: true
+  xy: 2, 6
+  size: 220, 218
+  orig: 225, 225
+  offset: 4, 7
+  index: -1
+effect_sqs_a02
+  rotate: false
+  xy: 398, 54
+  size: 169, 84
+  orig: 169, 84
+  offset: 0, 0
+  index: -1
+effect_sqs_a03
+  rotate: false
+  xy: 700, 70
+  size: 156, 156
+  orig: 175, 172
+  offset: 10, 8
+  index: -1
+effect_sqs_a04
+  rotate: false
+  xy: 222, 52
+  size: 174, 174
+  orig: 174, 174
+  offset: 0, 0
+  index: -1
+effect_sqs_a05
+  rotate: false
+  xy: 398, 140
+  size: 300, 86
+  orig: 300, 89
+  offset: 0, 0
+  index: -1
+effect_sqs_dian01
+  rotate: true
+  xy: 349, 18
+  size: 32, 117
+  orig: 36, 120
+  offset: 1, 2
+  index: -1
+effect_sqs_dian02
+  rotate: false
+  xy: 858, 8
+  size: 32, 109
+  orig: 36, 120
+  offset: 3, 5
+  index: -1
+effect_sqs_dian03
+  rotate: false
+  xy: 858, 119
+  size: 33, 107
+  orig: 36, 120
+  offset: 1, 6
+  index: -1
+effect_sqs_dian04
+  rotate: true
+  xy: 697, 13
+  size: 24, 102
+  orig: 36, 120
+  offset: 5, 10
+  index: -1
+effect_sqs_dian05
+  rotate: true
+  xy: 697, 39
+  size: 29, 108
+  orig: 36, 120
+  offset: 5, 7
+  index: -1
+effect_sqs_qiang
+  rotate: false
+  xy: 222, 4
+  size: 125, 46
+  orig: 125, 51
+  offset: 0, 2
+  index: -1
+effect_sqs_qiangying
+  rotate: true
+  xy: 468, 18
+  size: 34, 61
+  orig: 37, 61
+  offset: 2, 0
+  index: -1
+effect_sqs_xfz_a04
+  rotate: false
+  xy: 569, 2
+  size: 126, 136
+  orig: 140, 140
+  offset: 8, 0
+  index: -1

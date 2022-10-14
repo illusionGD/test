@@ -3,7 +3,8 @@ class Player {
         this.config = {
             moveSpeed: 200,
             bulletDis: 500,
-            bulletSpeed: 500
+            bulletSpeed: 500,
+            tornadosRotationSpeed: 0.05
         }
         this.isDead = false;
         this.life = 1;
@@ -35,13 +36,16 @@ class Player {
 
         // 角色动画相关
         this.animations = this.player.animations;
-        this.animations.add('left', [0, 1, 2, 3], 5, true);
-        this.animations.add('right', [5, 6, 7, 8], 5, true);
+        this.animations.add('left', [0], 5, true);
+        this.animations.add('right', [1], 5, true);
         this.animations.frame = 4;
 
         // 子弹组
         this.bullets = game.add.group();
         this.bullets.enableBody = true;
+
+        // 技能骨骼动画
+
 
         this.isDead = false;
     }
@@ -62,8 +66,10 @@ class Player {
         if (this.stick.isDown) {
             const v = game.physics.arcade.velocityFromRotation(this.stick.rotation, this.stick.force * this.config.moveSpeed, this.player.body.velocity);
             if (v.x > 0) {
+                // this.player.rotation = Math.PI;
                 this.animations.play('right')
             } else {
+                // this.player.rotation = 0;
                 this.animations.play('left')
             }
             this.fire();
@@ -102,14 +108,12 @@ class Player {
             bullet.checkWorldBounds = true;
             bullet.outOfBoundsKill = true;
             bullet.anchor.set(0.5, 0.5);
-            if (this.player.frame <= 4) {
+            if (this.player.frame <= 0) {
                 bullet.direction = 'left';
-                bullet.rotation = 3.14;
-                bullet.body.velocity.x = -this.config.bulletSpeed;
-            } else {
-                bullet.direction = 'right'
-                bullet.body.velocity.x = this.config.bulletSpeed;
                 bullet.rotation = 0;
+            } else {
+                bullet.rotation = 3.14;
+                bullet.direction = 'right'
             }
 
             this.fireTime = new Date().getTime();
@@ -149,16 +153,30 @@ class Player {
         const l = 200;
 
         for (let i = 0; i < num; i++) {
-            const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.ball);
+            const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
             const pointX = this.player.x + Math.sin(angle * i) * l;
             const pointY = this.player.y + Math.cos(angle * i) * l;
-
-            // 扩散动画
+            tornado.scale.set(0.5, 0.5);
+            tornado.anchor.set(0.5, 0.5);
+            tornado.animations.add('create', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
+            tornado.animations.add('rotation', [4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
+            tornado.animations.play('rotation');
+            // game.add.tween(tornado).to({
+            //     rotation: tornado.rotation -= this.config.tornadosRotationSpeed
+            // }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+            // // 扩散动画
             const tween = game.add.tween(tornado).to({
                 x: pointX,
                 y: pointY
             }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+            // tween.onComplete.addOnce(() => {
+            //     tornado.animations.play('rotation');
+            // })
+            // tween.onUpdateCallback(() => {
+            //     console.log(1);
+            // })
         }
+
     }
 
     tornadosRotate() {
@@ -168,7 +186,13 @@ class Player {
         this.tornados.x = this.player.x;
         this.tornados.y = this.player.y;
 
-        this.tornados.rotation -= 0.05;
+        this.tornados.rotation += this.config.tornadosRotationSpeed;
+
+        // 每个龙卷风自身旋转，保持直立状态
+        this.tornados.forEachAlive(item => {
+            item.rotation -= this.config.tornadosRotationSpeed
+        })
+
     }
     stopTornadosRotate() {
         this.tornados.stop = true;

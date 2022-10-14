@@ -16,7 +16,12 @@ const keyMap = {
     enemy: 'enemy',
     popBgImg: 'popBgImg',
     btnClose: 'btnClose',
-    ball: 'ball',
+    // ball: 'ball',
+    // skillImage: 'skill_image',
+    // skillAtlas: 'skill_atlas',
+    // skillJson: 'skill_json',
+    topTimeBg: 'topTimeBg',
+    tornado: 'tornado'
 }
 
 const utils = {
