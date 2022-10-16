@@ -1,7 +1,7 @@
 class EnemyFactory {
     constructor() {
         this.config = {
-            moveSpeed: 50,
+            moveSpeed: 100,
             createDis: 1000,
             scale: 0.5,
             maxCount: 20
@@ -25,7 +25,7 @@ class EnemyFactory {
             const {
                 x,
                 y
-            } = utils.computeDistance(targetX, targetY, enemy.x, enemy.y);
+            } = computeVector(targetX, targetY, enemy.x, enemy.y);
 
             enemy.body.velocity.x = x * this.config.moveSpeed;
             enemy.body.velocity.y = y * this.config.moveSpeed;

@@ -12,6 +12,7 @@ var gameStartState = function () {
     var killCount = 0;
     var isGameStop = false;
     var timeoutBgImg;
+    var petSendFireLastTime = new Date().getTime();
     this.create = function () {
         game.add.tileSprite(0, 0, 1920, 1920, keyMap.startBgImg);
         // 设置物理引擎
@@ -21,7 +22,8 @@ var gameStartState = function () {
         player = new Player();
         game.camera.follow(player.player);
         game.world.setBounds(0, 0, 1920, 1920);
-        player.addTornadoSkill()
+        player.addPet();
+        // player.addTornadoSkill()
 
         // 创建敌人工厂
         enemies = new EnemyFactory();
@@ -64,8 +66,23 @@ var gameStartState = function () {
         }
         // 角色移动
         player.run();
+
+        // 寻找最近的敌人位置
+        let target = null;
+        if (!player.isPetFire) {
+            let minDis = game.camera.width;
+            enemies.enemyGroup.forEachAlive(enemy => {
+                const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
+                if (distance < minDis) {
+                    minDis = distance;
+                    target = enemy;
+                }
+            });
+        }
+        player.petFire(target);
+        player.fire();
         // return;
-        player.tornadosRotate();
+        // player.tornadosRotate();
         // 敌人移动
         enemies.move(player.player.x, player.player.y);
 
@@ -74,19 +91,19 @@ var gameStartState = function () {
         var enemy = game.camera.position.y - (game.camera.height / 2) + Math.random() * game.camera.height;
         enemies.createEnemy(enemyX, enemy);
 
+
         // 碰撞检测
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.player, playerHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, tornadoHitEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, bulletHitEnemy, null, this);
     }
 
     this.render = function () {
-        gameInfoText.text = `生命: ${player.life}  敌人数量: ${enemies.enemyGroup.total}  击杀数: ${killCount}`
-        // timeoutBgImg.debug()
-        // player.tornados.forEach((item) => {
-        //     game.debug.body(item)
+        gameInfoText.text = `生命: ${player.life}  敌人数量: ${enemies.enemyGroup.total}  击杀数: ${killCount}`;
+
+        // player.bullets.forEachAlive((item) => {
         // });
-        // game.debug.body(player.player)
     }
 
     function bulletHitEnemy(enemy, bullet) {
