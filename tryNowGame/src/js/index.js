@@ -16,32 +16,16 @@ const keyMap = {
     enemy: 'enemy',
     popBgImg: 'popBgImg',
     btnClose: 'btnClose',
+    gun: 'gun',
+    pet: 'pet',
     // ball: 'ball',
     // skillImage: 'skill_image',
     // skillAtlas: 'skill_atlas',
     // skillJson: 'skill_json',
     topTimeBg: 'topTimeBg',
-    tornado: 'tornado'
-}
-
-const utils = {
-    /**
-     * @description: 计算物体到目标的
-     * @param {*} targetX 目标x坐标
-     * @param {*} targetY 目标y坐标
-     * @param {*} selfX 自身x坐标
-     * @param {*} selfY 自身y坐标
-     */
-    computeDistance: function (targetX, targetY, selfX, selfY) {
-        const disX = targetX - selfX;
-        const disY = targetY - selfY;
-        const dis = Math.sqrt(Math.pow(disX, 2) + Math.pow(disY, 2));
-
-        return {
-            x: disX / dis,
-            y: disY / dis
-        }
-    }
+    tornado: 'tornado',
+    fireBall: 'fireBall',
+    tornadoRotation: 'skl7_5_target_1'
 }
 
 game.state.add('preloadState', preloadState)
