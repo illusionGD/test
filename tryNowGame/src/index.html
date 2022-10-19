@@ -29,31 +29,7 @@
     adventure
     dragon">
     <title>Tale of Elements: Idle Game</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        #main {
-            position: relative;
-            width: 100%;
-            max-width: 750px;
-            height: 100vh;
-            margin: 0 auto;
-        }
-
-        .pop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.349);
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/css/index.css">
     <script src="./libs/phaser.2.3.1.virtual-joystick.min.js"></script>
     <script src="./libs/phaser-spine.min.js"></script>
     <!-- <script src="./libs/phaser.min.js"></script> -->
@@ -63,7 +39,18 @@
 
 <body>
     <div id="main">
-        <div class="pop">
+        <div class="pop skill-pop flex-center">
+            <div class="pop-content bg-contain flex-center">
+                <div class="btn-skill btn-skill1 bg-contain"></div>
+                <div class="btn-skill btn-skill2 bg-contain"></div>
+                <div class="btn-skill btn-skill3 bg-contain"></div>
+            </div>
+        </div>
+        <div class="pop award-pop">
+            <div class="pop-content bg-contain">
+                <div class="award-txt"><span class="code">GIFT 666</span></div>
+                <a class="btn-reward bg-contain"></a>
+            </div>
         </div>
         <div id="game" class="game"></div>
     </div>
@@ -71,8 +58,6 @@
     <script src="./js/gameObjects/enemy.js"></script>
     <script src="./js/states/preload.js"></script>
     <script src="./js/states/start.js"></script>
-    <!-- <script src="./js/states/play.js"></script>
-    <script src="./js/states/end.js"></script> -->
     <script src="./js/index.js"></script>
 </body>
 

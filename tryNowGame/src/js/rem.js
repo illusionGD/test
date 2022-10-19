@@ -1,60 +1,118 @@
-/**
- * Created by Efun on 2017/5/16.
- */
-! function (N, M) {
-    function L() {
-        var a = I.getBoundingClientRect().width;
-        a / F > 640 && (a = 640 * F);
-        var d = a / 10;
-        I.style.fontSize = d + "px", D.rem = N.rem = d
-    }
+(function (win, lib) {
+    var _documentSize = 1920 //  设计稿尺寸
+    var documentSize = 1920; //展示设尺寸（最大1920，图片基于1920的）
+    var minSize = 750;
+    var doc = win.document;
+    var docEl = doc.documentElement;
+    var metaEl = doc.querySelector('meta[name="viewport"]');
+    var flexibleEl = doc.querySelector('meta[name="flexible"]');
+    var dpr = 0;
+    var scale = 0;
+    var tid;
+    var flexible = lib.flexible || (lib.flexible = {});
 
-    var K, J = N.document,
-        I = J.documentElement,
-        H = J.querySelector('meta[name="viewport"]'),
-        G = J.querySelector('meta[name="flexible"]'),
-        F = 0,
-        E = 0,
-        D = M.flexible || (M.flexible = {});
-    if (H) {
-        var C = H.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
-        C && (E = parseFloat(C[1]), F = parseInt(1 / E))
-    } else {
-        if (G) {
-            var B = G.getAttribute("content");
-            if (B) {
-                var A = B.match(/initial\-dpr=([\d\.]+)/),
-                    z = B.match(/maximum\-dpr=([\d\.]+)/);
-                A && (F = parseFloat(A[1]), E = parseFloat((1 / F).toFixed(2))), z && (F = parseFloat(z[1]), E = parseFloat((1 / F).toFixed(2)))
+    if (metaEl) {
+        // console.warn('将根据已有的meta标签来设置缩放比例');
+        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+        if (match) {
+            scale = parseFloat(match[1]);
+            dpr = parseInt(1 / scale);
+        }
+    } else if (flexibleEl) {
+        var content = flexibleEl.getAttribute('content');
+        if (content) {
+            var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+            var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+            if (initialDpr) {
+                dpr = parseFloat(initialDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));
+            }
+            if (maximumDpr) {
+                dpr = parseFloat(maximumDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));
             }
         }
     }
-    if (!F && !E) {
-        var y = N.navigator.userAgent,
-            x = (!!y.match(/android/gi), !!y.match(/iphone/gi)),
-            w = x && !!y.match(/OS 9_3/),
-            v = N.devicePixelRatio;
-        F = x && !w ? v >= 3 && (!F || F >= 3) ? 3 : v >= 2 && (!F || F >= 2) ? 2 : 1 : 1, E = 1 / F
-    }
-    if (I.setAttribute("data-dpr", F), !H) {
-        if (H = J.createElement("meta"), H.setAttribute("name", "viewport"), H.setAttribute("content", "initial-scale=" + E + ", maximum-scale=" + E + ", minimum-scale=" + E + ", user-scalable=no"), I.firstElementChild) {
-            I.firstElementChild.appendChild(H)
+
+    if (!dpr && !scale) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi);
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+        var devicePixelRatio = win.devicePixelRatio;
+        if (isIPhone) {
+            // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+            if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+                dpr = 3;
+            } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
+                dpr = 2;
+            } else {
+                dpr = 1;
+            }
         } else {
-            var u = J.createElement("div");
-            u.appendChild(H), J.write(u.innerHTML)
+            // 其他设备下，仍旧使用1倍的方案
+            dpr = 1;
+        }
+        scale = 1 / dpr;
+    }
+
+    docEl.setAttribute('data-dpr', dpr);
+    if (!metaEl) {
+        metaEl = doc.createElement('meta');
+        metaEl.setAttribute('name', 'viewport');
+        metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(metaEl);
+        } else {
+            var wrap = doc.createElement('div');
+            wrap.appendChild(metaEl);
+            doc.write(wrap.innerHTML);
         }
     }
-    N.addEventListener("resize", function () {
-        clearTimeout(K), K = setTimeout(L, 300)
-    }, !1), N.addEventListener("pageshow", function (b) {
-        b.persisted && (clearTimeout(K), K = setTimeout(L, 300))
-    }, !1), "complete" === J.readyState ? J.body.style.fontSize = 12 * F + "px" : J.addEventListener("DOMContentLoaded", function () {
-        J.body.style.fontSize = 12 * F + "px"
-    }, !1), L(), D.dpr = N.dpr = F, D.refreshRem = L, D.rem2px = function (d) {
-        var c = parseFloat(d) * this.rem;
-        return "string" == typeof d && d.match(/rem$/) && (c += "px"), c
-    }, D.px2rem = function (d) {
-        var c = parseFloat(d) / this.rem;
-        return "string" == typeof d && d.match(/px$/) && (c += "rem"), c
+
+    function refreshRem() {
+        var width = docEl.getBoundingClientRect().width;
+        var sizeTimes = documentSize / _documentSize;
+        if (width / dpr > documentSize) {
+            width = documentSize * dpr;
+        }
+        if (width >= documentSize) { //最大尺寸限制
+            var rem = 100 * sizeTimes
+        } else if (width <= minSize) { //最小尺寸限制
+            var rem = 100 / (750 / width);
+        } else { //按比例縮小
+            var rem = 100 / (1920 / width);
+        }
+        docEl.style.fontSize = rem + 'px';
+        flexible.rem = win.rem = rem;
     }
-}(window, window.lib || (window.lib = {}));
+
+    win.addEventListener('resize', function () {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+    }, false);
+    win.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 300);
+        }
+    }, false);
+
+    refreshRem();
+
+    flexible.dpr = win.dpr = dpr;
+    flexible.refreshRem = refreshRem;
+    flexible.rem2px = function (d) {
+        var val = parseFloat(d) * this.rem;
+        if (typeof d === 'string' && d.match(/rem$/)) {
+            val += 'px';
+        }
+        return val;
+    }
+    flexible.px2rem = function (d) {
+        var val = parseFloat(d) / this.rem;
+        if (typeof d === 'string' && d.match(/px$/)) {
+            val += 'rem';
+        }
+        return val;
+    }
+
+})(window, window['lib'] || (window['lib'] = {}));

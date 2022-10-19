@@ -33,3 +33,20 @@ function quad(t, p1, cp, p2) {
         y
     };
 }
+
+/**
+ * @description: 求图片的缩放比例
+ * @param {*} width
+ */
+function scaleAdaptation(width) {
+    const val = width / screenW;
+    if (val > 1) {
+        return 1 / val;
+    }
+    return val;
+}
+
+function rem2px(num) {
+    const font = document.documentElement.style.fontSize
+    return num * parseFloat(font);
+}

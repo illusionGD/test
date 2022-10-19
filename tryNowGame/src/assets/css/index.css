@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#main {
+  position: relative;
+  margin: 0 auto;
+  max-width: 7.5rem;
+  width: 100%;
+  height: 100vh;
+}
+
+.bg-contain {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.877);
+}
+
+.skill-pop .pop-content {
+  padding-top: 0.3rem;
+  height: 6.77rem;
+  background-image: url("../images/skill_txt.png");
+  animation: scale 0.5s;
+}
+.skill-pop .btn-skill {
+  width: 2.17rem;
+  height: 4.78rem;
+  cursor: pointer;
+}
+.skill-pop .btn-skill:hover {
+  transform: scale(1.1);
+}
+.skill-pop .btn-skill-gray {
+  filter: grayscale(1);
+}
+.skill-pop .btn-skill1 {
+  background-image: url("../images//btn_skill1.png");
+}
+.skill-pop .btn-skill2 {
+  margin: 0 0.1rem;
+  background-image: url("../images//btn_skill2.png");
+}
+.skill-pop .btn-skill3 {
+  background-image: url("../images//btn_skill3.png");
+}
+
+.award-pop .pop-content {
+  position: absolute;
+  bottom: 0;
+  width: 6.82rem;
+  height: 11.94rem;
+  background-image: url("../images/bg_award.png");
+}
+.award-pop .award-txt {
+  margin-top: 0.5rem;
+  margin-left: 4rem;
+  color: #6c3927;
+  font-weight: 600;
+  font-size: 0.51rem;
+  font-family: "Acumin Variable Concept";
+}
+.award-pop .code {
+  background: linear-gradient(to bottom, red, #b12313);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.award-pop .btn-reward {
+  position: absolute;
+  top: 4.7rem;
+  left: 57%;
+  width: 3.07rem;
+  height: 0.88rem;
+  background-image: url("../images/btn_reward.png");
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+.award-pop .btn-reward:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

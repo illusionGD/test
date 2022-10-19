@@ -21,7 +21,7 @@ var gameStartState = function () {
         // 创建角色
         player = new Player();
         game.camera.follow(player.player);
-        game.world.setBounds(0, 0, 1920, 1920);
+        game.world.setBounds(0, 0, rem2px(19.2), rem2px(19.2));
         player.addPet();
         // player.addTornadoSkill()
 
@@ -29,31 +29,20 @@ var gameStartState = function () {
         enemies = new EnemyFactory();
         enemies.init();
 
-        // 游戏信息文本
-        gameInfoText = game.add.text(0, 0, `生命: ${player.life}  敌人数量: ${enemies.enemyGroup.total} 击杀数: ${killCount}`, {
-            font: '20px Arial',
-            fill: '#fff'
-        });
-
-        gameInfoText.fixedToCamera = true;
-
         // 定时器
         timeoutBgImg = game.add.image(0, 0, keyMap.topTimeBg);
         timeoutBgImg.fixedToCamera = true;
+        const scaleVal = scaleAdaptation(750);
+        timeoutBgImg.scale.set(scaleVal, scaleVal);
         timeout = game.time.events.repeat(Phaser.Timer.SECOND * 1, 30, onTimeout, this);
-        timeoutText = game.add.text(game.camera.width / 2, 100, `00:${timeCount}`, {
-            font: 'bold 36px Arial',
+        timeoutText = game.add.text(game.camera.width / 2, rem2px(1.05), `00:${timeCount}`, {
+            font: `bold ${rem2px(0.4)}px Arial`,
             fill: '#fff'
         });
         timeoutText.stroke = "#000";
         timeoutText.strokeThickness = 5;
         timeoutText.fixedToCamera = true;
         timeoutText.anchor.set(0.5, 0.5);
-
-        // 创建弹框
-        document.querySelector('.pop').addEventListener('click', function () {
-            closePop();
-        })
     }
 
     this.update = function () {
@@ -68,18 +57,18 @@ var gameStartState = function () {
         player.run();
 
         // 寻找最近的敌人位置
-        let target = null;
-        if (!player.isPetFire) {
-            let minDis = game.camera.width;
-            enemies.enemyGroup.forEachAlive(enemy => {
-                const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
-                if (distance < minDis) {
-                    minDis = distance;
-                    target = enemy;
-                }
-            });
-        }
-        player.petFire(target);
+        // let target = null;
+        // if (!player.isPetFire) {
+        //     let minDis = game.camera.width;
+        //     enemies.enemyGroup.forEachAlive(enemy => {
+        //         const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
+        //         if (distance < minDis) {
+        //             minDis = distance;
+        //             target = enemy;
+        //         }
+        //     });
+        // }
+        player.petFire();
         player.fire();
         // return;
         // player.tornadosRotate();
@@ -96,14 +85,24 @@ var gameStartState = function () {
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.player, playerHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, tornadoHitEnemy, null, this);
-        game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, bulletHitEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, fireHitEnemy, null, this);
     }
 
     this.render = function () {
-        gameInfoText.text = `生命: ${player.life}  敌人数量: ${enemies.enemyGroup.total}  击杀数: ${killCount}`;
-
-        // player.bullets.forEachAlive((item) => {
+        game.debug.body(player.player)
+        player.bullets.forEachAlive((item) => {
+            game.debug.body(item)
+        });
+        // player.pet.fireGroup.forEachAlive((item) => {
+        //     game.debug.body(item)
         // });
+        enemies.enemyGroup.forEachAlive(item => {
+            game.debug.body(item)
+        })
+    }
+
+    function fireHitEnemy(enemy, fire) {
+        killEnemy(enemy);
     }
 
     function bulletHitEnemy(enemy, bullet) {
@@ -141,16 +140,6 @@ var gameStartState = function () {
         }
         const count = timeCount - 1 >= 10 ? timeCount -= 1 : '0' + (timeCount -= 1);
         timeoutText.text = `00:${count}`;
-    }
-
-    function closePop() {
-        document.querySelector('.pop').style.display = 'none'
-        // game.add.tween(awardPop.scale).to({
-        //     x: 0,
-        //     y: 0
-        // }, 500, Phaser.Easing.Elastic.OInt, true);
-        isGameStop = false;
-        timeout.timer.paused = false;
     }
 
     /**

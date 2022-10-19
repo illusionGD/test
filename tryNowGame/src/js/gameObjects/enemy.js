@@ -52,6 +52,7 @@ class EnemyFactory {
             let enemy = this.enemyGroup.getFirstExists(false);
             if (!enemy) {
                 enemy = this.enemyGroup.create(x, y, keyMap.enemy);
+                enemy.scale.set(0.6, 0.6)
                 // 设置旋转锚点
                 enemy.anchor.set(0.5, 1);
                 // 重置碰撞体积宽高

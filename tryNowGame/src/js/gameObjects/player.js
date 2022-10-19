@@ -3,12 +3,14 @@ class Player {
         this.config = {
             moveSpeed: 200,
             bulletDis: 500,
-            bulletSpeed: 500,
+            bulletSpeed: 700,
             tornadosRotationSpeed: 0.05,
             tornadosCount: 6,
             checkScope: 100,
-            petFireSpeed: 200,
+            petFireSpeed: 500,
             petFireDis: 100,
+            petFireCount: 5,
+            petFireCreateDis: 1000,
             curvature: 0.1
         }
         this.isDead = false;
@@ -16,6 +18,9 @@ class Player {
         this.life = 10;
         this.fireTime = new Date().getTime();
         this.petFireTime = new Date().getTime();
+        this.petFireCreateTime = new Date().getTime();
+        this.isPetFire = true;
+        // 记录火球当前连续发射到第几个
         this.petFireCount = 0;
         this.init()
     }
@@ -33,7 +38,10 @@ class Player {
      */
     initPlayer() {
         this.player = game.add.sprite(game.world.centerX, game.world.centerY, keyMap.player);
+        // this.player.scale.set(scaleAdaptation(rem2px(40)), scaleAdaptation(rem2px(40)))
         game.physics.arcade.enable(this.player, Phaser.Physics.ARCADE);
+        this.player.body.setSize(this.player.width, this.player.height);
+        this.player.scale.set(0.7, 0.7);
 
         // 设置角色与边界的碰撞
         this.player.body.immovable = true;
@@ -41,8 +49,13 @@ class Player {
 
         // 设置角色锚点为中心
         this.player.anchor.set(0.5, 0.5);
-
         // 角色动画相关
+        const tween = game.add.tween(this.player).to({
+            height: this.player.height / 1.5
+        }, 500, Phaser.Easing.Sinusoidal.Out, true);
+        tween.yoyo(true);
+        tween.repeat();
+
         this.animations = this.player.animations;
         this.animations.add('left', [0], 5, true);
         this.animations.add('right', [1], 5, true);
@@ -67,7 +80,7 @@ class Player {
     initVirtualJoystick() {
         this.pad = game.plugins.add(Phaser.VirtualJoystick);
         this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + 250, 200, keyMap.joystick);
-        this.stick.scale = 0.8
+        this.stick.scale = scaleAdaptation(247);
     }
 
     /**
@@ -114,11 +127,11 @@ class Player {
             let bullet = this.bullets.getFirstExists(false);
             if (!bullet) {
                 bullet = this.bullets.create(this.player.x, this.player.y, keyMap.gun);
-                bullet.scale.set(0.7, 0.7);
+                bullet.scale.set(0.5, 0.5);
                 bullet.anchor.set(0.5, 0.5);
+                bullet.body.setSize(bullet.width, bullet.height)
                 // bullet.animations.add('move', [0, 1, 2, 3, 4], 10, true)
                 // bullet.animations.play('move');
-                bullet.body.setSize(0.7, 0.7)
             }
             bullet.reset(this.player.x, this.player.y)
             // 检测边界碰撞并kill掉
@@ -213,7 +226,7 @@ class Player {
             this.tornados.add(tornado);
 
             tornado.setAnimationByName(0, keyMap.tornadoRotation, true);
-            tornado.scale.set(0.05, 0.05);
+            tornado.scale.set(0.3, 0.3);
             // tornado.enableBodyDebug = true;
             tornado.body = null;
             // tornado.enableBody = true;
@@ -268,42 +281,130 @@ class Player {
     /**
      * @description: 宠物攻击
      */
-    petFire(target) {
+    // petFire(target) {
+    //     const dis = new Date().getTime() - this.petFireTime;
+    //     const dir = this.player.direction;
+
+    //     if (dis > this.config.petFireDis) {
+    //         const angle = 2 * Math.PI / this.config.petFireCount;
+    //         for (let i = 0; i < this.petFireCount; i++) {
+    //             var fireBall = this.pet.fireGroup.getFirstExists(false);
+    //             const selfAngle = angle * i;
+
+    //             if (!fireBall) {
+    //                 fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
+    //                 fireBall.animations.add('mover', [0, 1, 2, 3, 4], 10, true)
+    //                 fireBall.animations.play('mover');
+    //                 fireBall.scale.set(0.5, 0.5);
+    //                 fireBall.anchor.set(0.5, 0.5)
+    //                 fireBall.body.setSize(fireBall.width, fireBall.height);
+
+    //                 // 设置每个火球的方向
+    //                 fireBall.vector = {
+    //                     x: Math.sin(selfAngle) * 1,
+    //                     y: Math.cos(selfAngle) * 1
+    //                 }
+    //             }
+    //         }
+    //         this.petFireTime = new Date().getTime();
+
+    //         const direction = this.pet.fireGroup.getChildIndex(fireBall) % 2 ? -1 : 1;
+    //         fireBall.leap = 0;
+    //         fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
+    //         fireBall.originP = {
+    //             x: fireBall.x,
+    //             y: fireBall.y
+    //         }
+    //         fireBall.controlP = {
+    //             x: fireBall.x + direction * 100,
+    //             y: fireBall.y + 100
+    //         }
+    //         // 检测边界碰撞并kill掉
+    //         fireBall.checkWorldBounds = true;
+    //         fireBall.outOfBoundsKill = true;
+    //         if (dir === 'right') {
+    //             fireBall.direction = 'right'
+    //         } else {
+    //             fireBall.direction = 'left'
+    //         }
+    //         this.petFireCount += 1;
+    //         if (this.petFireCount >= this.config.petFireCount) {
+    //             this.isPetFire = false;
+    //             this.petFireCount = 0;
+    //         }
+    //     }
+
+    //     // 子弹不断移动
+    //     this.pet.fireGroup.length && this.pet.fireGroup.forEachAlive((fireBall, index) => {
+
+    //         if (fireBall.x >= this.pet.fireGroup.targetPoint.x - 5 && fireBall.x <= this.pet.fireGroup.targetPoint.x + 5) {
+    //             fireBall.kill();
+    //             return;
+    //         }
+    //         if (this.pet.fireGroup.targetPoint) {
+    //             const targetX = this.pet.fireGroup.targetPoint.x;
+    //             const targetY = this.pet.fireGroup.targetPoint.y;
+    //             const {
+    //                 x,
+    //                 y
+    //             } = quad(fireBall.leap, fireBall.originP, fireBall.controlP, this.pet.fireGroup.targetPoint);
+    //             fireBall.x = x;
+    //             fireBall.y = y;
+    //             fireBall.leap += (this.config.petFireSpeed / 10000);
+
+    //             // 选择角度
+    //             fireBall.rotation = computeRotation(targetX, targetY, fireBall.world.x, fireBall.world.y)
+    //         } else {
+    //             if (fireBall.direction === 'left') {
+    //                 fireBall.rotation = 3.14;
+    //                 fireBall.body.velocity.x = -this.config.petFireSpeed;
+    //             } else {
+    //                 fireBall.body.velocity.x = this.config.petFireSpeed;
+    //                 fireBall.rotation = 0;
+    //             }
+    //         }
+    //     });
+    // }
+
+    petFire() {
         const dis = new Date().getTime() - this.petFireTime;
         const dir = this.player.direction;
-        // 记录目标坐标
-        if (target && this.pet.fireGroup.total === 0) {
-            this.pet.fireGroup.targetPoint = {
-                x: target.position.x,
-                y: target.position.y
-            };
+
+        if (!this.isPetFire && new Date().getTime() - this.petFireCreateTime > this.config.petFireCreateDis) {
             this.isPetFire = true;
+            this.petFireCreateTime = new Date().getTime();
         }
 
         if (this.isPetFire && dis > this.config.petFireDis) {
             var fireBall = this.pet.fireGroup.getFirstExists(false);
-
+            const angle = (((2 * Math.PI) / this.config.petFireCount) * this.petFireCount).toFixed(2);
             if (!fireBall) {
                 fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
                 fireBall.animations.add('mover', [0, 1, 2, 3, 4], 10, true)
                 fireBall.animations.play('mover');
-                fireBall.scale.set(0.12, 0.12);
+                fireBall.scale.set(0.5, 0.5);
                 fireBall.anchor.set(0.5, 0.5)
-                fireBall.body.setSize(0.12, 0.12);
+                fireBall.body.setSize(fireBall.width, fireBall.height);
             }
+            fireBall.anchor.set(0.5, 0.5)
+
+            fireBall.vector = {
+                angle,
+                x: Math.sin(angle) * 1,
+                y: Math.cos(angle) * 1
+            }
+            fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
             this.petFireTime = new Date().getTime();
 
-            const direction = this.pet.fireGroup.getChildIndex(fireBall) % 2 ? -1 : 1;
-            fireBall.leap = 0;
-            fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
-            fireBall.originP = {
-                x: fireBall.x,
-                y: fireBall.y
+            // fireBall.rotation = angle - (Math.PI / 5);
+
+            if (angle == 0) {
+                fireBall.rotation = Math.PI / 2;
+            } else {
+                fireBall.rotation = ((2 * Math.PI) / this.config.petFireCount) * (-this.petFireCount + 1);
             }
-            fireBall.controlP = {
-                x: fireBall.x + direction * 50,
-                y: fireBall.y + 50
-            }
+            fireBall.body.velocity.x = fireBall.vector.x * this.config.petFireSpeed;
+            fireBall.body.velocity.y = fireBall.vector.y * this.config.petFireSpeed;
             // 检测边界碰撞并kill掉
             fireBall.checkWorldBounds = true;
             fireBall.outOfBoundsKill = true;
@@ -313,42 +414,11 @@ class Player {
                 fireBall.direction = 'left'
             }
             this.petFireCount += 1;
-            if (this.petFireCount >= 10) {
+            if (this.petFireCount >= this.config.petFireCount) {
                 this.isPetFire = false;
                 this.petFireCount = 0;
             }
         }
-
-        // 子弹不断移动
-        this.pet.fireGroup.length && this.pet.fireGroup.forEachAlive((fireBall, index) => {
-
-            if (fireBall.x >= this.pet.fireGroup.targetPoint.x - 5 && fireBall.x <= this.pet.fireGroup.targetPoint.x + 5) {
-                fireBall.kill();
-                return;
-            }
-            if (this.pet.fireGroup.targetPoint) {
-                const targetX = this.pet.fireGroup.targetPoint.x;
-                const targetY = this.pet.fireGroup.targetPoint.y;
-                const {
-                    x,
-                    y
-                } = quad(fireBall.leap, fireBall.originP, fireBall.controlP, this.pet.fireGroup.targetPoint);
-                fireBall.x = x;
-                fireBall.y = y;
-                fireBall.leap += (this.config.petFireSpeed / 10000);
-
-                // 选择角度
-                fireBall.rotation = computeRotation(targetX, targetY, fireBall.world.x, fireBall.world.y)
-            } else {
-                if (fireBall.direction === 'left') {
-                    fireBall.rotation = 3.14;
-                    fireBall.body.velocity.x = -this.config.petFireSpeed;
-                } else {
-                    fireBall.body.velocity.x = this.config.petFireSpeed;
-                    fireBall.rotation = 0;
-                }
-            }
-        });
     }
 
     tornadosRotate() {
@@ -363,9 +433,9 @@ class Player {
         // 每个龙卷风自身旋转，保持直立状态
         this.tornados.forEachAlive(item => {
             item.rotation -= this.config.tornadosRotationSpeed
-        })
-
+        });
     }
+
     stopTornadosRotate() {
         this.tornados.stop = true;
     }
@@ -376,13 +446,14 @@ class Player {
      */
     drawBlood(width) {
         const x = -this.player.width / 2;
-        const y = this.player.height / 2;
+        const y = this.player.height / 2 + 10;
+        const h = 8;
         const lineColor = 0xFFFFFF;
         const bloodColor = 0x00FF00;
         this.blood.clear()
         this.blood.beginFill(bloodColor, 1);
         this.blood.lineStyle(0);
-        this.blood.drawRect(x, y, width, 10);
+        this.blood.drawRect(x, y, width, h);
 
         this.blood.lineStyle(2, lineColor, 1);
         this.blood.moveTo(x, y);
@@ -390,14 +461,14 @@ class Player {
 
         this.blood.lineStyle(2, lineColor, 1);
         this.blood.moveTo(x + this.player.width, y);
-        this.blood.lineTo(x + this.player.width, y + 10);
+        this.blood.lineTo(x + this.player.width, y + h);
 
         this.blood.lineStyle(2, lineColor, 1);
-        this.blood.moveTo(x + this.player.width, y + 10);
-        this.blood.lineTo(x, y + 10);
+        this.blood.moveTo(x + this.player.width, y + h);
+        this.blood.lineTo(x, y + h);
 
         this.blood.lineStyle(2, lineColor, 1);
-        this.blood.moveTo(x, y + 10);
+        this.blood.moveTo(x, y + h);
         this.blood.lineTo(x, y + 0);
 
         this.blood.endFill();
