@@ -57,19 +57,17 @@ var gameStartState = function () {
         player.run();
 
         // 寻找最近的敌人位置
-        // let target = null;
-        // if (!player.isPetFire) {
-        //     let minDis = game.camera.width;
-        //     enemies.enemyGroup.forEachAlive(enemy => {
-        //         const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
-        //         if (distance < minDis) {
-        //             minDis = distance;
-        //             target = enemy;
-        //         }
-        //     });
-        // }
-        player.petFire();
-        player.fire();
+        let target = null;
+        let minDis = game.camera.width;
+        enemies.enemyGroup.forEachAlive(enemy => {
+            const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
+            if (distance < minDis) {
+                minDis = distance;
+                target = enemy;
+            }
+        });
+        player.fire(target);
+        // player.petFire();
         // return;
         // player.tornadosRotate();
         // 敌人移动

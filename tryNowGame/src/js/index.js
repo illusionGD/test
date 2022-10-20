@@ -15,6 +15,7 @@ const keyMap = {
     btnClose: 'btnClose',
     gun: 'gun',
     pet: 'pet',
+    collide: 'collide',
     // ball: 'ball',
     // skillImage: 'skill_image',
     // skillAtlas: 'skill_atlas',

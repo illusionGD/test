@@ -2,7 +2,7 @@ class Player {
     constructor() {
         this.config = {
             moveSpeed: 200,
-            bulletDis: 500,
+            bulletDis: 1000,
             bulletSpeed: 700,
             tornadosRotationSpeed: 0.05,
             tornadosCount: 6,
@@ -51,7 +51,8 @@ class Player {
         this.player.anchor.set(0.5, 0.5);
         // 角色动画相关
         const tween = game.add.tween(this.player).to({
-            height: this.player.height / 1.5
+            height: this.player.height / 1.2,
+            width: this.player.width * 1.2
         }, 500, Phaser.Easing.Sinusoidal.Out, true);
         tween.yoyo(true);
         tween.repeat();
@@ -133,7 +134,8 @@ class Player {
                 // bullet.animations.add('move', [0, 1, 2, 3, 4], 10, true)
                 // bullet.animations.play('move');
             }
-            bullet.reset(this.player.x, this.player.y)
+
+            bullet.reset(this.player.x, this.player.y);
             // 检测边界碰撞并kill掉
             bullet.checkWorldBounds = true;
             bullet.outOfBoundsKill = true;
@@ -144,19 +146,24 @@ class Player {
                 bullet.rotation = 0;
                 bullet.direction = 'left'
             }
-
+            if (target) {
+                bullet.vector = computeVector(target.position.x, target.position.y, bullet.position.x, bullet.position.y);
+                bullet.rotation = computeRotation(target.position.x, target.position.y, bullet.position.x, bullet.position.y) + Math.PI;
+            }
             this.fireTime = new Date().getTime();
         }
 
         // 子弹不断移动
         this.bullets.length && this.bullets.forEachAlive(bullet => {
-            if (target) {
-                game.physics.arcade.accelerateToObject(bullet, target.position, this.config.bulletSpeed * 10)
-            } else {}
-            if (bullet.direction === 'left') {
-                bullet.body.velocity.x = -this.config.bulletSpeed;
+            if (bullet.vector) {
+                bullet.body.velocity.x = bullet.vector.x * this.config.bulletSpeed;
+                bullet.body.velocity.y = bullet.vector.y * this.config.bulletSpeed;
             } else {
-                bullet.body.velocity.x = this.config.bulletSpeed;
+                if (bullet.direction === 'left') {
+                    bullet.body.velocity.x = -this.config.bulletSpeed;
+                } else {
+                    bullet.body.velocity.x = this.config.bulletSpeed;
+                }
             }
         })
     }
@@ -281,91 +288,6 @@ class Player {
     /**
      * @description: 宠物攻击
      */
-    // petFire(target) {
-    //     const dis = new Date().getTime() - this.petFireTime;
-    //     const dir = this.player.direction;
-
-    //     if (dis > this.config.petFireDis) {
-    //         const angle = 2 * Math.PI / this.config.petFireCount;
-    //         for (let i = 0; i < this.petFireCount; i++) {
-    //             var fireBall = this.pet.fireGroup.getFirstExists(false);
-    //             const selfAngle = angle * i;
-
-    //             if (!fireBall) {
-    //                 fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
-    //                 fireBall.animations.add('mover', [0, 1, 2, 3, 4], 10, true)
-    //                 fireBall.animations.play('mover');
-    //                 fireBall.scale.set(0.5, 0.5);
-    //                 fireBall.anchor.set(0.5, 0.5)
-    //                 fireBall.body.setSize(fireBall.width, fireBall.height);
-
-    //                 // 设置每个火球的方向
-    //                 fireBall.vector = {
-    //                     x: Math.sin(selfAngle) * 1,
-    //                     y: Math.cos(selfAngle) * 1
-    //                 }
-    //             }
-    //         }
-    //         this.petFireTime = new Date().getTime();
-
-    //         const direction = this.pet.fireGroup.getChildIndex(fireBall) % 2 ? -1 : 1;
-    //         fireBall.leap = 0;
-    //         fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
-    //         fireBall.originP = {
-    //             x: fireBall.x,
-    //             y: fireBall.y
-    //         }
-    //         fireBall.controlP = {
-    //             x: fireBall.x + direction * 100,
-    //             y: fireBall.y + 100
-    //         }
-    //         // 检测边界碰撞并kill掉
-    //         fireBall.checkWorldBounds = true;
-    //         fireBall.outOfBoundsKill = true;
-    //         if (dir === 'right') {
-    //             fireBall.direction = 'right'
-    //         } else {
-    //             fireBall.direction = 'left'
-    //         }
-    //         this.petFireCount += 1;
-    //         if (this.petFireCount >= this.config.petFireCount) {
-    //             this.isPetFire = false;
-    //             this.petFireCount = 0;
-    //         }
-    //     }
-
-    //     // 子弹不断移动
-    //     this.pet.fireGroup.length && this.pet.fireGroup.forEachAlive((fireBall, index) => {
-
-    //         if (fireBall.x >= this.pet.fireGroup.targetPoint.x - 5 && fireBall.x <= this.pet.fireGroup.targetPoint.x + 5) {
-    //             fireBall.kill();
-    //             return;
-    //         }
-    //         if (this.pet.fireGroup.targetPoint) {
-    //             const targetX = this.pet.fireGroup.targetPoint.x;
-    //             const targetY = this.pet.fireGroup.targetPoint.y;
-    //             const {
-    //                 x,
-    //                 y
-    //             } = quad(fireBall.leap, fireBall.originP, fireBall.controlP, this.pet.fireGroup.targetPoint);
-    //             fireBall.x = x;
-    //             fireBall.y = y;
-    //             fireBall.leap += (this.config.petFireSpeed / 10000);
-
-    //             // 选择角度
-    //             fireBall.rotation = computeRotation(targetX, targetY, fireBall.world.x, fireBall.world.y)
-    //         } else {
-    //             if (fireBall.direction === 'left') {
-    //                 fireBall.rotation = 3.14;
-    //                 fireBall.body.velocity.x = -this.config.petFireSpeed;
-    //             } else {
-    //                 fireBall.body.velocity.x = this.config.petFireSpeed;
-    //                 fireBall.rotation = 0;
-    //             }
-    //         }
-    //     });
-    // }
-
     petFire() {
         const dis = new Date().getTime() - this.petFireTime;
         const dir = this.player.direction;

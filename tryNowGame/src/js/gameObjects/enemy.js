@@ -4,7 +4,7 @@ class EnemyFactory {
             moveSpeed: 100,
             createDis: 1000,
             scale: 0.5,
-            maxCount: 20
+            maxCount: 1
         }
 
         this.lasTime = new Date().getTime();

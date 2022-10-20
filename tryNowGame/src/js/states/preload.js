@@ -13,6 +13,7 @@ var preloadState = function () {
         game.load.image(keyMap.popBgImg, './assets/images/bg_pop.png');
         game.load.image(keyMap.btnClose, './assets/images/btn_close.png');
         game.load.image(keyMap.topTimeBg, './assets/images/top_time.png');
+        game.load.image(keyMap.collide, './assets/images/collide.png');
         game.load.spritesheet(keyMap.gun, './assets/images/arrow.png');
         game.load.spritesheet(keyMap.pet, './assets/images/pet.png', 131, 151, 2);
         game.load.spritesheet(keyMap.enemy, './assets/images/enemy.png', 48, 61, 2);
@@ -25,6 +26,11 @@ var preloadState = function () {
             keyMap.tornado, //The key used for Phaser's cache
             './assets/spines/spine7_2_skl7_5_target_1.json' //The location of the spine's json file
         );
+
+        // game.load.spine(
+        //     keyMap.fireBall, //The key used for Phaser's cache
+        //     './assets/spines/spine7_2_skl7_11_target.json' //The location of the spine's json file
+        // );
         // game.load.image(keyMap.skillImage, './assets/images/spine7_2_skl7_11_target.png');
         // game.load.json(keyMap.skillJson, './assets/json/spine7_2_skl7_11_target.json');
         // game.load.atlas(keyMap.skillAtlas, './assets/images/spine7_2_skl7_11_target.png', './assets/json/spine7_2_skl7_11_target.json');
