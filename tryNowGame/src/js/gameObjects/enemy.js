@@ -2,9 +2,9 @@ class EnemyFactory {
     constructor() {
         this.config = {
             moveSpeed: 100,
-            createDis: 1000,
+            createDis: 500,
             scale: 0.5,
-            maxCount: 1
+            maxCount: 5
         }
 
         this.lasTime = new Date().getTime();
@@ -26,19 +26,18 @@ class EnemyFactory {
                 x,
                 y
             } = computeVector(targetX, targetY, enemy.x, enemy.y);
-
-            enemy.body.velocity.x = x * this.config.moveSpeed;
-            enemy.body.velocity.y = y * this.config.moveSpeed;
-            if (x > 0) {
-                enemy.animations.play('right');
+            if (!enemy.isDead) {
+                enemy.body.velocity.x = x * this.config.moveSpeed;
+                enemy.body.velocity.y = y * this.config.moveSpeed;
+                if (x > 0) {
+                    enemy.frame = 2
+                } else {
+                    enemy.frame = 1
+                }
             } else {
-                enemy.animations.play('left');
+                enemy.body.velocity.x = x / 2 * -this.config.moveSpeed;
+                enemy.body.velocity.y = 0;
             }
-            // if (enemy.direction === 'left' && x > 0) {
-            //     console.log(1);
-            //     enemy.flipTween.start();
-            //     enemy.direction = 'right';
-            // }
         })
     }
 
@@ -52,7 +51,7 @@ class EnemyFactory {
             let enemy = this.enemyGroup.getFirstExists(false);
             if (!enemy) {
                 enemy = this.enemyGroup.create(x, y, keyMap.enemy);
-                enemy.scale.set(0.6, 0.6)
+                enemy.scale.set(0.6, 0.6);
                 // 设置旋转锚点
                 enemy.anchor.set(0.5, 1);
                 // 重置碰撞体积宽高
@@ -60,31 +59,31 @@ class EnemyFactory {
                 // 旋转动画
                 enemy.shakeTween = game.add.tween(enemy).to({
                     rotation: 0.2
-                }, 1000, Phaser.Easing.Cubic.In, true);
-                enemy.shakeTween.yoyo(true);
-                enemy.shakeTween.repeat();
-                enemy.animations.add('left', [0], 5, true)
-                enemy.animations.add('right', [1], 5, true)
-                // 翻转动画
-                // enemy.flipTween = game.add.tween(enemy).to({
-                //     angle: 360
-                // }, 100, Phaser.Easing.Cubic.In, true);
-                // enemy.flipTween.pause();
-
-                // 脚下阴影
-                // enemy.footShadow = game.add.graphics();
-                // // graphics.lineStyle(8, 0xffd900);
-                // enemy.footShadow.beginFill(0x8e8e80);
-                // enemy.footShadow.drawEllipse(x, y, enemy.width - 30, 5);
-                // enemy.footShadow.endFill();
-                // enemy.addChild(enemy.footShadow);
+                }, 1000, Phaser.Easing.Cubic.In, true, 0, -1, true);
+                // 死亡动画
+                enemy.DeadTween = game.add.tween(enemy).to({}, 500, Phaser.Easing.Cubic.In, false);
+                enemy.DeadTween.onComplete.add(function () {
+                    enemy.kill();
+                });
+                enemy.DeadTween.onStart.add(function () {
+                    enemy.shakeTween.stop();
+                    enemy.frame = enemy.frame === 1 ? 0 : 3;
+                    enemy.isDead = true;
+                })
             }
 
-            enemy.reset(x, y);
-            // 检测边界碰撞并kill掉
-            enemy.body.collideWorldBounds = true;
+            this.resetEnemy(enemy, x, y);
             this.lasTime = new Date().getTime();
         }
+    }
+
+    resetEnemy(enemy, x, y) {
+        enemy.isDead = false;
+        enemy.shakeTween.start();
+        enemy.frame = 1;
+        enemy.reset(x, y);
+        // 检测边界碰撞并kill掉
+        enemy.body.collideWorldBounds = true;
     }
 
     stop() {

@@ -50,3 +50,10 @@ function rem2px(num) {
     const font = document.documentElement.style.fontSize
     return num * parseFloat(font);
 }
+
+function computeVectorByRotation(r) {
+    return {
+        x: Math.asin(r),
+        y: Math.acos(r)
+    }
+}

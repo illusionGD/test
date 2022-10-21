@@ -16,8 +16,9 @@ var preloadState = function () {
         game.load.image(keyMap.collide, './assets/images/collide.png');
         game.load.spritesheet(keyMap.gun, './assets/images/arrow.png');
         game.load.spritesheet(keyMap.pet, './assets/images/pet.png', 131, 151, 2);
-        game.load.spritesheet(keyMap.enemy, './assets/images/enemy.png', 48, 61, 2);
+        game.load.spritesheet(keyMap.enemy, './assets/images/enemy1.png', 48, 61, 4);
         game.load.spritesheet(keyMap.fireBall, './assets/images/fire_ball.png', 512, 350, 5);
+        game.load.spritesheet(keyMap.knife, './assets/images/knife.png', 145, 144, 6);
         // game.load.spritesheet(keyMap.tornado, './assets/images/tornado.png', 360, 181, 30);
         game.load.spritesheet(keyMap.player, './assets/images/role.png', 40, 64, 2);
         game.load.atlas(keyMap.joystick, './assets/images/joystick.png', './assets/json/joystick.json');
@@ -26,6 +27,11 @@ var preloadState = function () {
             keyMap.tornado, //The key used for Phaser's cache
             './assets/spines/spine7_2_skl7_5_target_1.json' //The location of the spine's json file
         );
+
+        // game.load.spine(
+        //     keyMap.knife, //The key used for Phaser's cache
+        //     './assets/spines/spine4_2_skl4_9_path.json' //The location of the spine's json file
+        // );
 
         // game.load.spine(
         //     keyMap.fireBall, //The key used for Phaser's cache

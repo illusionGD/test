@@ -16,6 +16,8 @@ const keyMap = {
     gun: 'gun',
     pet: 'pet',
     collide: 'collide',
+    knife: 'knife',
+    knifeRotation: 'skl4_9_path',
     // ball: 'ball',
     // skillImage: 'skill_image',
     // skillAtlas: 'skill_atlas',

@@ -60,16 +60,19 @@ var gameStartState = function () {
         let target = null;
         let minDis = game.camera.width;
         enemies.enemyGroup.forEachAlive(enemy => {
-            const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
-            if (distance < minDis) {
-                minDis = distance;
-                target = enemy;
+            if (!enemy.isDead) {
+                const distance = game.physics.arcade.distanceToPointer(player.player, enemy.pointer)
+                if (distance < minDis) {
+                    minDis = distance;
+                    target = enemy;
+                }
             }
         });
         player.fire(target);
         // player.petFire();
         // return;
-        // player.tornadosRotate();
+        player.tornadosRotate();
+        // player.fireKnife()
         // 敌人移动
         enemies.move(player.player.x, player.player.y);
 
@@ -82,8 +85,13 @@ var gameStartState = function () {
         // 碰撞检测
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.player, playerHitEnemy, null, this);
-        game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, tornadoHitEnemy, null, this);
-        game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, fireHitEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, killEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, killEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.KnifeGroup, killEnemy, null, this);
+        // game.physics.arcade.overlap(enemies.enemyGroup, player.tornadoColliders, killEnemy, null, this);
+        // player.tornadoColliders.forEach(item => {
+        //     game.physics.arcade.overlap(enemies.enemyGroup, item, killEnemy, null, this)
+        // })
     }
 
     this.render = function () {
@@ -91,16 +99,18 @@ var gameStartState = function () {
         player.bullets.forEachAlive((item) => {
             game.debug.body(item)
         });
+        // player.tornadoColliders.forEach((item) => {
+        //     game.debug.body(item)
+        // });
+        player.KnifeGroup.forEach((item) => {
+            game.debug.body(item)
+        });
         // player.pet.fireGroup.forEachAlive((item) => {
         //     game.debug.body(item)
         // });
-        enemies.enemyGroup.forEachAlive(item => {
-            game.debug.body(item)
-        })
-    }
-
-    function fireHitEnemy(enemy, fire) {
-        killEnemy(enemy);
+        // enemies.enemyGroup.forEachAlive(item => {
+        //     game.debug.body(item)
+        // })
     }
 
     function bulletHitEnemy(enemy, bullet) {
@@ -109,16 +119,12 @@ var gameStartState = function () {
     }
 
     function playerHitEnemy(p, enemy) {
-        player.injury()
-        enemy.kill();
-    }
-
-    function tornadoHitEnemy(enemy, t) {
+        !enemy.isDead && player.injury();
         killEnemy(enemy);
     }
 
     function killEnemy(enemy) {
-        enemy.kill();
+        enemy.DeadTween.start();
         killCount += 1;
         // if (killCount === 3) {
         //     stopGame();
