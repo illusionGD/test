@@ -2,9 +2,9 @@ class EnemyFactory {
     constructor() {
         this.config = {
             moveSpeed: 100,
-            createDis: 500,
+            createDis: 800,
             createNum: 1,
-            maxCount: 100,
+            maxCount: 80,
             life: 1,
             juryTime: 500,
             deadTime: 200,

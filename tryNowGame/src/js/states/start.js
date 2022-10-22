@@ -41,10 +41,11 @@ var gameStartState = function () {
         timeoutText.fixedToCamera = true;
         timeoutText.anchor.set(0.5, 0.5);
 
-        gameInfo = game.add.text(game.camera.width / 2, rem2px(1.05), `怪物数:${enemies.enemyGroup.length}`, {
-            font: `bold ${rem2px(0.4)}px Arial`,
-            fill: '#fff'
-        });
+        gameInfo = game.add.text(0, rem2px(1.1),
+            `怪物数:${enemies.enemyGroup.length}\n生命值: ${player.life}`, {
+                font: `bold ${rem2px(0.4)}px Arial`,
+                fill: '#fff'
+            });
         gameInfo.fixedToCamera = true;
     }
 
@@ -100,7 +101,7 @@ var gameStartState = function () {
     }
 
     this.render = function () {
-        gameInfo.text = `怪物数:${enemies.enemyGroup.length}`
+        gameInfo.text = `怪物数:${enemies.enemyGroup.length}\n生命值: ${player.life}`
         // game.debug.body(player.player)
         // player.bullets.forEachAlive((item) => {
         //     game.debug.body(item)
@@ -161,20 +162,22 @@ var gameStartState = function () {
             return;
         }
         const number = game.time.totalElapsedSeconds().toFixed(0);
-        if (number < 10) {
-            enemies.config.createNum = number ? number : 1;
-        }
+        enemies.config.createNum = number ? number : 1;
         if (timeCount === 20) {
-            // enemies.config.moveSpeed = 500;
+            enemies.config.moveSpeed = 100;
             // enemies.config.createDis = 300;
-            enemies.config.createNum = 10;
             enemies.config.life = 2;
         }
+        if (timeCount === 15) {
+            // enemies.config.moveSpeed = 200;
+            // enemies.config.createDis = 300;
+            // enemies.config.life = 3;
+        }
         if (timeCount === 10) {
-            enemies.config.moveSpeed = 300;
+            // enemies.config.moveSpeed = 300;
             // enemies.config.createDis = 50;
             // enemies.config.createNum = 30;
-            enemies.config.life = 3;
+            // enemies.config.life = 3;
         }
         const count = timeCount - 1 >= 10 ? timeCount -= 1 : '0' + (timeCount -= 1);
         timeoutText.text = `00:${count}`;
