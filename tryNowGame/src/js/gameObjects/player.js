@@ -4,7 +4,7 @@ class Player {
             moveSpeed: 200,
             bulletDis: 500,
             bulletSpeed: 700,
-            tornadosRotationSpeed: 0.05,
+            tornadosRotationSpeed: 0.04,
             tornadosCount: 6,
             checkScope: 100,
             petFireSpeed: 500,
@@ -12,8 +12,8 @@ class Player {
             petFireCount: 5,
             petFireCreateDis: 1000,
             knifeCount: 6,
-            knifeCreateDis: 500,
-            knifeSpeed: 200,
+            knifeCreateDis: 300,
+            knifeSpeed: 500,
             curvature: 0.1
         }
         this.isDead = false;
@@ -24,6 +24,10 @@ class Player {
         this.petFireCreateTime = new Date().getTime();
         this.knifeCreateTime = new Date().getTime();
         this.isPetFire = true;
+
+        this.stopTornado = true;
+        this.stopKnife = true;
+        this.stopPetFire = true;
         // 记录火球当前连续发射到第几个
         this.petFireCount = 0;
         this.init()
@@ -50,6 +54,8 @@ class Player {
         // 设置角色与边界的碰撞
         this.player.body.immovable = true;
         this.player.body.collideWorldBounds = true;
+        this.addPet();
+        this.pet.visible = false;
 
         // 设置角色锚点为中心
         this.player.anchor.set(0.5, 0.5);
@@ -57,7 +63,7 @@ class Player {
         const tween = game.add.tween(this.player).to({
             height: this.player.height / 1.2,
             width: this.player.width * 1.2
-        }, 500, Phaser.Easing.Sinusoidal.Out, true);
+        }, 200, Phaser.Easing.Sinusoidal.Out, true);
         tween.yoyo(true);
         tween.repeat();
 
@@ -79,9 +85,11 @@ class Player {
         this.KnifeGroup = game.add.group();
         this.KnifeGroup.enableBody = true;
 
+        // 龙卷风组
+        this.tornados = game.add.group();
+        this.tornados.enableBody = true;
+
         this.isDead = false;
-        this.fireKnife();
-        // this.addTornadoSkill();
     }
 
     /**
@@ -89,7 +97,7 @@ class Player {
      */
     initVirtualJoystick() {
         this.pad = game.plugins.add(Phaser.VirtualJoystick);
-        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + 250, 200, keyMap.joystick);
+        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + rem2px(3), 200, keyMap.joystick);
         this.stick.scale = scaleAdaptation(247);
     }
 
@@ -120,6 +128,10 @@ class Player {
     stop() {
         this.animations.stop();
         this.player.body.velocity.set(0);
+    }
+
+    start() {
+        this.animations.play();
     }
 
     /**
@@ -195,87 +207,21 @@ class Player {
         this.drawBlood(len);
     }
 
-    // addTornadoSkill(num = 6) {
-    //     this.tornados = game.add.group();
-    //     this.tornados.enableBody = true;
-    //     this.tornados.pivot.x = this.player.x;
-    //     this.tornados.pivot.y = this.player.y;
-    //     const angle = (2 * Math.PI) / num;
-    //     const l = 200;
-
-    //     for (let i = 0; i < num; i++) {
-    //         const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
-    //         const pointX = this.player.x + Math.sin(angle * i) * l;
-    //         const pointY = this.player.y + Math.cos(angle * i) * l;
-    //         tornado.scale.set(0.5, 0.5);
-    //         tornado.anchor.set(0.5, 0.5);
-    //         tornado.animations.add('create', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
-    //         tornado.animations.add('rotation', [4, 5, 6, 7, 8, 9, 10, 11, 12], 10, true);
-    //         tornado.animations.play('rotation');
-    //         // game.add.tween(tornado).to({
-    //         //     rotation: tornado.rotation -= this.config.tornadosRotationSpeed
-    //         // }, 1000, Phaser.Easing.Sinusoidal.Out, true);
-    //         // // 扩散动画
-    //         const tween = game.add.tween(tornado).to({
-    //             x: pointX,
-    //             y: pointY
-    //         }, 1000, Phaser.Easing.Sinusoidal.Out, true);
-    //         // tween.onComplete.addOnce(() => {
-    //         //     tornado.animations.play('rotation');
-    //         // })
-    //         // tween.onUpdateCallback(() => {
-    //         //     console.log(1);
-    //         // })
-    //     }
-
-    // }
-
     addTornadoSkill() {
-        // 龙卷风碰撞体组
-        this.tornadoColliders = [];
-        this.tornadoColliders.enableBody = true;
-        // 龙卷风组
-        this.tornados = game.add.group();
-        this.tornados.enableBody = true;
+        this.stopTornado = false;
         this.tornados.pivot.x = this.player.x;
         this.tornados.pivot.y = this.player.y;
         const angle = (2 * Math.PI) / this.config.tornadosCount;
         const l = rem2px(2);
-        // return;
+
         for (let i = 0; i < this.config.tornadosCount; i++) {
-            const tornado = game.add.spine(this.player.x, this.player.y, keyMap.tornado);
-            this.tornados.add(tornado);
-
-            tornado.setAnimationByName(0, keyMap.tornadoRotation, true);
-            tornado.scale.set(0.05, 0.05);
-
-            console.log(tornado);
+            const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
             const pointX = this.player.x + Math.sin(angle * i) * l;
             const pointY = this.player.y + Math.cos(angle * i) * l;
-
-            // const collider = game.add.sprite(tornado.x, tornado.y - 100, keyMap.collide)
-            // // game.physics.arcade.enable(collider);
-            // collider.anchor.set(0.5, 0.5)
-            // collider.scale.set(2, 2);
-            // collider.x = tornado.x;
-            // collider.y = tornado.y;
-            // game.physics.arcade.enable(collider, Phaser.Physics.ARCADE);
-            // collider.body.setSize(collider.width, collider.height);
-            // collider.body.immovable = true;
-
-            // this.tornadoColliders.add(collider);
-            // console.log(tornado.height);
-            // collider.width = tornado.width
-            // collider.height = tornado.height
-            // collider.body.setSize(collider.width, collider.height)
-            // collider.body.setSize(tornado.width, tornado.height)
-            // collider.enableBody = true
-            console.log(collider);
-            this.tornadoColliders.push(collider)
-            // collider.width = tornado.width;
-            // collider.height = tornado.height;
-            // collider.setSize(tornado.width, tornado.height);
-            tornado.addChild(collider)
+            tornado.scale.set(0.3, 0.3);
+            tornado.anchor.set(0.5, 0.5);
+            tornado.animations.add('rotation', null, 25, true);
+            tornado.animations.play('rotation');
 
             // 扩散动画
             const tween = game.add.tween(tornado).to({
@@ -286,9 +232,9 @@ class Player {
         }
 
     }
-    // 龙卷风旋转
+
     tornadosRotate() {
-        if (!this.tornados || this.tornados.stop) {
+        if (!this.tornados || this.stopTornado) {
             return;
         }
         this.tornados.x = this.player.x;
@@ -296,16 +242,10 @@ class Player {
 
         this.tornados.rotation += this.config.tornadosRotationSpeed;
 
-        let i = 0;
         // 每个龙卷风自身旋转，保持直立状态
         this.tornados.forEachAlive(item => {
             item.rotation -= this.config.tornadosRotationSpeed;
-            i++;
         });
-    }
-    // 龙卷风停止旋转
-    stopTornadosRotate() {
-        this.tornados.stop = true;
     }
 
     /**
@@ -329,6 +269,9 @@ class Player {
      * @description: 宠物攻击
      */
     petFire() {
+        if (this.stopPetFire && !this.pet.visible) {
+            return;
+        }
         const dis = new Date().getTime() - this.petFireTime;
         const dir = this.player.direction;
 
@@ -342,23 +285,22 @@ class Player {
             const angle = (((2 * Math.PI) / this.config.petFireCount) * this.petFireCount).toFixed(2);
             if (!fireBall) {
                 fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
-                fireBall.animations.add('mover', [0, 1, 2, 3, 4], 10, true)
+                fireBall.animations.add('mover', [0, 1, 2, 3, 4], 25, true)
                 fireBall.animations.play('mover');
-                fireBall.scale.set(0.5, 0.5);
+                fireBall.scale.set(0.3, 0.3);
                 fireBall.anchor.set(0.5, 0.5)
                 fireBall.body.setSize(fireBall.width, fireBall.height);
             }
-            fireBall.anchor.set(0.5, 0.5)
+            fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
+            fireBall.anchor.set(0.5, 0.5);
 
             fireBall.vector = {
                 angle,
                 x: Math.sin(angle) * 1,
                 y: Math.cos(angle) * 1
             }
-            fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
             this.petFireTime = new Date().getTime();
 
-            // fireBall.rotation = angle - (Math.PI / 5);
 
             if (angle == 0) {
                 fireBall.rotation = Math.PI / 2;
@@ -387,33 +329,40 @@ class Player {
      * @description: 添加飞刀技能
      */
     fireKnife() {
-        const dis = new Date().getTime() - this.knifeCreateTime;
-        const rotation = Math.PI / this.config.knifeCount;
-        for (let i = 0; i < 3; i++) {
-            console.log("🚀 ~ file: player.js ~ line 392 ~ rotation", rotation * i)
-            var knife = this.KnifeGroup.getFirstExists(false);
-            console.log("🚀 ~ file: player.js ~ line 394 ~ knife", knife)
-            if (!knife) {
-                knife = this.KnifeGroup.create(this.player.x, this.player.y, keyMap.knife);
-                // knife.setAnimationByName(0, keyMap.knifeRotation, true);
-                knife.scale.set(0.2, 0.2);
-                knife.animations.add('rotation', [0, 1, 2, 3, 4], 45, true);
-                knife.animations.play('rotation');
-
-                knife.checkWorldBounds = true;
-                knife.outOfBoundsKill = true;
-
-                // 检测边界碰撞并kill掉
-                knife.checkWorldBounds = true;
-                knife.outOfBoundsKill = true;
-            }
-
-            knife.body.velocity.x = Math.asin(rotation * i) * this.config.knifeSpeed
-            knife.body.velocity.y = Math.acos(rotation * i) * this.config.knifeSpeed
-
+        if (this.stopKnife) {
+            return;
         }
-        this.knifeCreateTime = new Date().getTime();
-        if (dis > this.config.knifeCreateDis) {}
+        const dis = new Date().getTime() - this.knifeCreateTime;
+        const rotation = (Math.PI) / this.config.knifeCount;
+        if (dis > this.config.knifeCreateDis) {
+            for (let i = 0; i < this.config.knifeCount; i++) {
+                var knife = this.KnifeGroup.getFirstExists(false);
+                if (!knife) {
+                    knife = this.KnifeGroup.create(this.player.x, this.player.y, keyMap.knife);
+                    // knife.setAnimationByName(0, keyMap.knifeRotation, true);
+                    knife.scale.set(0.2, 0.2);
+                    knife.animations.add('rotation', [0, 1, 2, 3, 4], 45, true);
+                    knife.animations.play('rotation');
+                    knife.body.setSize(knife.width, knife.height)
+                    knife.checkWorldBounds = true;
+                    knife.outOfBoundsKill = true;
+
+                    // 检测边界碰撞并kill掉
+                    knife.checkWorldBounds = true;
+                    knife.outOfBoundsKill = true;
+                }
+                knife.reset(this.player.x, this.player.y);
+                // console.log(justQuadrant(this.stick.rotation));
+                // const quadrant = justQuadrant(this.stick.rotation);
+                var angle = rotation * i;
+                // if (quadrant === 1) {
+                //     angle = rotation * i + this.stick.rotation
+                // }
+                knife.body.velocity.x = Math.sin(angle + this.stick.rotation) * this.config.knifeSpeed
+                knife.body.velocity.y = Math.cos(angle + this.stick.rotation - Math.PI) * this.config.knifeSpeed
+            }
+            this.knifeCreateTime = new Date().getTime();
+        }
     }
 
     /**

@@ -51,9 +51,14 @@ function rem2px(num) {
     return num * parseFloat(font);
 }
 
-function computeVectorByRotation(r) {
-    return {
-        x: Math.asin(r),
-        y: Math.acos(r)
+function justQuadrant(r) {
+    if (r > 0 && r < Math.PI / 2) {
+        return 4;
+    } else if (r > 0 && r > Math.PI / 2) {
+        return 3;
+    } else if (r < 0 && Math.abs(r) > Math.PI / 2) {
+        return 2;
+    } else {
+        return 1;
     }
 }

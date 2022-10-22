@@ -5,14 +5,13 @@ var gameStartState = function () {
     var timeCount = 30;
     var isGameEnd = false;
     var timeout;
-    var endPop;
-    var btnClose;
-    var awardPop;
-    var gameInfoText;
     var killCount = 0;
     var isGameStop = false;
+    var skillList = [];
     var timeoutBgImg;
-    var petSendFireLastTime = new Date().getTime();
+    var gameInfo;
+    var point = 5;
+
     this.create = function () {
         game.add.tileSprite(0, 0, 1920, 1920, keyMap.startBgImg);
         // 设置物理引擎
@@ -22,8 +21,6 @@ var gameStartState = function () {
         player = new Player();
         game.camera.follow(player.player);
         game.world.setBounds(0, 0, rem2px(19.2), rem2px(19.2));
-        player.addPet();
-        // player.addTornadoSkill()
 
         // 创建敌人工厂
         enemies = new EnemyFactory();
@@ -34,7 +31,7 @@ var gameStartState = function () {
         timeoutBgImg.fixedToCamera = true;
         const scaleVal = scaleAdaptation(750);
         timeoutBgImg.scale.set(scaleVal, scaleVal);
-        timeout = game.time.events.repeat(Phaser.Timer.SECOND * 1, 30, onTimeout, this);
+        timeout = game.time.events.repeat(Phaser.Timer.SECOND * 1, timeCount + 1, onTimeout, this);
         timeoutText = game.add.text(game.camera.width / 2, rem2px(1.05), `00:${timeCount}`, {
             font: `bold ${rem2px(0.4)}px Arial`,
             fill: '#fff'
@@ -43,16 +40,24 @@ var gameStartState = function () {
         timeoutText.strokeThickness = 5;
         timeoutText.fixedToCamera = true;
         timeoutText.anchor.set(0.5, 0.5);
+
+        gameInfo = game.add.text(game.camera.width / 2, rem2px(1.05), `怪物数:${enemies.enemyGroup.length}`, {
+            font: `bold ${rem2px(0.4)}px Arial`,
+            fill: '#fff'
+        });
+        gameInfo.fixedToCamera = true;
     }
 
     this.update = function () {
-        if (isGameEnd || !player.life) {
-            gameEnd();
-            return;
-        }
         if (isGameStop) {
             return;
         }
+
+        if (isGameEnd || (player.life <= 0)) {
+            gameEnd();
+            return;
+        }
+
         // 角色移动
         player.run();
 
@@ -68,19 +73,19 @@ var gameStartState = function () {
                 }
             }
         });
+        // 普通攻击
         player.fire(target);
-        // player.petFire();
-        // return;
+        // 小刀
+        player.fireKnife();
+        // 宠物攻击
+        player.petFire();
+        // 龙卷风旋转
         player.tornadosRotate();
-        // player.fireKnife()
         // 敌人移动
         enemies.move(player.player.x, player.player.y);
 
         // 创建敌人
-        var enemyX = game.camera.position.x - (game.camera.width / 2) + Math.random() * game.camera.width;
-        var enemy = game.camera.position.y - (game.camera.height / 2) + Math.random() * game.camera.height;
-        enemies.createEnemy(enemyX, enemy);
-
+        enemies.createEnemy(player.player.x, player.player.y);
 
         // 碰撞检测
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
@@ -95,16 +100,17 @@ var gameStartState = function () {
     }
 
     this.render = function () {
-        game.debug.body(player.player)
-        player.bullets.forEachAlive((item) => {
-            game.debug.body(item)
-        });
-        // player.tornadoColliders.forEach((item) => {
+        gameInfo.text = `怪物数:${enemies.enemyGroup.length}`
+        // game.debug.body(player.player)
+        // player.bullets.forEachAlive((item) => {
         //     game.debug.body(item)
         // });
-        player.KnifeGroup.forEach((item) => {
-            game.debug.body(item)
-        });
+        // player.tornados.forEach((item) => {
+        //     game.debug.body(item)
+        // });
+        // player.KnifeGroup.forEach((item) => {
+        //     game.debug.body(item)
+        // });
         // player.pet.fireGroup.forEachAlive((item) => {
         //     game.debug.body(item)
         // });
@@ -115,22 +121,34 @@ var gameStartState = function () {
 
     function bulletHitEnemy(enemy, bullet) {
         bullet.kill();
-        killEnemy(enemy);
+        killEnemy(enemy, 1);
     }
 
     function playerHitEnemy(p, enemy) {
-        !enemy.isDead && player.injury();
-        killEnemy(enemy);
+        if (!enemy.isDead && !enemy.isJury) {
+            player.injury();
+            killEnemy(enemy);
+        }
     }
 
     function killEnemy(enemy) {
+        enemy.life -= 1;
+        if (enemy.life > 0) {
+            enemy.inJuryTween.start();
+            return;
+        }
+
+        if (enemy.isDead || enemy.isJury) {
+            return
+        }
         enemy.DeadTween.start();
+
         killCount += 1;
-        // if (killCount === 3) {
-        //     stopGame();
-        //     awardPopUp();
-        //     killCount = 0;
-        // }
+        if (skillList.length < 3 && killCount >= point) {
+            stopGame();
+            showSkillPop();
+            killCount = 0;
+        }
     }
 
     /**
@@ -138,9 +156,25 @@ var gameStartState = function () {
      */
     function onTimeout() {
         if (timeCount === 0) {
-            game.time.events.remove(timeout)
-            // gameEnd();
+            game.time.events.remove(timeout);
+            isGameEnd = true;
             return;
+        }
+        const number = game.time.totalElapsedSeconds().toFixed(0);
+        if (number < 10) {
+            enemies.config.createNum = number ? number : 1;
+        }
+        if (timeCount === 20) {
+            // enemies.config.moveSpeed = 500;
+            // enemies.config.createDis = 300;
+            enemies.config.createNum = 10;
+            enemies.config.life = 2;
+        }
+        if (timeCount === 10) {
+            enemies.config.moveSpeed = 300;
+            // enemies.config.createDis = 50;
+            // enemies.config.createNum = 30;
+            enemies.config.life = 3;
         }
         const count = timeCount - 1 >= 10 ? timeCount -= 1 : '0' + (timeCount -= 1);
         timeoutText.text = `00:${count}`;
@@ -152,15 +186,7 @@ var gameStartState = function () {
     function gameEnd() {
         isGameEnd = true;
         stopGame();
-        endPopUp();
-    }
-
-    function awardPopUp() {
-        // const tween = game.add.tween(awardPop.scale).to({
-        //     x: 1,
-        //     y: 1
-        // }, 500, Phaser.Easing.Elastic.Out, true);
-        document.querySelector('.pop').style.display = 'block'
+        showAwardPop();
     }
 
     /**
@@ -174,9 +200,65 @@ var gameStartState = function () {
     }
 
     /**
-     * @description: 弹出结束弹窗
+     * @description: 开始游戏
      */
-    function endPopUp() {
+    function startGame() {
+        player.start();
+        enemies.start();
+        timeout.timer.paused = false;
+        isGameStop = false;
+    }
 
+    bindEvent();
+
+    function bindEvent() {
+        document.querySelector('.btn-skill1').addEventListener('click', (e) => {
+            if (hadSkill('1')) {
+                return;
+            }
+            skillList.push('1');
+            e.target.classList.add('btn-skill-gray');
+            player.addTornadoSkill();
+            closePop();
+        });
+        document.querySelector('.btn-skill2').addEventListener('click', (e) => {
+            if (hadSkill('2')) {
+                return;
+            }
+            skillList.push('2');
+            e.target.classList.add('btn-skill-gray');
+            player.stopKnife = false;
+            closePop();
+        });
+        document.querySelector('.btn-skill3').addEventListener('click', (e) => {
+            if (hadSkill('3')) {
+                return;
+            }
+            skillList.push('3');
+            e.target.classList.add('btn-skill-gray');
+            player.pet.visible = true;
+            player.stopPetFire = false;
+            closePop();
+        });
+        document.querySelector('.btn-reward').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
+
+    function hadSkill(skill) {
+        return skillList.includes(skill);
+    }
+
+    function closePop() {
+        document.querySelector('.pop').style.display = 'none';
+        startGame();
+    }
+
+    function showSkillPop() {
+        document.querySelector('.skill-pop').style.display = 'flex';
+    }
+
+    function showAwardPop() {
+        document.querySelector('.award-pop').style.display = 'block';
     }
 }
