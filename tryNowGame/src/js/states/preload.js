@@ -10,13 +10,11 @@ var preloadState = function () {
         });
         game.load.image(keyMap.startBgImg, './assets/images/bg.jpg');
         game.load.image(keyMap.playerBullet1, './assets/images/arrow.png');
-        game.load.image(keyMap.popBgImg, './assets/images/bg_pop.png');
-        game.load.image(keyMap.btnClose, './assets/images/btn_close.png');
         game.load.image(keyMap.topTimeBg, './assets/images/top_time.png');
         game.load.image(keyMap.collide, './assets/images/collide.png');
         game.load.spritesheet(keyMap.gun, './assets/images/arrow.png');
         game.load.spritesheet(keyMap.pet, './assets/images/pet.png', 131, 151, 2);
-        game.load.spritesheet(keyMap.enemy, './assets/images/enemy1.png', 48, 61, 4);
+        game.load.spritesheet(keyMap.enemy, './assets/images/enemy.png', 48, 61, 4);
         // game.load.spritesheet(keyMap.fireBall, './assets/images/fire_ball.png', 512, 350, 5);
         game.load.spritesheet(keyMap.fireBall, './assets/images/fire_ball1.png', 856, 733, 4);
         game.load.spritesheet(keyMap.knife, './assets/images/knife.png', 145, 144, 6);
@@ -28,7 +26,6 @@ var preloadState = function () {
 
     this.create = function () {
         game.state.start('gameStartState');
-
     }
 
     function onLoading(progress) {
