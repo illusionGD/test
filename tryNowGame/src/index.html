@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Tale of Elements: Idle Game is a new fantasy RPG with unpredictable adventure. You will play as a new adventurer whose homeland had been destroyed by the orcs. Accompanied by hundreds of heroes with different elements and specific skills, you will fight against fantasy monsters and break into schemes to change the world..">
-    <meta name="keywords" content="offline 
+    <meta name="keywords" content="offline
     shooting 
     puzzle rpg 
     pixel 
@@ -28,13 +28,20 @@
     fantasy
     adventure
     dragon">
-    <title>Tale of Elements: Idle Game</title>
+    <title>Tale of Elements: Idle RPG</title>
     <link rel="stylesheet" href="./assets/css/index.css">
+    <script src="https://restn-download.movergames.com/res_tn/util/common/js/ua-parser.min.js"></script>
+    <script src="./libs/ga.prod.js"></script>
+    <script>
+        tracker.init({
+            gaId: 'UA-244942170-2',
+            gameCode: 'eaysfj',
+            activityCode: 'tryNowGame'
+        })
+    </script>
     <script src="./libs/phaser.2.3.1.virtual-joystick.min.js"></script>
-    <script src="./libs/phaser-spine.min.js"></script>
-    <!-- <script src="./libs/phaser.min.js"></script> -->
     <script src="./js/rem.js"></script>
-    <script src="./js/utils.js"></script>
+    <script src="./js/dist/utils.prod.js?v=1.1"></script>
 </head>
 
 <body>
@@ -49,16 +56,167 @@
         <div class="pop award-pop">
             <div class="pop-content bg-contain">
                 <div class="award-txt"><span class="code">GIFT 666</span></div>
-                <a class="btn-reward bg-contain"></a>
+                <a class="btn-reward bg-contain"
+                    href="https://event.efunsa.com/ads_download.shtml?advertiser=efunactivity1&gameCode=eaysfj"
+                    target="_blank"></a>
             </div>
+        </div>
+        <div class="pop options-pop flex-center">
+            <div class="pop-content bg-contain">
+                <p>基本設置:</p>
+                <ul class="base-options">
+                    <li>
+                        游戏时长(s)：<input id="timeCount" type="text" value="30">
+                    </li>
+                    <li>
+                        获取技能1所需击杀的怪物数量：<input id="point0" type="text" value="3">
+                    </li>
+                    <li>
+                        获取技能2所需击杀的怪物数量：<input id="point1" type="text" value="3">
+                    </li>
+                    <li>
+                        获取技能3所需击杀的怪物数量：<input id="point2" type="text" value="3">
+                    </li>
+                    <li>
+                        控制器Y轴距离：<input id="stickY" type="text" value="2.5">
+                    </li>
+                </ul>
+                <p>角色設置:</p>
+                <ul class="role-options">
+                    <li>
+                        角色移动速度：<input id="moveSpeed" type="text" value="200">
+                    </li>
+                    <li>
+                        角色生命值：<input id="life" type="text" value="10">
+                    </li>
+                    <li>
+                        角色缩放大小：<input id="roleScale" type="text" value="0.7">
+                    </li>
+                    <li>
+                        角色动画时间间隔(ms)：<input id="scaleAnTime" type="text" value="400">
+                    </li>
+                    <li>
+                        弓箭移动速度：<input id="bulletSpeed" type="text" value="700">
+                    </li>
+                    <li>
+                        弓箭生成间隔(ms)：<input id="bulletDis" type="text" value="500">
+                    </li>
+                </ul>
+                <p>龙卷风技能:</p>
+                <ul class="tornado-options">
+                    <li>
+                        龙卷风数量：<input id="tornadosCount" type="text" value="6">
+                    </li>
+                    <li>
+                        龙卷风缩放大小：<input id="tornadoScale" type="text" value="0.3">
+                    </li>
+                    <li>
+                        龙卷风旋转速度：<input id="tornadosRotationSpeed" type="text" value="0.04">
+                    </li>
+                </ul>
+                <p>火球技能:</p>
+                <ul class="fire-options">
+                    <li>
+                        火球一次所生成数量：<input id="petFireCount" type="text" value="5">
+                    </li>
+                    <li>
+                        火球移动速度：<input id="petFireSpeed" type="text" value="500">
+                    </li>
+                    <li>
+                        火球生成间隔时间(ms)：<input id="petFireCreateDis" type="text" value="100">
+                    </li>
+                    <li>
+                        火球缩放大小：<input id="fireScale" type="text" value="0.2">
+                    </li>
+                </ul>
+                <p>飞刀技能:</p>
+                <ul class="knife-options">
+                    <li>
+                        飞刀生成数量：<input id="knifeCount" type="text" value="6">
+                    </li>
+                    <li>
+                        飞刀移动速度：<input id="knifeSpeed" type="text" value="500">
+                    </li>
+                    <li>
+                        飞刀生成间隔时间(ms)：<input id="knifeCreateDis" type="text" value="300">
+                    </li>
+                    <li>
+                        飞刀缩放大小：<input id="knifeScale" type="text" value="0.2">
+                    </li>
+                </ul>
+                <p>敌人设置:</p>
+                <ul class="enemy-options">
+                    <li>
+                        敌人移动速度：<input id="enemyMoveSpeed" type="text" value="100">
+                    </li>
+                    <li>
+                        敌人一次所生成的数量：<input id="enemyCreateNum" type="text" value="1">
+                    </li>
+                    <li>
+                        敌人生成时间间隔(ms)：<input id="enemyCreateDis" type="text" value="800">
+                    </li>
+                    <li>
+                        敌人最大生成数量：<input id="enemyMaxCount" type="text" value="80">
+                    </li>
+                    <li>
+                        敌人生命值：<input id="enemyLife" type="text" value="1">
+                    </li>
+                    <li>
+                        敌人生成距离：<input id="createScope" type="text" value="2">
+                    </li>
+                    <li>
+                        敌人受击时间(ms)：<input id="juryTime" type="text" value="500">
+                    </li>
+                    <li>
+                        敌人死亡时间(ms)：<input id="deadTime" type="text" value="200">
+                    </li>
+                    <li>
+                        敌人后移距离：<input id="deadDis" type="text" value="4">
+                    </li>
+                </ul>
+                <p>二阶段敌人设置(20s后):</p>
+                <ul class="enemy2-options">
+                    <li>
+                        敌人移动速度：<input id="enemyMoveSpeed2" type="text" value="100">
+                    </li>
+                    <li>
+                        敌人一次所生成的数量：<input id="enemyCreateNum2" type="text" value="1">
+                    </li>
+                    <li>
+                        敌人生成时间间隔(ms)：<input id="enemyCreateDis2" type="text" value="800">
+                    </li>
+                    <li>
+                        敌人生命值：<input id="enemyLife2" type="text" value="1">
+                    </li>
+                </ul>
+                <p>三阶段敌人设置(10s后):</p>
+                <ul class="enemy3-options">
+                    <li>
+                        敌人移动速度：<input id="enemyMoveSpeed3" type="text" value="100">
+                    </li>
+                    <li>
+                        敌人一次所生成的数量：<input id="enemyCreateNum3" type="text" value="1">
+                    </li>
+                    <li>
+                        敌人生成时间间隔(ms)：<input id="enemyCreateDis3" type="text" value="800">
+                    </li>
+                    <li>
+                        敌人生命值：<input id="enemyLife3" type="text" value="1">
+                    </li>
+                </ul>
+            </div>
+            <button class="config-confirm">确定</button>
+        </div>
+        <div class="btns">
+            <button class="btn-start">开始游戏</button>
+            <button class="btn-config">设置</button>
         </div>
         <div id="game" class="game"></div>
     </div>
-    <script src="./js/gameObjects/player.js"></script>
-    <script src="./js/gameObjects/enemy.js"></script>
-    <script src="./js/states/preload.js"></script>
-    <script src="./js/states/start.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/dist/player.prod.js"></script>
+    <script src="./js/dist/enemy.prod.js"></script>
+    <script src="./js/dist/play.prod.js"></script>
+    <script src="./js/dist/index.prod.js?v=1.1"></script>
 </body>
 
 </html>

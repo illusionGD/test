@@ -1,12 +1,16 @@
 class Player {
     constructor() {
+        const roleConfig = getConfig('roleConfig');
+        const tornadoConfig = getConfig('tornadoConfig');
+        const fireConfig = getConfig('fireConfig');
+        const knifeConfig = getConfig('knifeConfig');
         this.config = {
             moveSpeed: 200,
+            scaleAnTime: 400,
             bulletDis: 500,
             bulletSpeed: 700,
             tornadosRotationSpeed: 0.04,
             tornadosCount: 6,
-            checkScope: 100,
             petFireSpeed: 500,
             petFireDis: 100,
             petFireCount: 5,
@@ -14,8 +18,17 @@ class Player {
             knifeCount: 6,
             knifeCreateDis: 300,
             knifeSpeed: 500,
-            curvature: 0.1
+            roleScale: 0.7,
+            tornadoScale: 0.3,
+            fireScale: 0.2,
+            knifeScale: 0.2,
+            stickY: 2.5,
+            ...roleConfig,
+            ...tornadoConfig,
+            ...fireConfig,
+            ...knifeConfig
         }
+
         this.isDead = false;
         this.maxLife = 10;
         this.life = 10;
@@ -46,10 +59,9 @@ class Player {
      */
     initPlayer() {
         this.player = game.add.sprite(game.world.centerX, game.world.centerY, keyMap.player);
-        // this.player.scale.set(scaleAdaptation(rem2px(40)), scaleAdaptation(rem2px(40)))
         game.physics.arcade.enable(this.player, Phaser.Physics.ARCADE);
         this.player.body.setSize(this.player.width, this.player.height);
-        this.player.scale.set(0.7, 0.7);
+        this.player.scale.set(this.config.roleScale, this.config.roleScale);
 
         // 设置角色与边界的碰撞
         this.player.body.immovable = true;
@@ -63,7 +75,7 @@ class Player {
         const tween = game.add.tween(this.player).to({
             height: this.player.height / 1.2,
             width: this.player.width * 1.2
-        }, 200, Phaser.Easing.Sinusoidal.Out, true);
+        }, this.config.scaleAnTime, Phaser.Easing.Sinusoidal.Out, true);
         tween.yoyo(true);
         tween.repeat();
 
@@ -88,6 +100,11 @@ class Player {
         // 龙卷风组
         this.tornados = game.add.group();
         this.tornados.enableBody = true;
+        // 初始化音效
+        // this.audioArrow = game.add.audio(keyMap.audioArrow, 1);
+        this.audioKnife = game.add.audio(keyMap.audioKnife, 1);
+        this.audioFire = game.add.audio(keyMap.audioFire, 1);
+        this.audioTornado = game.add.audio(keyMap.audioTornado, 1);
 
         this.isDead = false;
     }
@@ -97,8 +114,8 @@ class Player {
      */
     initVirtualJoystick() {
         this.pad = game.plugins.add(Phaser.VirtualJoystick);
-        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + rem2px(3), 200, keyMap.joystick);
-        this.stick.scale = scaleAdaptation(247);
+        this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + rem2px(this.config.stickY), 200, keyMap.joystick);
+        this.stick.scale = scaleAdaptation(rem2px(4));
     }
 
     /**
@@ -172,6 +189,7 @@ class Player {
                 bullet.vector = computeVector(target.position.x, target.position.y, bullet.position.x, bullet.position.y);
                 bullet.rotation = computeRotation(target.position.x, target.position.y, bullet.position.x, bullet.position.y) + Math.PI;
             }
+            // this.audioArrow.play();
             this.fireTime = new Date().getTime();
         }
 
@@ -218,7 +236,7 @@ class Player {
             const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
             const pointX = this.player.x + Math.sin(angle * i) * l;
             const pointY = this.player.y + Math.cos(angle * i) * l;
-            tornado.scale.set(0.3, 0.3);
+            tornado.scale.set(this.config.tornadoScale, this.config.tornadoScale);
             tornado.anchor.set(0.5, 0.5);
             tornado.animations.add('rotation', null, 25, true);
             tornado.animations.play('rotation');
@@ -230,7 +248,7 @@ class Player {
             }, 1000, Phaser.Easing.Sinusoidal.Out, true);
 
         }
-
+        this.audioTornado.play();
     }
 
     tornadosRotate() {
@@ -287,12 +305,18 @@ class Player {
                 fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
                 fireBall.animations.add('mover', [0, 1, 2, 3, 4], 25, true)
                 fireBall.animations.play('mover');
-                fireBall.scale.set(0.3, 0.3);
+                fireBall.scale.set(this.config.fireScale, this.config.fireScale);
                 fireBall.anchor.set(0.5, 0.5)
-                fireBall.body.setSize(fireBall.width, fireBall.height);
+                fireBall.body.setSize(fireBall.width - 100, fireBall.height - 30);
             }
-            fireBall.reset(this.pet.world.x + this.pet.width / 2, this.pet.world.y + this.pet.height / 2);
-            fireBall.anchor.set(0.5, 0.5);
+            let x = this.pet.world.x + this.pet.width / 2;
+            let y = this.pet.world.y + this.pet.height / 2;
+            if (this.pet.world.x == Math.abs(game.camera.world.x)) {
+                x = this.player.world.x - this.player.width / 2 - 10;
+                y = this.player.world.y - this.player.height / 2 - 10;
+            }
+
+            fireBall.reset(x, y);
 
             fireBall.vector = {
                 angle,
@@ -300,7 +324,6 @@ class Player {
                 y: Math.cos(angle) * 1
             }
             this.petFireTime = new Date().getTime();
-
 
             if (angle == 0) {
                 fireBall.rotation = Math.PI / 2;
@@ -317,6 +340,8 @@ class Player {
             } else {
                 fireBall.direction = 'left'
             }
+            this.audioFire.play();
+
             this.petFireCount += 1;
             if (this.petFireCount >= this.config.petFireCount) {
                 this.isPetFire = false;
@@ -340,7 +365,7 @@ class Player {
                 if (!knife) {
                     knife = this.KnifeGroup.create(this.player.x, this.player.y, keyMap.knife);
                     // knife.setAnimationByName(0, keyMap.knifeRotation, true);
-                    knife.scale.set(0.2, 0.2);
+                    knife.scale.set(this.config.knifeScale, this.config.knifeScale);
                     knife.animations.add('rotation', [0, 1, 2, 3, 4], 45, true);
                     knife.animations.play('rotation');
                     knife.body.setSize(knife.width, knife.height)
@@ -352,15 +377,13 @@ class Player {
                     knife.outOfBoundsKill = true;
                 }
                 knife.reset(this.player.x, this.player.y);
-                // console.log(justQuadrant(this.stick.rotation));
-                // const quadrant = justQuadrant(this.stick.rotation);
+
                 var angle = rotation * i;
-                // if (quadrant === 1) {
-                //     angle = rotation * i + this.stick.rotation
-                // }
+
                 knife.body.velocity.x = Math.sin(angle + this.stick.rotation) * this.config.knifeSpeed
                 knife.body.velocity.y = Math.cos(angle + this.stick.rotation - Math.PI) * this.config.knifeSpeed
             }
+            this.audioKnife.play();
             this.knifeCreateTime = new Date().getTime();
         }
     }
