@@ -60,16 +60,16 @@ const devConfig = {}
  * @description: 生产环境配置对象
  */
 const prodConfig = {
-  build: {
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        //生产环境时移除console
-        drop_console: true,
-        drop_debugger: true
-      },
-    },
-  }
+  // build: {
+  //   minify: 'terser',
+  //   terserOptions: {
+  //     compress: {
+  //       //生产环境时移除console
+  //       drop_console: true,
+  //       drop_debugger: true
+  //     },
+  //   },
+  // }
 }
 
 export default defineConfig(({ command, mode, ssrBuild }) => {

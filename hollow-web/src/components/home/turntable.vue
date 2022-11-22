@@ -4,8 +4,8 @@
             ref="turntableMain"
             :class="{ 'rotation-infinite': rotating }"
             :style="{
-                width: radius * 2 + 'px',
-                height: radius * 2 + 'px',
+                width: pxToRemUnit(radius * 2),
+                height: pxToRemUnit(radius * 2),
                 'animation-duration': speed + 's',
             }"
         >
@@ -19,10 +19,10 @@
                 v-for="(item, index) in list"
                 :key="index"
                 :style="{
-                    width: itemRadius * 2 + 'px',
-                    height: itemRadius * 2 + 'px',
-                    left: item.x + 'px',
-                    top: item.y + 'px',
+                    width: pxToRemUnit(itemRadius * 2),
+                    height: pxToRemUnit(itemRadius * 2),
+                    left: pxToRemUnit(item.x),
+                    top: pxToRemUnit(item.y),
                     'animation-duration': speed + 's',
                 }"
                 @mouseenter="stopRotate(index)"
@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { computed, PropType, ref } from "@vue/runtime-core";
-import { getDomRotateDeg } from "@/utils";
+import { getDomRotateDeg, pxToRemUnit } from "@/utils";
 import { useRouter } from "vue-router";
 import { turntable_type } from "@/interfaces/home.interface";
 const props = defineProps({
