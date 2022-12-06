@@ -23,7 +23,7 @@ var gamePlayState = function () {
         timeCount = baseConfig.timeCount;
         point = [baseConfig.point0, baseConfig.point1, baseConfig.point2];
 
-        game.add.tileSprite(0, 0, bgSize, bgSize, keyMap.startBgImg);
+        const map = game.add.tileSprite(0, 0, bgSize, bgSize, keyMap.startBgImg);
         // 设置物理引擎
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -37,7 +37,7 @@ var gamePlayState = function () {
         }, this);
 
         // 创建角色
-        player = new Player();
+        player = new Player(map.width / 2, map.height / 2);
         game.camera.follow(player.player);
         game.world.setBounds(0, 0, bgSize, bgSize);
 
@@ -100,9 +100,10 @@ var gamePlayState = function () {
         // 宠物攻击
         player.petFire();
         // 龙卷风旋转
-        player.tornadosRotate();
+        // player.tornadosRotate();
         // 敌人移动
         enemies.move(player.player.x, player.player.y);
+        player.axRotate();
 
         // 创建敌人
         enemies.createEnemy(player.player.x, player.player.y);
@@ -110,9 +111,13 @@ var gamePlayState = function () {
         // 碰撞检测
         game.physics.arcade.overlap(enemies.enemyGroup, player.bullets, bulletHitEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.player, playerHitEnemy, null, this);
-        game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, killEnemy, null, this);
+        // game.physics.arcade.overlap(enemies.enemyGroup, player.tornados, killEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.pet.fireGroup, killEnemy, null, this);
         game.physics.arcade.overlap(enemies.enemyGroup, player.KnifeGroup, killEnemy, null, this);
+        game.physics.arcade.overlap(enemies.enemyGroup, player.ax, function (a, e) {
+            killEnemy(e)
+            // console.log(e);
+        }, null, this);
     }
 
     this.render = function () {
@@ -133,6 +138,7 @@ var gamePlayState = function () {
         // enemies.enemyGroup.forEachAlive(item => {
         //     game.debug.body(item)
         // })
+        // game.debug.body(player.ax)
     }
 
     function bulletHitEnemy(enemy, bullet) {
@@ -149,7 +155,7 @@ var gamePlayState = function () {
 
     function killEnemy(enemy) {
         if (!hitAudioStop) {
-            audioHitEnemy.play();
+            audioHitEnemy.play('', 0.1);
             hitAudioStop = true;
         }
         enemy.life -= 1;
@@ -182,7 +188,7 @@ var gamePlayState = function () {
             isGameEnd = true;
             return;
         }
-        if (timeCount % 5 == 0) {
+        if (timeCount <= 30 && timeCount % 5 == 0) {
             trackGA(`坚持到${timeCount}秒`, '存活');
         }
         const number = game.time.totalElapsedSeconds().toFixed(0);
@@ -222,8 +228,11 @@ var gamePlayState = function () {
      */
     function gameEnd() {
         if (player.life > 0) {
+            game.add.audio(keyMap.audioSuccess, 1).play();
             trackGA('坚持到0秒', '在线');
         } else {
+            game.add.audio(keyMap.audioFail, 1).play();
+
             trackGA('血量归0', '断线');
         }
         isGameEnd = true;
@@ -261,7 +270,8 @@ var gamePlayState = function () {
             }
             skillList.push('1');
             e.target.classList.add('btn-skill-gray');
-            player.addTornadoSkill();
+            player.stopAx = false;
+            player.axLastTime = new Date().getTime();
             closePop();
         });
         document.querySelector('.btn-skill2').addEventListener('click', (e) => {
@@ -299,6 +309,7 @@ var gamePlayState = function () {
     }
 
     function showSkillPop() {
+        document.querySelector('.skill-audio').play();
         document.querySelector('.skill-pop').style.display = 'flex';
     }
 

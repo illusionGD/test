@@ -37,7 +37,7 @@ ul, li {
         // width: 5.18rem;
         padding-top: 0.3rem;
         height: 6.77rem;
-        background-image: url("../images/skill_txt.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/skill_txt.png");
         animation: scale 0.5s;
     }
     .btn-skill {
@@ -52,14 +52,14 @@ ul, li {
         filter: grayscale(1);
     }
     .btn-skill1 {
-        background-image: url("../images//btn_skill1.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill1.png?v=1.0");
     }
     .btn-skill2 {
         margin: 0 0.1rem;
-        background-image: url("../images//btn_skill2.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill2.png?v=1.1");
     }
     .btn-skill3 {
-        background-image: url("../images//btn_skill3.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill3.png");
     }
 }
 .award-pop {
@@ -68,7 +68,7 @@ ul, li {
         bottom: 0;
         width: 6.82rem;
         height: 11.94rem;
-        background-image: url("../images/bg_award.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/bg_award.png");
     }
     .award-txt {
         margin-top: 0.5rem;
@@ -82,19 +82,21 @@ ul, li {
         background: linear-gradient(to bottom, red, #b12313);
         -webkit-background-clip: text;
         color: transparent;
+        font-weight: 900;
+        font-size: 0.5rem;
     }
     .btn-reward {
         position: absolute;
         top: 4.7rem;
-        left: 57%;
+        left: calc(50% - 1.15rem);
         width: 3.07rem;
         height: 0.88rem;
-        background-image: url("../images/btn_reward.png");
+        background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/btn_reward.png");
         cursor: pointer;
-        transform: translateX(-50%);
-        &:hover {
-            transform: translateX(-50%) scale(1.1);
-        }
+        animation: shake 0.2s infinite;
+        // &:hover {
+        //     transform: translateX(-50%) scale(1.1);
+        // }
     }
 }
 .options-pop {
@@ -128,5 +130,16 @@ ul, li {
     }
     to {
         transform: scale(1);
+    }
+}
+@keyframes shake {
+    25% {
+        transform: rotate(3deg);
+    }
+    75% {
+        transform: rotate(-3deg);
+    }
+    50%, 100% {
+        transform: rotate(0);
     }
 }

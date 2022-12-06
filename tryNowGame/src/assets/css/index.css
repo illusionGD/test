@@ -41,7 +41,7 @@ ul, li {
 .skill-pop .pop-content {
   padding-top: 0.3rem;
   height: 6.77rem;
-  background-image: url("../images/skill_txt.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/skill_txt.png");
   animation: scale 0.5s;
 }
 .skill-pop .btn-skill {
@@ -56,14 +56,14 @@ ul, li {
   filter: grayscale(1);
 }
 .skill-pop .btn-skill1 {
-  background-image: url("../images//btn_skill1.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill1.png?v=1.0");
 }
 .skill-pop .btn-skill2 {
   margin: 0 0.1rem;
-  background-image: url("../images//btn_skill2.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill2.png?v=1.1");
 }
 .skill-pop .btn-skill3 {
-  background-image: url("../images//btn_skill3.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images//btn_skill3.png");
 }
 
 .award-pop .pop-content {
@@ -71,7 +71,7 @@ ul, li {
   bottom: 0;
   width: 6.82rem;
   height: 11.94rem;
-  background-image: url("../images/bg_award.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/bg_award.png");
 }
 .award-pop .award-txt {
   margin-top: 0.5rem;
@@ -85,19 +85,18 @@ ul, li {
   background: linear-gradient(to bottom, red, #b12313);
   -webkit-background-clip: text;
   color: transparent;
+  font-weight: 900;
+  font-size: 0.5rem;
 }
 .award-pop .btn-reward {
   position: absolute;
   top: 4.7rem;
-  left: 57%;
+  left: calc(50% - 1.15rem);
   width: 3.07rem;
   height: 0.88rem;
-  background-image: url("../images/btn_reward.png");
+  background-image: url("https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/images/btn_reward.png");
   cursor: pointer;
-  transform: translateX(-50%);
-}
-.award-pop .btn-reward:hover {
-  transform: translateX(-50%) scale(1.1);
+  animation: shake 0.2s infinite;
 }
 
 .options-pop {
@@ -133,5 +132,16 @@ ul, li {
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes shake {
+  25% {
+    transform: rotate(3deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  50%, 100% {
+    transform: rotate(0);
   }
 }

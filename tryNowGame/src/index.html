@@ -29,9 +29,9 @@
     adventure
     dragon">
     <title>Tale of Elements: Idle RPG</title>
-    <link rel="stylesheet" href="./assets/css/index.css">
-    <script src="https://restn-download.movergames.com/res_tn/util/common/js/ua-parser.min.js"></script>
-    <script src="./libs/ga.prod.js"></script>
+    <link rel="stylesheet" href="./assets/css/index.css?v=1.2">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script src="https://restn-download.movergames.com/res_tn/util/common/js/ga-v1.1.0.prod.js"></script>
     <script>
         tracker.init({
             gaId: 'UA-244942170-2',
@@ -41,11 +41,12 @@
     </script>
     <script src="./libs/phaser.2.3.1.virtual-joystick.min.js"></script>
     <script src="./js/rem.js"></script>
-    <script src="./js/dist/utils.prod.js?v=1.1"></script>
+    <script src="./js/dist/utils.prod.js?v=1.4"></script>
 </head>
 
 <body>
     <div id="main">
+        <audio class="skill-audio" currentTime="0.2" src="https://ressa-download.vsplay.com/eaysfj/tryNowGame/assets/audio/audio_select.mp3"></audio>
         <div class="pop skill-pop flex-center">
             <div class="pop-content bg-contain flex-center">
                 <div class="btn-skill btn-skill1 bg-contain"></div>
@@ -55,10 +56,8 @@
         </div>
         <div class="pop award-pop">
             <div class="pop-content bg-contain">
-                <div class="award-txt"><span class="code">GIFT 666</span></div>
                 <a class="btn-reward bg-contain"
-                    href="https://event.efunsa.com/ads_download.shtml?advertiser=efunactivity1&gameCode=eaysfj"
-                    target="_blank"></a>
+                    href="https://app.adjust.com/pxud8x1"></a>
             </div>
         </div>
         <div class="pop options-pop flex-center">
@@ -102,8 +101,8 @@
                         弓箭生成间隔(ms)：<input id="bulletDis" type="text" value="500">
                     </li>
                 </ul>
-                <p>龙卷风技能:</p>
-                <ul class="tornado-options">
+                <p style="display: none;">龙卷风技能:</p>
+                <ul class="tornado-options" style="display: none;">
                     <li>
                         龙卷风数量：<input id="tornadosCount" type="text" value="6">
                     </li>
@@ -112,6 +111,21 @@
                     </li>
                     <li>
                         龙卷风旋转速度：<input id="tornadosRotationSpeed" type="text" value="0.04">
+                    </li>
+                </ul>
+                <p>斧头技能:</p>
+                <ul class="ax-options">
+                    <li>
+                        斧头旋转速度：<input id="axRotateSpeed" type="text" value="0.4">
+                    </li>
+                    <li>
+                        斧头时间间隔(ms)：<input id="axTimeDis" type="text" value="500">
+                    </li>
+                    <li>
+                        斧头持续时间(ms)：<input id="axContinuedTime" type="text" value="1000">
+                    </li>
+                    <li>
+                        斧头缩放大小：<input id="axScale" type="text" value="0.2">
                     </li>
                 </ul>
                 <p>火球技能:</p>
@@ -213,10 +227,10 @@
         </div>
         <div id="game" class="game"></div>
     </div>
-    <script src="./js/dist/player.prod.js"></script>
-    <script src="./js/dist/enemy.prod.js"></script>
-    <script src="./js/dist/play.prod.js"></script>
-    <script src="./js/dist/index.prod.js?v=1.1"></script>
+    <script src="./js/dist/player.prod.js?v=1.2"></script>
+    <script src="./js/dist/enemy.prod.js?v=1.1"></script>
+    <script src="./js/dist/play.prod.js?v=1.3"></script>
+    <script src="./js/dist/index.prod.js?v=1.6"></script>
 </body>
 
 </html>
