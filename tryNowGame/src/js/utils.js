@@ -64,34 +64,34 @@ function justQuadrant(r) {
 }
 
 function getConfig(type) {
-    const localConfig = getLocalStorage(type) || {};
+    // const localConfig = getLocalStorage(type) || {};
+    const localConfig = {};
 
     if (type === 'baseConfig') {
         return {
-            point0: 3,
-            point1: 3,
-            point2: 3,
-            timeCount: 30,
+            point0: 30,
+            point1: 200,
+            point2: 300,
             stickY: 2.5,
+            timeCount: 30,
             ...localConfig
         }
     } else if (type === 'roleConfig') {
         return {
-            moveSpeed: 200,
-            bulletDis: 500,
-            bulletSpeed: 700,
-            life: 10,
+            bulletDis: 300,
+            bulletSpeed: 500,
+            life: 30,
+            moveSpeed: 260,
             roleScale: 0.7,
-            scaleAnTime: 400,
+            scaleAnTime: 500,
             ...localConfig
         }
     } else if (type === 'fireConfig') {
         return {
-            petFireSpeed: 500,
-            petFireDis: 100,
-            petFireCount: 5,
-            petFireCreateDis: 1000,
             fireScale: 0.2,
+            petFireCount: 5,
+            petFireCreateDis: 250,
+            petFireSpeed: 320,
             ...localConfig
         }
     } else if (type === 'tornadoConfig') {
@@ -105,47 +105,53 @@ function getConfig(type) {
         return {
             knifeCount: 6,
             knifeCreateDis: 300,
-            knifeSpeed: 500,
             knifeScale: 0.2,
+            knifeSpeed: 280,
+
+            ...localConfig
+        }
+    } else if (type === 'axConfig') {
+        return {
+            axContinuedTime: 200,
+            axRotateSpeed: 0.5,
+            axScale: 0.15,
+            axTimeDis: 200,
             ...localConfig
         }
     } else if (type === 'enemyConfig') {
         return {
-            moveSpeed: 100,
-            createDis: 800,
-            createNum: 1,
-            maxCount: 80,
+            createDis: 700,
+            createNum: 10,
+            createScope: 1.5,
+            deadDis: 3,
+            deadTime: 100,
+            juryTime: 100,
             life: 1,
-            juryTime: 500,
-            deadTime: 200,
-            deadDis: 4,
-            createScope: 2,
+            maxCount: 250,
+            moveSpeed: 60,
             ...localConfig
         }
     } else if (type === 'enemyConfig2') {
         return {
-            moveSpeed: 150,
-            createDis: 800,
-            createNum: 5,
+            createDis: 400,
+            createNum: 15,
+            life: 2,
             maxCount: 80,
-            life: 1,
+            moveSpeed: 120,
             ...localConfig
         }
     } else if (type === 'enemyConfig3') {
         return {
-            moveSpeed: 300,
-            createDis: 800,
-            createNum: 10,
+            createDis: 600,
+            createNum: 15,
             maxCount: 80,
-            life: 2,
+            life: 10,
+            moveSpeed: 150,
             ...localConfig
         }
     } else {
         return localConfig
     }
-    if (!localConfig) {}
-
-    return localConfig;
 }
 
 function getLocalStorage(key) {

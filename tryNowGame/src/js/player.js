@@ -1,9 +1,10 @@
 class Player {
-    constructor() {
+    constructor(x, y) {
         const roleConfig = getConfig('roleConfig');
         const tornadoConfig = getConfig('tornadoConfig');
         const fireConfig = getConfig('fireConfig');
         const knifeConfig = getConfig('knifeConfig');
+        const axConfig = getConfig('axConfig');
         this.config = {
             moveSpeed: 200,
             scaleAnTime: 400,
@@ -23,42 +24,52 @@ class Player {
             fireScale: 0.2,
             knifeScale: 0.2,
             stickY: 2.5,
+            axRotateSpeed: 0.3,
+            axTimeDis: 500,
+            axContinuedTime: 3000,
+            axScale: 0.2,
             ...roleConfig,
             ...tornadoConfig,
             ...fireConfig,
-            ...knifeConfig
+            ...knifeConfig,
+            ...axConfig
         }
 
         this.isDead = false;
-        this.maxLife = 10;
-        this.life = 10;
+        this.maxLife = this.config.life;
+        this.life = this.config.life;
         this.fireTime = new Date().getTime();
         this.petFireTime = new Date().getTime();
         this.petFireCreateTime = new Date().getTime();
         this.knifeCreateTime = new Date().getTime();
+        this.axTime = new Date().getTime();
+        this.axLastTime = new Date().getTime();
         this.isPetFire = true;
 
         this.stopTornado = true;
         this.stopKnife = true;
         this.stopPetFire = true;
+        this.stopAx = true;
+
+        this.audioAxStop = true;
         // 记录火球当前连续发射到第几个
         this.petFireCount = 0;
-        this.init()
+        this.init(x, y);
     }
 
-    init() {
+    init(x, y) {
         // 初始化角色对象
-        this.initPlayer()
+        this.initPlayer(x, y);
 
         // 初始化虚拟摇杆
-        this.initVirtualJoystick()
+        this.initVirtualJoystick();
     }
 
     /**
      * @description: 初始化角色
      */
-    initPlayer() {
-        this.player = game.add.sprite(game.world.centerX, game.world.centerY, keyMap.player);
+    initPlayer(x, y) {
+        this.player = game.add.sprite(x, y, keyMap.player);
         game.physics.arcade.enable(this.player, Phaser.Physics.ARCADE);
         this.player.body.setSize(this.player.width, this.player.height);
         this.player.scale.set(this.config.roleScale, this.config.roleScale);
@@ -66,6 +77,7 @@ class Player {
         // 设置角色与边界的碰撞
         this.player.body.immovable = true;
         this.player.body.collideWorldBounds = true;
+
         this.addPet();
         this.pet.visible = false;
 
@@ -98,13 +110,21 @@ class Player {
         this.KnifeGroup.enableBody = true;
 
         // 龙卷风组
-        this.tornados = game.add.group();
-        this.tornados.enableBody = true;
+        // this.tornados = game.add.group();
+        // this.tornados.enableBody = true;
         // 初始化音效
         // this.audioArrow = game.add.audio(keyMap.audioArrow, 1);
         this.audioKnife = game.add.audio(keyMap.audioKnife, 1);
         this.audioFire = game.add.audio(keyMap.audioFire, 1);
-        this.audioTornado = game.add.audio(keyMap.audioTornado, 1);
+        this.audioAx = game.add.audio(keyMap.audioAx, 1);
+        const ax = game.add.sprite(this.player.x, this.player.y, keyMap.ax);
+
+        this.ax = ax;
+        game.physics.arcade.enableBody(this.ax);
+        this.ax.visible = false;
+        this.ax.body.setSize(this.ax.width - rem2px(2), this.ax.height - rem2px(2));
+        ax.anchor.set(0.5, 0.5);
+        ax.scale.set(this.config.axScale, this.config.axScale);
 
         this.isDead = false;
     }
@@ -115,7 +135,7 @@ class Player {
     initVirtualJoystick() {
         this.pad = game.plugins.add(Phaser.VirtualJoystick);
         this.stick = this.pad.addStick(game.world.centerX, game.world.centerY + rem2px(this.config.stickY), 200, keyMap.joystick);
-        this.stick.scale = scaleAdaptation(rem2px(4));
+        this.stick.scale = scaleAdaptation(rem2px(6));
     }
 
     /**
@@ -225,46 +245,46 @@ class Player {
         this.drawBlood(len);
     }
 
-    addTornadoSkill() {
-        this.stopTornado = false;
-        this.tornados.pivot.x = this.player.x;
-        this.tornados.pivot.y = this.player.y;
-        const angle = (2 * Math.PI) / this.config.tornadosCount;
-        const l = rem2px(2);
+    // addTornadoSkill() {
+    //     this.stopTornado = false;
+    //     this.tornados.pivot.x = this.player.x;
+    //     this.tornados.pivot.y = this.player.y;
+    //     const angle = (2 * Math.PI) / this.config.tornadosCount;
+    //     const l = rem2px(2);
 
-        for (let i = 0; i < this.config.tornadosCount; i++) {
-            const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
-            const pointX = this.player.x + Math.sin(angle * i) * l;
-            const pointY = this.player.y + Math.cos(angle * i) * l;
-            tornado.scale.set(this.config.tornadoScale, this.config.tornadoScale);
-            tornado.anchor.set(0.5, 0.5);
-            tornado.animations.add('rotation', null, 25, true);
-            tornado.animations.play('rotation');
+    //     for (let i = 0; i < this.config.tornadosCount; i++) {
+    //         const tornado = this.tornados.create(this.player.x, this.player.y, keyMap.tornado);
+    //         const pointX = this.player.x + Math.sin(angle * i) * l;
+    //         const pointY = this.player.y + Math.cos(angle * i) * l;
+    //         tornado.scale.set(this.config.tornadoScale, this.config.tornadoScale);
+    //         tornado.anchor.set(0.5, 0.5);
+    //         tornado.animations.add('rotation', null, 25, true);
+    //         tornado.animations.play('rotation');
 
-            // 扩散动画
-            const tween = game.add.tween(tornado).to({
-                x: pointX,
-                y: pointY
-            }, 1000, Phaser.Easing.Sinusoidal.Out, true);
+    //         // 扩散动画
+    //         const tween = game.add.tween(tornado).to({
+    //             x: pointX,
+    //             y: pointY
+    //         }, 1000, Phaser.Easing.Sinusoidal.Out, true);
 
-        }
-        this.audioTornado.play();
-    }
+    //     }
+    //     this.audioTornado.play();
+    // }
 
-    tornadosRotate() {
-        if (!this.tornados || this.stopTornado) {
-            return;
-        }
-        this.tornados.x = this.player.x;
-        this.tornados.y = this.player.y;
+    // tornadosRotate() {
+    //     if (!this.tornados || this.stopTornado) {
+    //         return;
+    //     }
+    //     this.tornados.x = this.player.x;
+    //     this.tornados.y = this.player.y;
 
-        this.tornados.rotation += this.config.tornadosRotationSpeed;
+    //     this.tornados.rotation += this.config.tornadosRotationSpeed;
 
-        // 每个龙卷风自身旋转，保持直立状态
-        this.tornados.forEachAlive(item => {
-            item.rotation -= this.config.tornadosRotationSpeed;
-        });
-    }
+    //     // 每个龙卷风自身旋转，保持直立状态
+    //     this.tornados.forEachAlive(item => {
+    //         item.rotation -= this.config.tornadosRotationSpeed;
+    //     });
+    // }
 
     /**
      * @description: 增加宠物
@@ -286,67 +306,138 @@ class Player {
     /**
      * @description: 宠物攻击
      */
+    // petFire() {
+    //     if (this.stopPetFire && !this.pet.visible) {
+    //         return;
+    //     }
+    //     const dis = new Date().getTime() - this.petFireTime;
+    //     const dir = this.player.direction;
+
+    //     if (!this.isPetFire && new Date().getTime() - this.petFireCreateTime > this.config.petFireCreateDis) {
+    //         this.isPetFire = true;
+    //         this.petFireCreateTime = new Date().getTime();
+    //     }
+
+    //     if (this.isPetFire && dis > this.config.petFireDis) {
+    //         var fireBall = this.pet.fireGroup.getFirstExists(false);
+    //         const angle = (((2 * Math.PI) / this.config.petFireCount) * this.petFireCount).toFixed(2);
+    //         if (!fireBall) {
+    //             fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
+    //             fireBall.animations.add('mover', [0, 1, 2, 3, 4], 25, true)
+    //             fireBall.animations.play('mover');
+    //             fireBall.scale.set(this.config.fireScale, this.config.fireScale);
+    //             fireBall.anchor.set(0.5, 0.5);
+    //             fireBall.body.setSize(fireBall.width, fireBall.height);
+    //         }
+    //         let x = this.pet.world.x + this.pet.width / 2;
+    //         let y = this.pet.world.y + this.pet.height / 2;
+    //         if (this.pet.world.x == Math.abs(game.camera.world.x)) {
+    //             x = this.player.world.x - this.player.width / 2 - 10;
+    //             y = this.player.world.y - this.player.height / 2 - 10;
+    //         }
+
+    //         fireBall.reset(x, y);
+
+    //         fireBall.vector = {
+    //             angle,
+    //             x: Math.sin(angle) * 1,
+    //             y: Math.cos(angle) * 1
+    //         }
+    //         this.petFireTime = new Date().getTime();
+
+    //         if (angle == 0) {
+    //             fireBall.rotation = Math.PI / 2;
+    //         } else {
+    //             fireBall.rotation = ((2 * Math.PI) / this.config.petFireCount) * (-this.petFireCount + 1);
+    //         }
+    //         fireBall.body.velocity.x = fireBall.vector.x * this.config.petFireSpeed;
+    //         fireBall.body.velocity.y = fireBall.vector.y * this.config.petFireSpeed;
+    //         // 检测边界碰撞并kill掉
+    //         fireBall.checkWorldBounds = true;
+    //         fireBall.outOfBoundsKill = true;
+    //         if (dir === 'right') {
+    //             fireBall.direction = 'right'
+    //         } else {
+    //             fireBall.direction = 'left'
+    //         }
+    //         this.audioFire.play();
+
+    //         this.petFireCount += 1;
+    //         if (this.petFireCount >= this.config.petFireCount) {
+    //             this.isPetFire = false;
+    //             this.petFireCount = 0;
+    //         }
+    //     }
+    // }
+
     petFire() {
         if (this.stopPetFire && !this.pet.visible) {
             return;
         }
         const dis = new Date().getTime() - this.petFireTime;
-        const dir = this.player.direction;
+        const rotation = (Math.PI) / this.config.petFireCount;
 
-        if (!this.isPetFire && new Date().getTime() - this.petFireCreateTime > this.config.petFireCreateDis) {
-            this.isPetFire = true;
-            this.petFireCreateTime = new Date().getTime();
-        }
+        if (dis > this.config.petFireCreateDis) {
+            for (let i = 0; i < this.config.petFireCount; i++) {
 
-        if (this.isPetFire && dis > this.config.petFireDis) {
-            var fireBall = this.pet.fireGroup.getFirstExists(false);
-            const angle = (((2 * Math.PI) / this.config.petFireCount) * this.petFireCount).toFixed(2);
-            if (!fireBall) {
-                fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
-                fireBall.animations.add('mover', [0, 1, 2, 3, 4], 25, true)
-                fireBall.animations.play('mover');
-                fireBall.scale.set(this.config.fireScale, this.config.fireScale);
-                fireBall.anchor.set(0.5, 0.5)
-                fireBall.body.setSize(fireBall.width - 100, fireBall.height - 30);
-            }
-            let x = this.pet.world.x + this.pet.width / 2;
-            let y = this.pet.world.y + this.pet.height / 2;
-            if (this.pet.world.x == Math.abs(game.camera.world.x)) {
-                x = this.player.world.x - this.player.width / 2 - 10;
-                y = this.player.world.y - this.player.height / 2 - 10;
+                var fireBall = this.pet.fireGroup.getFirstExists(false);
+                if (!fireBall) {
+                    fireBall = this.pet.fireGroup.create(0, 0, keyMap.fireBall);
+                    fireBall.animations.add('mover', [0, 1, 2, 3], 25, true)
+                    fireBall.animations.play('mover');
+                    fireBall.scale.set(this.config.fireScale, this.config.fireScale);
+                    fireBall.anchor.set(0.5, 0.5);
+                    fireBall.body.setSize(fireBall.width - rem2px(0.3), fireBall.height);
+                    // 检测边界碰撞并kill掉
+                    fireBall.checkWorldBounds = true;
+                    fireBall.outOfBoundsKill = true;
+
+                }
+                let x = this.pet.world.x + this.pet.width / 2;
+                let y = this.pet.world.y + this.pet.height / 2;
+                if (this.pet.world.x == Math.abs(game.camera.world.x)) {
+                    x = this.player.world.x - this.player.width / 2 - 10;
+                    y = this.player.world.y - this.player.height / 2 - 10;
+                }
+                fireBall.reset(x, y);
+
+                const angle = rotation * i;
+                fireBall.body.velocity.x = Math.sin(angle + this.stick.rotation) * this.config.petFireSpeed
+                fireBall.body.velocity.y = Math.cos(angle + this.stick.rotation - Math.PI) * this.config.petFireSpeed
+
+                fireBall.rotation = computeRotation(0, 0, fireBall.body.velocity.x, fireBall.body.velocity.y) + Math.PI;
             }
 
-            fireBall.reset(x, y);
-
-            fireBall.vector = {
-                angle,
-                x: Math.sin(angle) * 1,
-                y: Math.cos(angle) * 1
-            }
-            this.petFireTime = new Date().getTime();
-
-            if (angle == 0) {
-                fireBall.rotation = Math.PI / 2;
-            } else {
-                fireBall.rotation = ((2 * Math.PI) / this.config.petFireCount) * (-this.petFireCount + 1);
-            }
-            fireBall.body.velocity.x = fireBall.vector.x * this.config.petFireSpeed;
-            fireBall.body.velocity.y = fireBall.vector.y * this.config.petFireSpeed;
-            // 检测边界碰撞并kill掉
-            fireBall.checkWorldBounds = true;
-            fireBall.outOfBoundsKill = true;
-            if (dir === 'right') {
-                fireBall.direction = 'right'
-            } else {
-                fireBall.direction = 'left'
-            }
             this.audioFire.play();
+            this.petFireTime = new Date().getTime();
+        }
+    }
 
-            this.petFireCount += 1;
-            if (this.petFireCount >= this.config.petFireCount) {
-                this.isPetFire = false;
-                this.petFireCount = 0;
-            }
+    axRotate() {
+        const dis = new Date().getTime() - this.axTime;
+
+        if (this.stopAx || dis < this.config.axTimeDis) {
+            this.axLastTime = new Date().getTime();
+            return
+        }
+        if (!this.audioAxStop) {
+            this.audioAx.play('', 0.2);
+            this.audioAxStop = true;
+        }
+        this.ax.visible = true;
+        this.ax.body.enable = true;
+
+        const dis2 = new Date().getTime() - this.axLastTime;
+
+        if (dis2 <= this.config.axContinuedTime) {
+            this.ax.rotation += this.config.axRotateSpeed;
+            this.ax.x = this.player.x;
+            this.ax.y = this.player.y;
+        } else {
+            this.ax.visible = false;
+            this.ax.body.enable = false;
+            this.audioAxStop = false;
+            this.axTime = new Date().getTime();
         }
     }
 
