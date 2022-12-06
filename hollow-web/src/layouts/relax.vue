@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { customerInterVal } from "@/utils";
 import { reactive, ref } from "@vue/reactivity";
-import Music from "../components/relax/music.vue";
-import Weather from "../components/relax/weather.vue";
+// import Music from "../components/relax/music.vue";
+// import Weather from "../components/relax/weather.vue";
 
 const timeObj = reactive({
     year: 1970,

@@ -81,8 +81,14 @@ function createParticle(config?: Object): Particle_type {
     const size = Math.round(Math.random() * props.raduis);
     const width = size > 0 ? size : 1;
     const height = width;
-    const positionX = Math.round(Math.random() * particle.value.clientWidth);
-    const positionY = Math.round(Math.random() * particle.value.clientHeight);
+    const clientWidth = particle?.value?.clientWidth
+        ? particle?.value.clientWidth
+        : 0;
+    const clientHeight = particle?.value?.clientHeight
+        ? particle?.value.clientHeight
+        : 0;
+    const positionX = Math.round(Math.random() * clientWidth);
+    const positionY = Math.round(Math.random() * clientHeight);
     const dotDefaultConfig: Particle_type = {
         w: width,
         h: height,
