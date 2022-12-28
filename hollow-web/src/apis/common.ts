@@ -1,4 +1,4 @@
-import { RespondData_Type } from "@/interfaces/common.interface";
+import { RespondData_Type } from "@/types/common.dto";
 import request from "./request";
 
 function requestPromise(config: Object): Promise<RespondData_Type> {

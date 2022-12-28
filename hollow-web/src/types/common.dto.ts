@@ -24,3 +24,5 @@ export interface Particle_type {
     /**颜色 */
     color: string
 }
+
+type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never

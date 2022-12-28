@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { Particle_type } from "@/interfaces/common.interface";
+import { Particle_type } from "@/types/common.dto";
 import { onMounted, reactive, ref } from "vue";
 
 const props = defineProps({

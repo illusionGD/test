@@ -1,4 +1,4 @@
-import { InterValTimer_type } from "@/interfaces/common.interface";
+import { InterValTimer_type } from "@/types/common.dto";
 
 /**
  * @description: 循环调用计时器

@@ -1,4 +1,4 @@
-import { RespondData_Type } from "@/interfaces/common.interface";
+import { RespondData_Type } from "@/types/common.dto";
 import axios from "axios";
 
 function request(config: any) {
@@ -13,7 +13,7 @@ function request(config: any) {
     })
     // 响应拦截器
     instance.interceptors.response.use((res): RespondData_Type => {
-        const {status, data} = res
+        const { status, data } = res
 
         if (status != 200) {
             throw new Error('请求错误')
