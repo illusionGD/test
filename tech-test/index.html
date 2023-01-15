@@ -1,49 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>test</title>
-    <!-- <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script> -->
-    <script type="module" src="./libs/pixi.mjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism4.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script> -->
-  </head>
-  <body>
-    <div class="main"></div>
-  </body>
-  <script type="module">
-    // import * as PIXI from "./libs/pixi.mjs";
-    // import { Live2DModel } from "pixi-live2d-display";
-    window.PIXI = PIXI;
-    console.log(PIXI);
-    (async function () {
-      // const app = new PIXI.Application({
-      //   view: document.getElementsByClassName("main"),
-      // });
 
-      const model = await PIXI.Live2DModel.from(
-        "./assets/live2d/yinli.model3.json"
-      );
-
-      app.stage.addChild(model);
-
-      // 变换
-      model.x = 100;
-      model.y = 100;
-      model.rotation = Math.PI;
-      model.skew.x = Math.PI;
-      model.scale.set(2, 2);
-      model.anchor.set(0.5, 0.5);
-
-      // 交互
-      model.on("hit", (hitAreas) => {
-        if (hitAreas.includes("body")) {
-          model.motion("tap_body");
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0 auto;
+            display: flex;
+            padding-top: 200px;
+            justify-content: center;
         }
-      });
-    })();
-  </script>
+
+        .main {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            transition: center;
+            border-radius: 50%;
+            border: 1px solid #000;
+        }
+
+        .main::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            border: 1px solid red;
+            border-radius: 50%;
+            height: 10px;
+        }
+
+        .point {
+            display: flex;
+            box-sizing: border-box;
+            justify-content: center;
+            position: absolute;
+            width: 30px;
+            border: 1px solid blue;
+            border-radius: 50%;
+            transition: center;
+            height: 30px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="main">
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    const r = 250
+    const pR = 15
+    const pointAngle = Math.ceil(Math.asin(pR / r) * 180 * Math.PI)
+    console.log("🚀 ~ file: index.html:62 ~ pointAngle", pointAngle)
+    const limit = Math.floor(2 * Math.PI * r / 30)
+    const list = []
+    let cur = 0
+    console.log("🚀 ~ file: index.html:62 ~ limit", limit)
+    let speed = 0.5
+    // 大圆旋转角度
+    let angle = 0
+    let inserting = false
+    animation()
+
+    $('.main').on('mousedown', function () {
+        inserting = true
+        circleClick()
+    })
+
+    function isInsert(x, y, angle) {
+        console.log("🚀 ~ file: index.html:78 ~ x", x)
+        console.log("🚀 ~ file: index.html:78 ~ angle", angle)
+        let res = true
+        // 判断是否已经插满
+        if (cur >= limit) {
+            res = false
+        }
+        // 判断角度是否相等
+        if (list.find(item => item.angle === angle)) {
+            res = false
+        }
+        // 判断位置
+        list.forEach(item => {
+            if (x > item.x - pR * 2 && x < item.x + pR * 2 && y > item.y - pR * 2 && y < item.y + pR * 2) {
+                console.log("🚀 ~ file: index.html:89 ~ item", item)
+                res = false
+            }
+        })
+
+        return res
+    }
+
+    function circleClick() {
+        // 弧度制
+        const radian = (angle) / 180 * Math.PI
+        // 计算插入的坐标x，y
+        const x = Math.floor(r * Math.sin(radian) + r)
+        const y = Math.floor(r * Math.cos(radian) + r)
+        // const pointAngle = angle >= 180 ? 360 - angle : 
+        if (!isInsert(x, y, angle)) {
+            console.log('fail');
+            inserting = false
+            return
+        }
+        list.push({
+            x,
+            y,
+            angle
+        })
+        console.log("🚀 ~ file: index.html:107 ~ list", list)
+        // 插入
+        insertPoint(x, y, -angle)
+        inserting = false
+    }
+
+    function animation() {
+        window.requestAnimationFrame(timestamp => {
+            if (inserting) {
+                return
+            }
+            angle = (angle += speed) % 360
+            $('.main').css('transform', `rotate(${angle}deg)`)
+            animation()
+        })
+    }
+
+    function insertPoint(x, y, angle) {
+        $('.main').append(
+            `<div class="point" style="left: ${x}px; top: ${y}px; transform: rotate(${angle}deg)">👆</div>`)
+        cur += 1
+
+    }
+</script>
+
 </html>
