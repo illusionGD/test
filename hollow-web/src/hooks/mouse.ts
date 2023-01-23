@@ -9,12 +9,13 @@ import {
  * @param {*} callback 回调
  * @return {*}
  */
-export function useMouseClickPosition(hitDom: Element | undefined, callback: Function) {
-    if (!hitDom) {
-        return
-    }
-    const hitArea = hitDom
+export function useMouseClickPosition(selector: string, callback: Function) {
+    let hitArea: HTMLElement;
     onMounted(() => {
+        hitArea = document.querySelector(selector) as HTMLElement
+        if (!hitArea) {
+            return
+        }
         hitArea.addEventListener('click', (e: any) => {
             const x = Number(e.clientX)
             const y = Number(e.clientY)
@@ -23,6 +24,9 @@ export function useMouseClickPosition(hitDom: Element | undefined, callback: Fun
     })
 
     onBeforeUnmount(() => {
+        if (!hitArea) {
+            return
+        }
         hitArea.removeEventListener('click', () => { })
     })
 }
