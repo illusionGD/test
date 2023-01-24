@@ -16,6 +16,7 @@ const getCommonConfig = function (mode: string) {
                 '@': '/src'
             }
         },
+        assetsInclude: ['src/**/*.pmd', 'src/**/*.pmx', 'src/**/*.vmd'],
         css: {
             postcss: {
                 plugins: [

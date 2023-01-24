@@ -1,40 +1,98 @@
 <template>
     <div class="laboratory">
-        <Navigation></Navigation>
-        <div class="main"></div>
+        <Navigation @navClick="change"></Navigation>
+        <div class="main">
+            <router-view v-if="!showTestList"></router-view>
+            <ul class="content-grid" v-if="showTestList">
+                <li class="grid-item" v-for="(item, index) in testList" @click="gotoTestDetail(index)">
+                    <div class="grid-item__content">
+                        <div class="grid-item__img" :style="{ backgroundImage: `url(${item.img})` }"></div>
+                        <div class="grid-item__title">{{ item.title }}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Navigation from "@/components/laboratory/navigation.vue";
-// import * as PIXI from "pixi.js";
-// import { Live2DModel } from "pixi-live2d-display";
+import { onBeforeMount, ref } from "vue";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
+import imgUrl from '../assets/images/yayi.jpg'
+const showTestList = ref(true)
+const testList = [
+    {
+        title: '加载模型',
+        img: imgUrl,
+        router: '/three-loader'
+    }
+]
+const router = useRouter();
 
-// (async function () {
-//     const app = new PIXI.Application({
-//         view: document.getElementById("canvas") as any,
-//     });
+onBeforeMount(() => {
+    changeMainContent(router.currentRoute.value.path)
+})
+onBeforeRouteUpdate((to, from) => {
+    changeMainContent(to.path)
+})
 
-//     const model = await Live2DModel.from("shizuku.model.json");
+function change() {
+}
 
-//     app.stage.addChild(model);
+function changeMainContent(path: string) {
+    showTestList.value = (path.split('/').filter(item => item).length <= 1)
+}
 
-//     // transforms
-//     model.x = 100;
-//     model.y = 100;
-//     model.rotation = Math.PI;
-//     model.skew.x = Math.PI;
-//     model.scale.set(2, 2);
-//     model.anchor.set(0.5, 0.5);
-
-//     // interaction
-//     model.on("click", (hitAreas: any) => {
-//         if (hitAreas.includes("body")) {
-//             model.motion("tap_body");
-//         }
-//     });
-// })();
+function gotoTestDetail(index: number) {
+    router.push(`${router.currentRoute.value.path}${testList[index].router}`)
+}
 </script>
 
 <style lang="scss" scoped>
+.laboratory {
+    display: flex;
+}
+
+.main {
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+}
+
+.content-grid {
+    display: grid;
+    padding-top: 20px;
+
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    .grid-item {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .grid-item__content {
+        width: 300px;
+        height: 300px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(45, 45, 45, 0.274);
+    }
+
+    .grid-item__img {
+        width: 300px;
+        height: 250px;
+
+        @extend .bg-cover;
+    }
+
+    .grid-item__title {
+        text-align: center;
+        font-size: 25px;
+    }
+}
 </style>

@@ -40,6 +40,10 @@ const props = defineProps({
         type: Number,
         default: 0.05,
     },
+    stop: {
+        type: Boolean,
+        default: false
+    }
 });
 /**小圆的坐标 */
 const list: turntable_type[] = reactive([]);
@@ -122,6 +126,9 @@ function gotoPage(item: turntable_type) {
 
 function rotateAnimation() {
     window.requestAnimationFrame((e) => {
+        if (!rotating.value || props.stop || !turntableMain.value) {
+            return
+        }
         const dom = turntableMain.value as HTMLElement;
         const rotateDeg = angle.value += props.speed
         dom.style.transform = `rotate(${rotateDeg}deg)`;
@@ -131,10 +138,6 @@ function rotateAnimation() {
                 item.style.transform = `rotate(${-rotateDeg}deg)`;
             });
         }
-        if (!rotating.value) {
-            return
-        }
-
         rotateAnimation()
     })
 }
@@ -155,22 +158,21 @@ function rotateAnimation() {
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.233);
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.137),
-        inset 0 0 10px rgba(255, 255, 255, 0.89);
+            inset 0 0 10px rgba(255, 255, 255, 0.89);
 
-// box-shadow: ;
+        // box-shadow: ;
         text-align: center;
         font-weight: 600;
         cursor: pointer;
         transform-origin: center;
 
-@extend .flex-center;
+        @extend .flex-center;
     }
 }
 
 .border-light {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.63),
-    inset 0 0 10px rgba(255, 255, 255, 0.89);
+        inset 0 0 10px rgba(255, 255, 255, 0.89);
     // @include anBorderLightDiffusion();
 }
-
 </style>

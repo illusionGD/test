@@ -14,11 +14,24 @@ const routes = [
     },
     {
         path: '/laboratory',
-        component: () => import('../layouts/laboratory.vue')
+        component: () => import('../layouts/laboratory.vue'),
+        meta: {
+            title: '实验室'
+        },
+        children: [
+            {
+                path: 'three-loader',
+                component: () => import('../components/laboratory/threejs/loader.vue'),
+            }
+        ]
     },
     {
         path: '/relax',
         component: () => import('../layouts/relax.vue')
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        component: () => import('../layouts/notFound.vue')
     }
 ]
 

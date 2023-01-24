@@ -1,8 +1,9 @@
 <template>
     <div class="page-nav" v-if="isShowPageNav" @click.stop="showPageNav(false)">
-        <Turntable class="turntable" :itemRadius="80" :radius="300" :speed="0.1" @click.stop=""></Turntable>
+        <Turntable class="turntable" :itemRadius="80" :radius="300" :speed="0.1" :stop="stopNavRotate" @click.stop="">
+        </Turntable>
     </div>
-    <div class="home"></div>
+    <div class="home" ref="homeDom"></div>
 </template>
 
 <script setup lang="ts">
@@ -12,7 +13,7 @@ import { Sky } from 'three/examples/jsm/objects/Sky.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import Turntable from "@/components/home/turntable.vue";
 import waterText from '../assets/images/waternormals.jpg'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 const speed = 100
 let prevTime = new Date().getTime();
@@ -20,7 +21,8 @@ let moveForward = false
 let moveLeft = false
 let moveBackward = false
 let moveRight = false
-let isShowPageNav = ref(true)
+const isShowPageNav = ref(false)
+const stopNavRotate = ref(false)
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 10000);
 camera.position.set(0, 30, 100);
@@ -49,11 +51,17 @@ const water = new Water(
         distortionScale: 3.7
     }
 );
-
 initBaseConfig()
 
+onMounted(() => {
+    isShowPageNav.value = true
+})
+// 移除control监听
 onBeforeRouteLeave(() => {
     controls.unlock()
+    document.removeEventListener('keydown', onKeyDown)
+    window.removeEventListener('keyup', onKeyUp)
+    document.body.removeEventListener('click', lockControls)
 })
 
 function initBaseConfig() {
@@ -64,9 +72,9 @@ function initBaseConfig() {
     initWater()
 }
 
-function showPageNav(isShow: boolean) {
+function showPageNav(isShow: boolean = false) {
     isShowPageNav.value = isShow
-
+    stopNavRotate.value = !isShow
     isShow && controls.unlock()
     !isShow && controls.lock()
 }
@@ -97,52 +105,10 @@ function initWater() {
  */
 function initControl() {
     //  监听鼠标点击
-    document.body.addEventListener('click', () => {
-        showPageNav(false)
-    })
-    controls.addEventListener('unlock', function () {
-        showPageNav(true)
-    });
-    document.addEventListener('keydown', (e) => {
-        switch (e.code) {
-            case 'KeyW':
-                moveForward = true;
-                break;
-
-            case 'KeyA':
-                moveLeft = true;
-                break;
-
-            case 'KeyS':
-                moveBackward = true;
-                break;
-
-            case 'KeyD':
-                moveRight = true;
-                break;
-
-        }
-    })
-    window.addEventListener('keyup', (e) => {
-        switch (e.code) {
-            case 'KeyW':
-                moveForward = false;
-                break;
-
-            case 'KeyA':
-                moveLeft = false;
-                break;
-
-            case 'KeyS':
-                moveBackward = false;
-                break;
-
-            case 'KeyD':
-                moveRight = false;
-                break;
-
-        }
-    })
+    document.body.addEventListener('click', lockControls)
+    controls.addEventListener('unlock', unLockControls);
+    document.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
     scene.add(controls.getObject())
 }
 
@@ -169,6 +135,7 @@ function initRenderer() {
         render(new Date().getTime())
     })
 }
+
 function move(timeStamp: number) {
     if (!controls.isLocked) {
         return
@@ -187,6 +154,54 @@ function move(timeStamp: number) {
         controls.moveRight(vector.x)
     }
     prevTime = timeStamp
+}
+
+function onKeyDown(e: KeyboardEvent) {
+    switch (e.code) {
+        case 'KeyW':
+            moveForward = true;
+            break;
+
+        case 'KeyA':
+            moveLeft = true;
+            break;
+
+        case 'KeyS':
+            moveBackward = true;
+            break;
+
+        case 'KeyD':
+            moveRight = true;
+            break;
+
+    }
+}
+function onKeyUp(e: KeyboardEvent) {
+    switch (e.code) {
+        case 'KeyW':
+            moveForward = false;
+            break;
+
+        case 'KeyA':
+            moveLeft = false;
+            break;
+
+        case 'KeyS':
+            moveBackward = false;
+            break;
+
+        case 'KeyD':
+            moveRight = false;
+            break;
+
+    }
+}
+
+function lockControls() {
+    showPageNav(false)
+}
+function unLockControls() {
+    showPageNav(true)
 }
 
 /**
@@ -217,7 +232,6 @@ function render(timeStamp: number) {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.759);
 
-@extend .flex-center;
+    @extend .flex-center;
 }
-
 </style>
