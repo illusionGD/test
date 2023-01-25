@@ -21,6 +21,8 @@ let moveForward = false
 let moveLeft = false
 let moveBackward = false
 let moveRight = false
+let animationId: number;
+
 const isShowPageNav = ref(false)
 const stopNavRotate = ref(false)
 const scene = new THREE.Scene()
@@ -61,6 +63,7 @@ onBeforeRouteLeave(() => {
     controls.unlock()
     document.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('keyup', onKeyUp)
+    window.cancelAnimationFrame(animationId)
     document.body.removeEventListener('click', lockControls)
 })
 
@@ -213,7 +216,7 @@ function render(timeStamp: number) {
     water.material.uniforms['time'].value += 1.0 / 60.0;
     move(timeStamp)
     renderer.render(scene, camera)
-    window.requestAnimationFrame(render)
+    animationId = window.requestAnimationFrame(render)
 }
 </script>
 <style lang="scss" scoped>
