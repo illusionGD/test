@@ -1,6 +1,9 @@
 <template>
     <div class="three-wrap" ref="threeWrap">
         <div class="timer">{{ timer }}</div>
+        <button>
+            <router-link to="/test">test</router-link>
+        </button>
     </div>
 </template>
 
@@ -93,5 +96,4 @@ function animate() {
 .timer {
     color: red;
 }
-
 </style>
