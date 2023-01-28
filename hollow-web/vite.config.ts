@@ -16,7 +16,7 @@ const getCommonConfig = function (mode: string) {
                 '@': '/src'
             }
         },
-        assetsInclude: ['src/**/*.pmd', 'src/**/*.pmx', 'src/**/*.vmd'],
+        assetsInclude: ['src/**/*.pmd', 'src/**/*.pmx', 'src/**/*.vmd'], // 模型文件后缀
         css: {
             postcss: {
                 plugins: [
@@ -50,7 +50,9 @@ const getCommonConfig = function (mode: string) {
             }
         },
         server: {
-            hmr: true
+            hmr: {
+                overlay: false // 去掉错误提示
+            },
         }
     }
 }

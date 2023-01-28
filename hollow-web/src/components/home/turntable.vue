@@ -22,9 +22,10 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "@vue/runtime-core";
 import { pxToRemUnit } from "@/utils";
-import { useRouter } from "vue-router";
+import { onBeforeRouteLeave, useRouter } from "vue-router";
 import { turntable_type } from "@/types/home.dto";
 import { getHomePaths } from "@/apis/common";
+import { useStore } from "vuex";
 const props = defineProps({
     // 半径
     radius: {
@@ -45,6 +46,8 @@ const props = defineProps({
         default: false
     }
 });
+const store = useStore()
+let animationId: number
 /**小圆的坐标 */
 const list: turntable_type[] = reactive([]);
 /**选择控制 */
@@ -62,6 +65,15 @@ const router = useRouter();
 
 onMounted(() => {
     rotateAnimation()
+})
+
+// 移除control监听
+onBeforeRouteLeave(() => {
+    // 添加动画id，跳转路由时清除
+    store.commit('setAnimationIdList', {
+        type: 'add',
+        id: animationId
+    })
 })
 
 init();
@@ -125,21 +137,19 @@ function gotoPage(item: turntable_type) {
 }
 
 function rotateAnimation() {
-    window.requestAnimationFrame((e) => {
-        if (!rotating.value || props.stop || !turntableMain.value) {
-            return
-        }
-        const dom = turntableMain.value as HTMLElement;
-        const rotateDeg = angle.value += props.speed
-        dom.style.transform = `rotate(${rotateDeg}deg)`;
+    if (!rotating.value || props.stop || !turntableMain.value) {
+        return
+    }
+    const dom = turntableMain.value as HTMLElement;
+    const rotateDeg = angle.value += props.speed
+    dom.style.transform = `rotate(${rotateDeg}deg)`;
 
-        if (turntableItem.value instanceof Array) {
-            turntableItem.value.forEach((item: HTMLElement) => {
-                item.style.transform = `rotate(${-rotateDeg}deg)`;
-            });
-        }
-        rotateAnimation()
-    })
+    if (turntableItem.value instanceof Array) {
+        turntableItem.value.forEach((item: HTMLElement) => {
+            item.style.transform = `rotate(${-rotateDeg}deg)`;
+        });
+    }
+    animationId = window.requestAnimationFrame(rotateAnimation)
 }
 </script>
 

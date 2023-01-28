@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import Navigation from "@/components/laboratory/navigation.vue";
 import { onBeforeMount, ref } from "vue";
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRouter } from "vue-router";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
 import imgUrl from '../assets/images/yayi.jpg'
 const showTestList = ref(true)
 const testList = [
@@ -36,7 +36,6 @@ onBeforeMount(() => {
 onBeforeRouteUpdate((to, from) => {
     changeMainContent(to.path)
 })
-
 
 function change() {
 }

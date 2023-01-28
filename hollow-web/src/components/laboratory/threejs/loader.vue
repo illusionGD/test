@@ -7,22 +7,21 @@ import { getWindowRatio, initRenderer } from '@/utils/threeUtil';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader'
-import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper'
+// import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper'
 import { onMounted, ref } from 'vue';
 // @ts-ignore
 import vmd from '@/assets/modules/雷律芽衣2.0/姿势.vmd'
 // @ts-ignore
 import pmx from '@/assets/modules/雷律芽衣2.0/雷之律者3.0.pmx'
-import { onBeforeRouteLeave } from 'vue-router';
 let render: THREE.WebGLRenderer;
 let controls: OrbitControls;
 const threeLoaderDom = ref()
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(55, getWindowRatio(), 1, 2000)
 const helper = new THREE.AxesHelper(10)
-const mmdHelper = new MMDAnimationHelper();
-let animationId: number;
+// const mmdHelper = new MMDAnimationHelper();
 const mmdLoader = new MMDLoader();
+
 
 initScene()
 initCamera()
@@ -31,18 +30,15 @@ loadModule()
 onMounted(() => {
     render = initRenderer(threeLoaderDom.value)
     initControls()
-    animate()
 })
 
-onBeforeRouteLeave(() => {
-    window.cancelAnimationFrame(animationId)
-})
 
 function loadModule() {
-    mmdLoader.loadWithAnimation(pmx, vmd.replace(/%/g, '%25'), (module) => {
+    mmdLoader.loadWithAnimation(pmx, vmd, (module) => {
         const mesh = module.mesh
         mesh.position.y = -15
         scene.add(mesh);
+        animate()
     }, () => { }, (err) => {
         console.log(err);
     })
@@ -63,6 +59,7 @@ function initCamera() {
 
 function initControls() {
     controls = new OrbitControls(camera, threeLoaderDom.value)
+    controls.addEventListener('change', animate)
 }
 
 function initAxesHelper() {
@@ -71,7 +68,6 @@ function initAxesHelper() {
 
 function animate() {
     render.render(scene, camera)
-    animationId = window.requestAnimationFrame(animate)
 }
 </script>
 

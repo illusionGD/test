@@ -13,8 +13,10 @@ import { Sky } from 'three/examples/jsm/objects/Sky.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import Turntable from "@/components/home/turntable.vue";
 import waterText from '../assets/images/waternormals.jpg'
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
+import { useStore } from 'vuex';
+const store = useStore()
 const speed = 100
 let prevTime = new Date().getTime();
 let moveForward = false
@@ -58,17 +60,25 @@ initBaseConfig()
 onMounted(() => {
     isShowPageNav.value = true
 })
+
 // 移除control监听
 onBeforeRouteLeave(() => {
     controls.unlock()
     document.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('keyup', onKeyUp)
-    window.cancelAnimationFrame(animationId)
+    // 添加动画id，跳转路由时清除
+    store.commit('setAnimationIdList', {
+        type: 'add',
+        id: animationId
+    })
     document.body.removeEventListener('click', lockControls)
 })
 
 function initBaseConfig() {
-    initRenderer()
+    setTimeout(() => {
+        initRenderer()
+
+    })
     initScene()
     initControl()
     initSky()
@@ -89,7 +99,6 @@ function initSky() {
     sky.scale.setScalar(5000);
     scene.add(sky);
     const uniforms = sky.material.uniforms;
-
     const sun = new THREE.Vector3(0, 20, -500)
     uniforms['sunPosition'].value.copy(sun)
 }
@@ -129,14 +138,13 @@ function initScene() {
  * @description: 初始化渲染器
  */
 function initRenderer() {
-    setTimeout(() => {
-        const mainDom = document.querySelector('.home') as HTMLElement
-        renderer.setSize(mainDom.clientWidth, mainDom.clientHeight)
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 0.5;
-        mainDom.appendChild(renderer.domElement);
-        render(new Date().getTime())
-    })
+    const mainDom = document.querySelector('.home') as HTMLElement
+    renderer.setSize(mainDom.clientWidth, mainDom.clientHeight)
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.5;
+    mainDom.appendChild(renderer.domElement);
+    render(new Date().getTime())
+
 }
 
 function move(timeStamp: number) {

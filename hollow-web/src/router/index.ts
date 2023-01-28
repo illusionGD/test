@@ -2,6 +2,8 @@ import {
     createRouter,
     createWebHistory
 } from 'vue-router'
+import store from '../store/index'
+
 
 const routes = [
     {
@@ -22,6 +24,10 @@ const routes = [
             {
                 path: 'three-loader',
                 component: () => import('../components/laboratory/threejs/loader.vue'),
+            },
+            {
+                path: 'three-raycast',
+                component: () => import('../components/laboratory/threejs/raycast.vue'),
             }
         ]
     },
@@ -38,6 +44,17 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+    // 清除requestAnimationId
+    const { animationIdList } = store.state
+    animationIdList.forEach(id => {
+        window.cancelAnimationFrame(id)
+    })
+    animationIdList.splice(0, animationIdList.length)
+    next()
 })
 
 export default router
