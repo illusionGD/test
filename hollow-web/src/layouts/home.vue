@@ -55,7 +55,10 @@ const water = new Water(
         distortionScale: 3.7
     }
 );
+
 initBaseConfig()
+// 内存管理，跳转路由时清除
+store.commit('addMemoryManageList', [scene, camera, renderer, vector, sky, water])
 
 onMounted(() => {
     isShowPageNav.value = true
@@ -73,6 +76,7 @@ onBeforeRouteLeave(() => {
     })
     document.body.removeEventListener('click', lockControls)
 })
+
 
 function initBaseConfig() {
     setTimeout(() => {

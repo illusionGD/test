@@ -49,11 +49,17 @@ const router = createRouter({
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
     // 清除requestAnimationId
-    const { animationIdList } = store.state
+    const { animationIdList, memoryManageList } = store.state
     animationIdList.forEach(id => {
         window.cancelAnimationFrame(id)
     })
     animationIdList.splice(0, animationIdList.length)
+
+    // 清除内存占用
+    memoryManageList.forEach(item => {
+        item = null
+    })
+    memoryManageList.splice(0, memoryManageList.length)
     next()
 })
 

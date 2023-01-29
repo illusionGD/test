@@ -1,4 +1,5 @@
 <template>
+    <div class="loading" v-if="loading">loading...</div>
     <div class="three-loader" ref="threeLoaderDom"></div>
 </template>
 
@@ -9,12 +10,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader'
 // import { MMDAnimationHelper } from 'three/examples/jsm/animation/MMDAnimationHelper'
 import { onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 // @ts-ignore
 import vmd from '@/assets/modules/雷律芽衣2.0/姿势.vmd'
 // @ts-ignore
 import pmx from '@/assets/modules/雷律芽衣2.0/雷之律者3.0.pmx'
+const store = useStore()
 let render: THREE.WebGLRenderer;
 let controls: OrbitControls;
+const loading = ref(true)
 const threeLoaderDom = ref()
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(55, getWindowRatio(), 1, 2000)
@@ -22,11 +26,14 @@ const helper = new THREE.AxesHelper(10)
 // const mmdHelper = new MMDAnimationHelper();
 const mmdLoader = new MMDLoader();
 
-
 initScene()
 initCamera()
 initAxesHelper()
 loadModule()
+
+// 内存管理，跳转路由时清除
+store.commit('addMemoryManageList', [scene, camera, helper, mmdLoader])
+
 onMounted(() => {
     render = initRenderer(threeLoaderDom.value)
     initControls()
@@ -38,6 +45,7 @@ function loadModule() {
         const mesh = module.mesh
         mesh.position.y = -15
         scene.add(mesh);
+        loading.value = false
         animate()
     }, () => { }, (err) => {
         console.log(err);
@@ -75,5 +83,15 @@ function animate() {
 .three-loader {
     width: 100%;
     height: 100%;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.993);
+    @extend .flex-center;
 }
 </style>

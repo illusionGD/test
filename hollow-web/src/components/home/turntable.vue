@@ -49,7 +49,40 @@ const props = defineProps({
 const store = useStore()
 let animationId: number
 /**小圆的坐标 */
-const list: turntable_type[] = reactive([]);
+const list: turntable_type[] = reactive<turntable_type[]>(getPosition([
+    {
+        "path": "/user",
+        "title": "无"
+    },
+    {
+        "path": "/laboratory",
+        "title": "实验室"
+    },
+    {
+        "path": "/relax",
+        "title": "无"
+    },
+    {
+        "path": "/",
+        "title": "无"
+    },
+    {
+        "path": "/",
+        "title": "无"
+    },
+    {
+        "path": "/",
+        "title": "无"
+    },
+    {
+        "path": "/",
+        "title": "无"
+    },
+    {
+        "path": "/",
+        "title": "无"
+    }
+]));
 /**选择控制 */
 let rotating = ref(true);
 /**鼠标选中小圆的下标 */
@@ -76,8 +109,7 @@ onBeforeRouteLeave(() => {
     })
 })
 
-init();
-
+// init();
 
 async function init() {
     const { code, data } = await getHomePaths();
@@ -109,7 +141,7 @@ function startRotate(): void {
  * @description: 注入每个小圆的坐标
  * @return {*}
  */
-function getPosition(list: turntable_type[]) {
+function getPosition(list: any[]) {
     const radius = props.radius;
     // 每个小圆的半径
     const itemRadius = props.itemRadius;

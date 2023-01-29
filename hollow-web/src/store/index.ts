@@ -9,7 +9,8 @@ interface SetAnimationIdList_Type {
 const store = createStore({
     state() {
         return {
-            animationIdList: [] as number[]
+            animationIdList: [] as number[],
+            memoryManageList: [] as any[]
         }
     },
     mutations: {
@@ -24,7 +25,21 @@ const store = createStore({
                     (index >= 0) && animationIdList.splice(index, 1)
                     break;
             }
-        }
+        },
+        /**
+         * @description: true
+         * @param {*} state
+         * @param {SetAnimationIdList_Type} param2
+         * @return {*}
+         */
+        addMemoryManageList(state, obj: any) {
+            const memoryManageList = state.memoryManageList
+            if (obj instanceof Array) {
+                memoryManageList.push(...obj)
+            } else {
+                memoryManageList.push(obj)
+            }
+        },
     }
 })
 

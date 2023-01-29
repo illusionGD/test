@@ -20,12 +20,19 @@ import Navigation from "@/components/laboratory/navigation.vue";
 import { onBeforeMount, ref } from "vue";
 import { onBeforeRouteUpdate, useRouter } from "vue-router";
 import imgUrl from '../assets/images/yayi.jpg'
+import imgUrl1 from '../assets/images/three_raycast.jpg'
+
 const showTestList = ref(true)
 const testList = [
     {
         title: '加载模型',
         img: imgUrl,
         router: '/three-loader'
+    },
+    {
+        title: '交互',
+        img: imgUrl1,
+        router: '/three-raycast'
     }
 ]
 const router = useRouter();
@@ -93,6 +100,7 @@ function gotoTestDetail(index: number) {
     .grid-item__title {
         text-align: center;
         font-size: 25px;
+        line-height: 50px;
     }
 }
 </style>
