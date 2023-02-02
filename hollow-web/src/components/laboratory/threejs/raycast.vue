@@ -1,11 +1,13 @@
 <template>
-    <div class="three-raycast" ref="threeLoaderDom" @mousemove="updateMouse"></div>
+    <div class="three-raycast" ref="threeLoaderDom" @mousemove="updateMouse" @mousedown="castObject"></div>
 </template>
 
 <script setup lang="ts">
+import { bindWindowEvent } from '@/hooks/common';
 import { getWindowRatio, initGridHelper, initRenderer, initStats } from '@/utils/threeUtil';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore()
@@ -25,25 +27,34 @@ const material = new THREE.MeshPhongMaterial({ color: 0xffffff })
 const meshes = new THREE.InstancedMesh(geometry, material, Math.pow(num, 3)) // 创建一组mesh
 const stats = initStats()
 const gridHelper = initGridHelper()
+let transformControls: TransformControls;
+let transforming = false
+let animationId: number;
+const lockTypeList = [helper] as any[]
 
+bindWindowEvent('keyup', changeTransformControls)
 initScene()
 initCamera()
 initAxesHelper()
 initLight()
 initMeshes()
-// 内存管理，跳转路由时清除
-store.commit('addMemoryManageList', [scene, camera, helper, meshes, raycast, color, white, stats, gridHelper])
-
+initObject()
 onMounted(() => {
     render = initRenderer(threeLoaderDom.value)
     threeLoaderDom.value.appendChild(stats.domElement)
     initControls()
+    lockTypeList.push(gridHelper, transformControls)
     animate()
+    // 内存管理，跳转路由时清除
+    store.commit('addMemoryManageList', [scene, camera, helper, meshes, raycast, color, white, stats, transformControls])
+    store.commit('setAnimationIdList', {
+        type: 'add',
+        id: animationId
+    })
 })
 
 function initScene() {
     scene.background = new THREE.Color(0x000000);
-    scene.add(gridHelper);
 }
 
 function initMeshes() {
@@ -63,6 +74,14 @@ function initMeshes() {
     }
 
     scene.add(meshes)
+}
+
+function initObject() {
+    const geometry = new THREE.BoxGeometry(10, 10, 5)
+    const material = new THREE.MeshStandardMaterial({ color: '#3ef234' })
+    const mesh = new THREE.Mesh(geometry, material)
+    mesh.position.set(20, 0, 0)
+    scene.add(mesh)
 }
 
 function initLight() {
@@ -85,6 +104,13 @@ function updateMouse(e: MouseEvent) {
     mouse.x = ((clientX - navWidth) / domWidth) * 2 - 1;
     mouse.y = - (clientY / window.innerHeight) * 2 + 1;
 
+    castMeshes()
+}
+
+function castMeshes() {
+    if (transforming) {
+        return
+    }
     raycast.setFromCamera(mouse, camera)
     const intersectObjects = raycast.intersectObject(meshes)
     if (intersectObjects.length > 0) {
@@ -96,21 +122,74 @@ function updateMouse(e: MouseEvent) {
             meshes.instanceColor.needsUpdate = true;
         }
     }
-    animate()
+}
+
+function castObject() {
+    raycast.setFromCamera(mouse, camera)
+    const intersection = raycast.intersectObjects(scene.children, false)
+    let firstObj;
+    // 循环查找第一个可选3D对象
+    for (let i = 0; i < intersection.length; i++) {
+        let isCan = true
+        // 是否可选
+        for (let j = 0; j < lockTypeList.length; j++) {
+            if (intersection[i].object === lockTypeList[j]) {
+                isCan = false;
+                break
+            }
+        }
+
+        if (isCan) {
+            firstObj = intersection[i].object
+            break
+        }
+    }
+
+    if (firstObj) {
+        transformControls.attach(firstObj)
+    }
+
+}
+function changeTransformControls(e: KeyboardEvent) {
+    switch (e.code) {
+        case 'KeyE':
+            transformControls.setMode('scale')
+            break;
+        case 'KeyR':
+            transformControls.setMode('rotate')
+            break;
+        case 'KeyW':
+            transformControls.setMode('translate')
+            break;
+    }
 }
 
 function initControls() {
+    // 场景控制器
     controls = new OrbitControls(camera, threeLoaderDom.value)
-    controls.addEventListener('change', animate)
+
+    // 变换控制器
+    transformControls = new TransformControls(camera, threeLoaderDom.value)
+    transformControls.addEventListener('mouseDown', () => {
+        transforming = true
+        controls.enabled = false
+    })
+    transformControls.addEventListener('mouseUp', () => {
+        transforming = false
+        controls.enabled = true
+    })
+    scene.add(transformControls)
 }
 
 function initAxesHelper() {
     scene.add(helper)
+    scene.add(gridHelper);
 }
 
 function animate() {
     stats.update()
     render.render(scene, camera)
+    animationId = window.requestAnimationFrame(animate)
 }
 </script>
 

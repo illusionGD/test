@@ -24,7 +24,7 @@ export function getWindowRatio() {
 }
 
 /**
- * @description: 获取性能监视器
+ * @description: 初始化性能监视器
  * @return {*}
  */
 export function initStats() {
