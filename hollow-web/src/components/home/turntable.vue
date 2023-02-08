@@ -1,18 +1,31 @@
 <template>
     <div class="turntable">
-        <ul ref="turntableMain" :style="{
-            width: pxToRemUnit(radius * 2),
-            height: pxToRemUnit(radius * 2),
-        }">
-            <li ref="turntableItem" class="turntable-item" :class="{
-                'rotation-infinite-reverse': rotating,
-                'border-light': activeIndex === index,
-            }" v-for="(item, index) in list" :key="index" :style="{
-    width: pxToRemUnit(itemRadius * 2),
-    height: pxToRemUnit(itemRadius * 2),
-    left: pxToRemUnit(item.x),
-    top: pxToRemUnit(item.y),
-}" @mouseenter="stopRotate(index)" @mouseout="startRotate" @click="gotoPage(item)">
+        <ul
+            ref="turntableMain"
+            :style="{
+                width: pxToRemUnit(radius * 2),
+                height: pxToRemUnit(radius * 2),
+            }"
+        >
+            <li
+                ref="turntableItem"
+                class="turntable-item"
+                :class="{
+                    'rotation-infinite-reverse': rotating,
+                    'border-light': activeIndex === index,
+                }"
+                v-for="(item, index) in list"
+                :key="index"
+                :style="{
+                    width: pxToRemUnit(itemRadius * 2),
+                    height: pxToRemUnit(itemRadius * 2),
+                    left: pxToRemUnit(item.x),
+                    top: pxToRemUnit(item.y),
+                }"
+                @mouseenter="stopRotate(index)"
+                @mouseout="startRotate"
+                @click="gotoPage(item)"
+            >
                 {{ item.title }}
             </li>
         </ul>
@@ -20,12 +33,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "@vue/runtime-core";
-import { pxToRemUnit } from "@/utils";
-import { onBeforeRouteLeave, useRouter } from "vue-router";
-import { turntable_type } from "@/types/home.dto";
-import { getHomePaths } from "@/apis/common";
-import { useStore } from "vuex";
+import { onMounted, reactive, ref } from "@vue/runtime-core"
+import { pxToRemUnit } from "@/utils"
+import { onBeforeRouteLeave, useRouter } from "vue-router"
+import { turntable_type } from "@/types/home.dto"
+import { getHomePaths } from "@/apis/common"
+import { useStore } from "vuex"
 const props = defineProps({
     // 半径
     radius: {
@@ -43,58 +56,60 @@ const props = defineProps({
     },
     stop: {
         type: Boolean,
-        default: false
-    }
-});
+        default: false,
+    },
+})
 const store = useStore()
 let animationId: number
 /**小圆的坐标 */
-const list: turntable_type[] = reactive<turntable_type[]>(getPosition([
-    {
-        "path": "/user",
-        "title": "无"
-    },
-    {
-        "path": "/laboratory",
-        "title": "实验室"
-    },
-    {
-        "path": "/relax",
-        "title": "无"
-    },
-    {
-        "path": "/",
-        "title": "无"
-    },
-    {
-        "path": "/",
-        "title": "无"
-    },
-    {
-        "path": "/",
-        "title": "无"
-    },
-    {
-        "path": "/",
-        "title": "无"
-    },
-    {
-        "path": "/",
-        "title": "无"
-    }
-]));
+const list: turntable_type[] = reactive<turntable_type[]>(
+    getPosition([
+        {
+            path: "/threejs",
+            title: "three",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+        {
+            path: "/",
+            title: "无",
+        },
+    ])
+)
 /**选择控制 */
-let rotating = ref(true);
+let rotating = ref(true)
 /**鼠标选中小圆的下标 */
-let activeIndex = ref(-1);
+let activeIndex = ref(-1)
 /**整体旋转dom */
-const turntableMain = ref<HTMLElement>();
+const turntableMain = ref<HTMLElement>()
 /**每个小圆dom */
-const turntableItem = ref<HTMLElement>();
+const turntableItem = ref<HTMLElement>()
 /**旋转角度 */
 let angle = ref(0)
 
-const router = useRouter();
+const router = useRouter()
 
 onMounted(() => {
     rotateAnimation()
@@ -103,18 +118,18 @@ onMounted(() => {
 // 移除control监听
 onBeforeRouteLeave(() => {
     // 添加动画id，跳转路由时清除
-    store.commit('setAnimationIdList', {
-        type: 'add',
-        id: animationId
+    store.commit("setAnimationIdList", {
+        type: "add",
+        id: animationId,
     })
 })
 
 // init();
 
 async function init() {
-    const { code, data } = await getHomePaths();
+    const { code, data } = await getHomePaths()
     if (code === "200" && data) {
-        list.push(...getPosition(data));
+        list.push(...getPosition(data))
     }
 }
 
@@ -123,8 +138,8 @@ async function init() {
  * @return {*}
  */
 function stopRotate(index: number): void {
-    activeIndex.value = index;
-    rotating.value = false;
+    activeIndex.value = index
+    rotating.value = false
 }
 
 /**
@@ -132,8 +147,8 @@ function stopRotate(index: number): void {
  * @return {*}
  */
 function startRotate(): void {
-    activeIndex.value = -1;
-    rotating.value = true;
+    activeIndex.value = -1
+    rotating.value = true
     rotateAnimation()
 }
 
@@ -142,44 +157,44 @@ function startRotate(): void {
  * @return {*}
  */
 function getPosition(list: any[]) {
-    const radius = props.radius;
+    const radius = props.radius
     // 每个小圆的半径
-    const itemRadius = props.itemRadius;
+    const itemRadius = props.itemRadius
     // 平均旋转角度
-    const step = (2 * Math.PI) / list.length;
+    const step = (2 * Math.PI) / list.length
     // 三角函数计算xy坐标
     const resList = list.map((item: turntable_type, index) => {
         const x =
-            Math.round(radius + radius * Math.cos(step * index)) - itemRadius;
+            Math.round(radius + radius * Math.cos(step * index)) - itemRadius
         const y =
-            Math.round(radius + radius * Math.sin(step * index)) - itemRadius;
+            Math.round(radius + radius * Math.sin(step * index)) - itemRadius
         const temp = {
             ...item,
             x,
             y,
-        };
-        return temp;
-    });
+        }
+        return temp
+    })
 
-    return resList;
+    return resList
 }
 
 function gotoPage(item: turntable_type) {
-    router.push(item.path);
+    router.push(item.path)
 }
 
 function rotateAnimation() {
     if (!rotating.value || props.stop || !turntableMain.value) {
         return
     }
-    const dom = turntableMain.value as HTMLElement;
-    const rotateDeg = angle.value += props.speed
-    dom.style.transform = `rotate(${rotateDeg}deg)`;
+    const dom = turntableMain.value as HTMLElement
+    const rotateDeg = (angle.value += props.speed)
+    dom.style.transform = `rotate(${rotateDeg}deg)`
 
     if (turntableItem.value instanceof Array) {
         turntableItem.value.forEach((item: HTMLElement) => {
-            item.style.transform = `rotate(${-rotateDeg}deg)`;
-        });
+            item.style.transform = `rotate(${-rotateDeg}deg)`
+        })
     }
     animationId = window.requestAnimationFrame(rotateAnimation)
 }

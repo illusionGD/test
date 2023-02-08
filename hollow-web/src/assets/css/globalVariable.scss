@@ -38,6 +38,12 @@ a {
     background-repeat: no-repeat;
 }
 
+.p-center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
 .p-left-center {
     top: 50%;
     left: 0;

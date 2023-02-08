@@ -1,62 +1,76 @@
-import {
-    createRouter,
-    createWebHistory
-} from 'vue-router'
-import store from '../store/index'
-
+import { createRouter, createWebHistory } from "vue-router"
+import store from "../store/index"
 
 const routes = [
     {
-        path: '/',
-        component: () => import('../layouts/home.vue')
+        path: "/",
+        component: () => import("../layouts/home.vue"),
     },
     {
-        path: '/user',
-        component: () => import('../layouts/user.vue')
+        path: "/user",
+        component: () => import("../layouts/user.vue"),
+    },
+    // {
+    //     path: '/laboratory',
+    //     component: () => import('../layouts/laboratory.vue'),
+    //     meta: {
+    //         title: '实验室'
+    //     },
+    //     children: [
+    //         {
+    //             path: 'three-loader',
+    //             component: () => import('../components/laboratory/threejs/loader.vue'),
+    //         },
+    //         {
+    //             path: 'three-raycast',
+    //             component: () => import('../components/laboratory/threejs/raycast.vue'),
+    //         }
+    //     ]
+    // },
+    {
+        path: "/relax",
+        component: () => import("../layouts/relax.vue"),
     },
     {
-        path: '/laboratory',
-        component: () => import('../layouts/laboratory.vue'),
-        meta: {
-            title: '实验室'
-        },
+        path: "/threejs",
+        component: () => import("../layouts/threejs.vue"),
         children: [
             {
-                path: 'three-loader',
-                component: () => import('../components/laboratory/threejs/loader.vue'),
+                path: "",
+                component: () => import("../components/threejs/index.vue"),
             },
             {
-                path: 'three-raycast',
-                component: () => import('../components/laboratory/threejs/raycast.vue'),
-            }
-        ]
+                path: "three-loader",
+                component: () => import("../components/threejs/loader.vue"),
+            },
+            {
+                path: "three-raycast",
+                component: () => import("../components/threejs/raycast.vue"),
+            },
+        ],
     },
     {
-        path: '/relax',
-        component: () => import('../layouts/relax.vue')
+        path: "/:pathMatch(.*)*",
+        component: () => import("../layouts/notFound.vue"),
     },
-    {
-        path: '/:pathMatch(.*)*',
-        component: () => import('../layouts/notFound.vue')
-    }
 ]
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
 })
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {
     // 清除requestAnimationId
     const { animationIdList, memoryManageList } = store.state
-    animationIdList.forEach(id => {
+    animationIdList.forEach((id) => {
         window.cancelAnimationFrame(id)
     })
     animationIdList.splice(0, animationIdList.length)
 
     // 清除内存占用
-    memoryManageList.forEach(item => {
+    memoryManageList.forEach((item) => {
         item = null
     })
     memoryManageList.splice(0, memoryManageList.length)

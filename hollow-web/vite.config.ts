@@ -2,13 +2,22 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer'
 import pxtorem from 'postcss-pxtorem'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 /**
  * @description: 公共配置对象
  */
 const getCommonConfig = function (mode: string) {
     return {
         plugins: [
-            vue()
+            vue(),
+            AutoImport({
+                resolvers: [ElementPlusResolver()],
+            }),
+            Components({
+                resolvers: [ElementPlusResolver()],
+            }),
         ],
         resolve: {
             extension: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
