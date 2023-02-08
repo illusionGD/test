@@ -6,6 +6,10 @@
             </el-icon>
             <span>首页</span>
         </div>
+        <div class="btn-index" @click="clickIndex">
+            <el-icon class="home-icon"><HelpFilled /></el-icon>
+            <span>开始</span>
+        </div>
         <el-menu
             :default-active="activeIndex"
             class="menu-list"
@@ -35,6 +39,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { useRouter } from "vue-router"
+import threeMenuConfig from "@/config/threeMenuConfig.json"
 interface Menu_Type {
     title: string
     path?: string
@@ -45,26 +50,7 @@ let activeIndex = ref("0")
 const hidden = ref(false)
 
 const router = useRouter()
-const menuList = ref<Menu_Type[]>([
-    {
-        title: "交互",
-        children: [
-            {
-                title: "射线和控制器",
-                path: "/three-raycast",
-            },
-        ],
-    },
-    {
-        title: "模型",
-        children: [
-            {
-                title: "加载mmd模型",
-                path: "/three-loader",
-            },
-        ],
-    },
-])
+const menuList = ref<Menu_Type[]>(threeMenuConfig)
 
 initMenuActive()
 /**
@@ -88,8 +74,9 @@ function initMenuActive() {
             item.path && currentRouter.includes(item.path) && (i = index)
         }
     })
-    if (i != undefined && j != undefined)
+    if (i != undefined && j != undefined) {
         activeIndex.value = i + 1 + "-" + (j + 1)
+    }
 }
 
 function hiddenNav() {
@@ -106,6 +93,11 @@ function getMenuIndex(i: number, j: number) {
     return i + 1 + "-" + (j + 1)
 }
 
+function clickIndex() {
+    activeIndex.value = ""
+    router.push("/threejs")
+}
+
 /**
  * @description: 返回首页
  * @return {*}
@@ -116,7 +108,6 @@ function goHome() {
 
 function handleSelect(item: Menu_Type) {
     const path = item.path as string
-    // const currentRouter = router.currentRoute.value.path
     router.push("/threejs" + path)
 }
 </script>
@@ -137,7 +128,7 @@ function handleSelect(item: Menu_Type) {
 }
 .menu-list {
     overflow-y: auto;
-    max-height: 800px;
+    max-height: calc(100vh - 100px);
     border: none;
     &::-webkit-scrollbar {
         width: 5px;
@@ -148,7 +139,7 @@ function handleSelect(item: Menu_Type) {
         background-color: #fff;
     }
 }
-.btn-home {
+.btn-home, .btn-index {
     display: flex;
     align-items: center;
     margin: 15px 10px;
@@ -164,11 +155,11 @@ function handleSelect(item: Menu_Type) {
     right: 0;
     width: 25px;
     height: 60px;
-    border-radius: 2px;
-    background-color: rgba(0, 0, 0, 0.849);
+    border-radius: 0 2px 2px 0;
+    background-color: rgba(0, 0, 0, 0.5);
     font-size: 18px;
     cursor: pointer;
-    transform: translate(50%, -50%);
+    transform: translate(98%, -50%);
 
 @extend .flex-center;
 }

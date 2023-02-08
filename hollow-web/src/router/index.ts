@@ -41,7 +41,8 @@ const routes = [
             },
             {
                 path: "three-loader",
-                component: () => import("../components/threejs/loader.vue"),
+                component: () =>
+                    import("../components/threejs/loader/loader.vue"),
             },
             {
                 path: "three-raycast",

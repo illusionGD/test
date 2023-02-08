@@ -11,7 +11,7 @@ declare module '@vue/runtime-core' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    Loader: typeof import('./src/components/threejs/loader.vue')['default']
+    Loader: typeof import('./src/components/threejs/loader/loader.vue')['default']
     Music: typeof import('./src/components/relax/music.vue')['default']
     Particle: typeof import('./src/components/common/particle.vue')['default']
     Raycast: typeof import('./src/components/threejs/raycast.vue')['default']
