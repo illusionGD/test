@@ -7,16 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
-    ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Loader: typeof import('./src/components/threejs/loader.vue')['default']
     Music: typeof import('./src/components/relax/music.vue')['default']
-    Navigation: typeof import('./src/components/laboratory/navigation.vue')['default']
     Particle: typeof import('./src/components/common/particle.vue')['default']
     Raycast: typeof import('./src/components/threejs/raycast.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
