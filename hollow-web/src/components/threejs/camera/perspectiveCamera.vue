@@ -24,10 +24,12 @@ const gui = new dat.GUI()
 const folder = gui.addFolder("正交摄像机配置")
 const store = useStore()
 let animationId: number
-let leftObj = { value: 0 }
-let rightObj = { value: 0 }
-let topObj = { value: 0 }
-let bottomObj = { value: 0 }
+let guiConfig = {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+}
 let domWidth: number
 let domHeight: number
 let aspect: number
@@ -84,15 +86,15 @@ function initCamera() {
     perSpectiveCamera = new THREE.PerspectiveCamera(50, 0.5 * aspect, 150, 1000)
     // 正交相机
     const frustumSize = 600
-    leftObj.value = (0.5 * frustumSize * aspect) / -2
-    rightObj.value = (0.5 * frustumSize * aspect) / 2
-    topObj.value = frustumSize / 2
-    bottomObj.value = frustumSize / -2
+    guiConfig.left = (0.5 * frustumSize * aspect) / -2
+    guiConfig.right = (0.5 * frustumSize * aspect) / 2
+    guiConfig.top = frustumSize / 2
+    guiConfig.bottom = frustumSize / -2
     cameraOrtho = new THREE.OrthographicCamera(
-        leftObj.value,
-        rightObj.value,
-        topObj.value,
-        bottomObj.value,
+        guiConfig.left,
+        guiConfig.right,
+        guiConfig.top,
+        guiConfig.bottom,
         150,
         1000
     )
@@ -107,10 +109,10 @@ function initCamera() {
 }
 
 function initGUI() {
-    const c1 = folder.add(leftObj, "value", -1000, 1000)
-    const c2 = folder.add(rightObj, "value", 0, 1000)
-    const c3 = folder.add(topObj, "value", 0, 1000)
-    const c4 = folder.add(bottomObj, "value", -1000, 1000)
+    const c1 = folder.add(guiConfig, "left", -1000, 1000)
+    const c2 = folder.add(guiConfig, "right", 0, 1000)
+    const c3 = folder.add(guiConfig, "top", 0, 1000)
+    const c4 = folder.add(guiConfig, "bottom", -1000, 1000)
     folder.open()
     c1.onChange((e) => {
         cameraOrtho.left = e
