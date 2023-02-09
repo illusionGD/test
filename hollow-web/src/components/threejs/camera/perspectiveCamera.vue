@@ -73,6 +73,7 @@ onBeforeRouteLeave(() => {
         type: "add",
         id: animationId,
     })
+    gui.destroy()
 })
 
 function initCamera() {
