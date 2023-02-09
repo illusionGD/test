@@ -1,13 +1,17 @@
-import * as THREE from 'three';
-import Stats from 'three/examples/jsm/libs/stats.module'
+import * as THREE from "three"
+import Stats from "three/examples/jsm/libs/stats.module"
+import { AnyObject } from "@/types/common.dto"
 
 /**
  * @description: 初始化渲染器
  */
-export function initRenderer(dom: HTMLElement, options?: THREE.WebGLRendererParameters) {
+export function initRenderer(
+    dom: HTMLElement,
+    options?: THREE.WebGLRendererParameters
+) {
     const render = new THREE.WebGLRenderer({
         antialias: true, // 抗锯齿
-        ...options
+        ...options,
     })
     render.setSize(dom.clientWidth, dom.clientHeight)
     render.setPixelRatio(window.devicePixelRatio)
@@ -27,13 +31,15 @@ export function getWindowRatio() {
  * @description: 初始化性能监视器
  * @return {*}
  */
-export function initStats() {
+export function initStats(dom?: Element) {
     const stats = Stats()
-    stats.domElement.style.position = 'absolute'
-    stats.domElement.style.zIndex = '1'
-    stats.domElement.style.top = '0'
-    stats.domElement.style.right = '0'
-    stats.domElement.style.left = 'unset'
+    stats.domElement.style.position = "absolute"
+    stats.domElement.style.zIndex = "1"
+    stats.domElement.style.bottom = "0"
+    stats.domElement.style.top = "unset"
+    stats.domElement.style.right = "0"
+    stats.domElement.style.left = "unset"
+    dom && dom.appendChild(stats.domElement)
     return stats
 }
 
@@ -42,5 +48,15 @@ export function initStats() {
  * @return {*}
  */
 export function initGridHelper() {
-    return new THREE.GridHelper(200, 100, 'rgb(200,200,200)', 'rgb(100,100,100)')
+    return new THREE.GridHelper(
+        200,
+        100,
+        "rgb(200,200,200)",
+        "rgb(100,100,100)"
+    )
 }
+
+// export function initGUI(options: AnyObject) {
+//     if (options.children)
+//     const gui = new dat.GUI()
+// }

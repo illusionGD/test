@@ -48,6 +48,13 @@ const routes = [
                 path: "three-raycast",
                 component: () => import("../components/threejs/raycast.vue"),
             },
+            {
+                path: "three-perspectiveCamera",
+                component: () =>
+                    import(
+                        "../components/threejs/camera/perspectiveCamera.vue"
+                    ),
+            },
         ],
     },
     {

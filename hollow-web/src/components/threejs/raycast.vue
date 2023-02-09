@@ -19,6 +19,7 @@ import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { TransformControls } from "three/examples/jsm/controls/TransformControls"
 import { onMounted, ref } from "vue"
+import { onBeforeRouteLeave } from "vue-router"
 import { useStore } from "vuex"
 const store = useStore()
 let render: THREE.WebGLRenderer
@@ -67,6 +68,8 @@ onMounted(() => {
         stats,
         transformControls,
     ])
+})
+onBeforeRouteLeave(() => {
     store.commit("setAnimationIdList", {
         type: "add",
         id: animationId,
@@ -219,5 +222,4 @@ function animate() {
     width: 100%;
     height: 100vh;
 }
-
 </style>

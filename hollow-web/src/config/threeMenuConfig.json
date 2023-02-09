@@ -19,7 +19,12 @@
     },
     {
         "title": "相机(camera)",
-        "children": []
+        "children": [
+            {
+                "title": "透视/正交相机",
+                "path": "/three-perspectiveCamera"
+            }
+        ]
     },
     {
         "title": "灯光(light)",

@@ -1,6 +1,6 @@
 export interface RespondData_Type {
-    code?: string,
-    message?: string,
+    code?: string
+    message?: string
     data?: any
 }
 
@@ -23,6 +23,10 @@ export interface Particle_type {
     vy: number
     /**颜色 */
     color: string
+}
+
+export interface AnyObject {
+    [key: string]: any
 }
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never
