@@ -65,3 +65,23 @@ export function createProgram(gl, shaderArray = []) {
 
     return program
 }
+
+/**
+ * 设置shader 变量
+ * @param {*} type 变量类型
+ * @param {*} name 变量名称
+ * @param {*} values 值，数值
+ */
+export function setShaderVariable(gl, type, name, values) {
+    if (type === 'attribute') {
+        // 获取shader变量
+        const variable = gl.getAttribLocation(gl.program, name)
+        // 设置变量值
+        gl.vertexAttrib4fv(variable, values)
+    }
+
+    if (type === 'uniform') {
+        const variable = gl.getUniformLocation(gl.program, name)
+        gl.uniform4fv(variable, values)
+    }
+}
