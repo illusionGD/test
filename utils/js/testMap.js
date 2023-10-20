@@ -1,0 +1,2 @@
+(()=>{var __webpack_exports__={},badCode="const s;";eval(badCode),window.addEventListener("load",(function(){document.querySelector(".btn").addEventListener("click",(function(){var badCode="const s;";new Promise((function(e,n){setTimeout((function(){e(1)}),1e3)})).then((function(res){eval(badCode)})),eval(badCode)}))}))})();
+//# sourceMappingURL=testMap.js.map

@@ -1,0 +1,6 @@
+[auth]
+token=fe54e3ef6f034c96a0e2b8aa413316ca0ff69f34cec04c7f8d5ee5f05675ab37
+[defaults]
+url=https://illusion-nn.sentry.io/
+org=illusion-nn
+project=vuetest

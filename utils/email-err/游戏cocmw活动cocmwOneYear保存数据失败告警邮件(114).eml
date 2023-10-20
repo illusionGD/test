@@ -1,0 +1,51 @@
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R781e1;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047203;MF=efemonitor@efun.com;NM=1;PH=DS;RN=1;SR=0;TI=SMTPD_---.UMdb1ml_1692657033;
+Received: from 127.0.0.1(mailfrom:efemonitor@efun.com fp:SMTPD_---.UMdb1ml_1692657033)
+          by smtp.aliyun-inc.com;
+          Tue, 22 Aug 2023 06:30:34 +0800
+Content-Type: text/html; charset=utf-8
+From: efemonitor@efun.com
+To: acdev@efun.com
+Subject: =?UTF-8?Q?=E6=B8=B8=E6=88=8Fcocmw=E6=B4=BB?=
+ =?UTF-8?Q?=E5=8A=A8cocmwOneYear=E4=BF=9D=E5=AD=98?=
+ =?UTF-8?Q?=E6=95=B0=E6=8D=AE=E5=A4=B1=E8=B4=A5?=
+ =?UTF-8?Q?=E5=91=8A=E8=AD=A6=E9=82=AE=E4=BB=B6?=
+Message-ID: <2289c06c-5543-0403-9927-c364b0b494da@efun.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Aug 2023 22:30:32 +0000
+MIME-Version: 1.0
+
+<html><head></head><body><h1 style=3D"text-align: center">=E2=9A=A0=
+=EF=B8=8F=E6=95=B0=E6=8D=AE=E5=BA=93=E5=85=A5=E5=BA=93=E9=94=99=E8=AF=AF=
+=E4=B8=80=E7=BA=A7=E8=AD=A6=E5=91=8A=E2=9A=A0=EF=B8=8F</h1>
+<p style=3D"color: #f00;font-weight: bold">=E8=AF=B7=E7=AC=AC=E4=B8=80=
+=E4=B8=AA=E7=9C=8B=E5=88=B0=E6=AD=A4=E9=82=AE=E4=BB=B6=E7=9A=84=E5=90=8C=
+=E5=AD=A6=E5=90=8C=E6=AD=A5=E6=B6=88=E6=81=AF=E5=88=B0=E9=83=A8=E9=97=A8=
+=E7=BE=A4=EF=BC=8C=E6=89=BE=E5=88=B0=E7=9B=B8=E5=85=B3=E5=90=8C=E5=AD=A6=
+=E6=8E=92=E6=9F=A5=E4=BF=AE=E5=A4=8D=E8=AF=A5=E9=97=AE=E9=A2=98</p>
+<h2>=E5=8F=82=E6=95=B0=E4=BF=A1=E6=81=AF=EF=BC=9A</h2>
+<p>
+    {"tableName":"t_activity_reward_log","addMap":{"gameCode":"cocmw",=
+"activityCode":"cocmwOneYear","userId":"4001956823",=
+"roleId":"501000000003165","serverCode":"5","reward":"1,110026,1;1,110046,=
+5","version":"online20230817","rewardFrequency":"Once",=
+"rewardCode":"login_5","threshold":1,"result":"{\"code\":\"1000\",=
+\"message\":\"success\"}","code":"1000","message":"success",=
+"url":"https://award.chaseol.com/v2/sendAward.shtml?=
+activityCode=3DcocmwOneYear&amp;gameCode=3Dcocmw&amp;serverCode=3D5&amp;rol=
+eId=3D501000000003165&amp;userId=3D4001956823&amp;packageId=3D1,110026,1;1,=
+110046,5&amp;title=3D=EB=88=84=EC=A0=81 =EB=A1=9C=EA=B7=B8=EC=9D=B8 =
+5=EC=9D=BC =EB=B3=B4=EC=83=81&amp;content=3D=EC=9E=AC=EB=A3=8C =
+=EC=84=A0=ED=83=9D=ED=95=A8(=EB=8C=80)*1=EF=BC=8C=EB=8F=8C=ED=8C=8C =
+=EA=B0=81=EC=84=B1 =EC=84=A0=ED=83=9D=ED=95=A8*5&amp;roleLevel=3D0&amp;lock=
+Key=3DcocmwcocmwOneYearonline202308174001956823getRewardLockKey&amp;serialN=
+o=3DCD5CFE41F077A05CC2DDFE83ABF4F598&amp;language=3Dko-KR",=
+"modifyTime":1692660622958}}
+</p>
+<h2>=E6=8A=A5=E9=94=99=E4=BF=A1=
+=E6=81=AF=EF=BC=9A</h2>
+<p>
+   {"name":"SequelizeConnectionError",=
+"parent":{"errorno":"ETIMEDOUT","code":"ETIMEDOUT","syscall":"connect",=
+"fatal":true},"original":{"errorno":"ETIMEDOUT","code":"ETIMEDOUT",=
+"syscall":"connect","fatal":true}}
+</p></body></html>
