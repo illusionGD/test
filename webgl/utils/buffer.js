@@ -1,5 +1,6 @@
 /**
  * 初始化buffer
+ * @param {*} gl
  * @param {*} attribute vertex变量名
  * @param {*} size attribute变量长度，如：vec4，就=4
  * @param {*} stride 每个点信息的bytes长度，如：1点的信息有5个，5 * 每个bytes

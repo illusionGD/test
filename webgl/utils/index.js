@@ -7,3 +7,11 @@ export function clearWebglCanvas(gl, vec4 = [0.0, 0.0, 0.0, 1.0]) {
     gl.clearColor(...vec4)
     gl.clear(gl.COLOR_BUFFER_BIT)
 }
+
+export function mergePoints(arr) {
+    const points = []
+    arr.forEach((item) => {
+        points.push(...item)
+    })
+    return points
+}
