@@ -11,9 +11,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   // 全局路由守卫
   router: {
@@ -26,6 +24,10 @@ export default {
   plugins: [
   ],
 
+  server: {
+    port: 3100
+  },
+
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -36,16 +38,25 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/style-resources'
-  ],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/sentry'],
 
-  styleResources:{
-    less:[
-      './assets/css/main.less'
-    ]
+  styleResources: {
+    less: ['./assets/css/main.less']
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
+  build: {},
+  sentry: {
+    dsn: 'https://3321a338b20741b9ae8fc316762a392f@o4504998667812864.ingest.sentry.io/4505000891777024',
+    disableServerSide: false,
+    disableClientSide: false,
+    publishRelease: {
+      configFile: '.sentryclirc',
+      urlPrefix: '', // sourcemap文件的url前缀
+      // Attach commits to the release (requires that the build triggered within a git repository).
+      setCommits: {
+        auto: true
+      }
+    },
+    sourceMapStyle: 'hidden-source-map'
   }
 }

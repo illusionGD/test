@@ -1,0 +1,874 @@
+2023-08-30 00:01:31 +08:00: 4001948777 store_5 是否满足 uidTotalStoreDays true
+2023-08-30 00:01:31 +08:00: 4001948777 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:01:31 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 12:01:31 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001948777[39m
+2023-08-30 00:01:31 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001948777',
+    gameCode: 'cocmw',
+    serverCode: '12',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:01:31 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001948777&gameCode=cocmw&serverCode=12&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:15:15 +08:00: 4002151871 首次抽中 reward_1 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 00:15:15 +08:00: 4002151871 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:15:15 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 12:15:15 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002151871[39m
+2023-08-30 00:15:15 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002151871',
+    gameCode: 'cocmw',
+    serverCode: '65',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:15:15 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002151871&gameCode=cocmw&serverCode=65&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:19:17 +08:00: 4001937904 首次抽中 reward_3 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 00:19:17 +08:00: 4001937904 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:19:17 +08:00: [32m[Nest] 17306   - [39m08/30/2023, 12:19:17 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001937904[39m
+2023-08-30 00:19:17 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001937904',
+    gameCode: 'cocmw',
+    serverCode: '1',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:19:17 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001937904&gameCode=cocmw&serverCode=1&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:26:40 +08:00: 4002145759 首次抽中 reward_4 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 00:26:40 +08:00: 4002145759 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:26:40 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 12:26:40 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002145759[39m
+2023-08-30 00:26:40 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002145759',
+    gameCode: 'cocmw',
+    serverCode: '63',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:26:40 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002145759&gameCode=cocmw&serverCode=63&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:32:45 +08:00: 4002047585 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 00:32:45 +08:00: 4002047585 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:32:45 +08:00: [32m[Nest] 17306   - [39m08/30/2023, 12:32:45 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002047585[39m
+2023-08-30 00:32:45 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002047585',
+    gameCode: 'cocmw',
+    serverCode: '33',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:32:45 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002047585&gameCode=cocmw&serverCode=33&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:34:17 +08:00: 4002047585 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:34:17 +08:00: [32m[Nest] 17364   - [39m08/30/2023, 12:34:17 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002047585[39m
+2023-08-30 00:34:17 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002047585',
+    gameCode: 'cocmw',
+    serverCode: '33',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:34:17 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://pay.chaseol.com/paysystem/activityPay/getPayListGroupByDay.shtml?uid=4002047585&gameCode=cocmw&startTime=1692288000000&endTime=1693583999000&language=ko-KR 返回数据response.data {"code":"1000","data":[],"message":"성공","success":true,"successBySpecificCode":true}
+2023-08-30 00:34:17 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002047585&gameCode=cocmw&serverCode=33&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:34:33 +08:00: 4002047585 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 00:34:33 +08:00: 4002047585 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:34:33 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 12:34:33 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002047585[39m
+2023-08-30 00:34:33 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002047585',
+    gameCode: 'cocmw',
+    serverCode: '33',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:34:33 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002047585&gameCode=cocmw&serverCode=33&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:43:28 +08:00: 4002144630-用户补发游戏次数： 0
+2023-08-30 00:43:28 +08:00: 4002144630-用户补扣游戏次数： 0
+2023-08-30 00:43:28 +08:00: 4002144630-用户通关游戏次数： 30
+2023-08-30 00:43:28 +08:00: 4002144630-用户游戏失败次数： 0
+2023-08-30 00:43:28 +08:00: 4002144630-用户挑战游戏次数： 30
+2023-08-30 00:43:28 +08:00: 4002144630-用户总游戏次数： 31
+2023-08-30 00:43:28 +08:00: 4002144630-用户剩余游戏次数： 1
+2023-08-30 00:43:28 +08:00: 4002144630-用户活动信息： {
+  dailyLoginCount: 13,
+  dailyStoreCount: 13,
+  gameAllNum: 31,
+  gameChallengeNum: 30,
+  gameSuccessNum: 30,
+  gameFailNum: 0,
+  gameSurplusNum: 1
+}
+2023-08-30 00:43:28 +08:00: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Request original url: /cocmw-one-year/getUserActInfo?gameCode=cocmw&activityCode=cocmwOneYear&language=ko-KR&platform=krly&userId=4002144630&loginSign=50FE9261AFAE01018DB69368E689A358&loginTimestamp=1693327347712&crossdomain=true
+Method: GET
+IP: 211.234.180.4
+Response data: {"code":"1000","message":"success","data":{"dailyLoginCount":13,"dailyStoreCount":13,"gameAllNum":31,"gameChallengeNum":30,"gameSuccessNum":30,"gameFailNum":0,"gameSurplusNum":1}}
+Response Time: 48ms
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2023-08-30 00:43:28 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002144630&gameCode=cocmw&serverCode=6&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:44:31 +08:00: 4002144630-用户补发游戏次数： 0
+2023-08-30 00:44:31 +08:00: 4002144630-用户补扣游戏次数： 0
+2023-08-30 00:44:31 +08:00: 4002144630-用户通关游戏次数： 31
+2023-08-30 00:44:31 +08:00: 4002144630-用户游戏失败次数： 0
+2023-08-30 00:44:31 +08:00: 4002144630-用户挑战游戏次数： 31
+2023-08-30 00:44:31 +08:00: 4002144630-用户总游戏次数： 31
+2023-08-30 00:44:31 +08:00: 4002144630-用户剩余游戏次数： 0
+2023-08-30 00:44:31 +08:00: 4002144630-用户活动信息： {
+  dailyLoginCount: 13,
+  dailyStoreCount: 13,
+  gameAllNum: 31,
+  gameChallengeNum: 31,
+  gameSuccessNum: 31,
+  gameFailNum: 0,
+  gameSurplusNum: 0
+}
+2023-08-30 00:44:31 +08:00: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Request original url: /cocmw-one-year/getUserActInfo?gameCode=cocmw&activityCode=cocmwOneYear&language=ko-KR&platform=krly&userId=4002144630&loginSign=09DA5881F2F6C677DF3BF55095294657&loginTimestamp=1693327415444&crossdomain=true
+Method: GET
+IP: 211.234.180.4
+Response data: {"code":"1000","message":"success","data":{"dailyLoginCount":13,"dailyStoreCount":13,"gameAllNum":31,"gameChallengeNum":31,"gameSuccessNum":31,"gameFailNum":0,"gameSurplusNum":0}}
+Response Time: 32ms
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2023-08-30 00:44:31 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002144630&gameCode=cocmw&serverCode=6&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 00:54:57 +08:00: 4002145174 首次抽中 reward_1 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 00:54:57 +08:00: 4002145174 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 00:54:57 +08:00: [32m[Nest] 17306   - [39m08/30/2023, 12:54:57 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002145174[39m
+2023-08-30 00:54:57 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002145174',
+    gameCode: 'cocmw',
+    serverCode: '63',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 00:54:57 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002145174&gameCode=cocmw&serverCode=63&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 03:16:20 +08:00: 4001963293 根据奖励独立概率配置抽中 reward_2 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 03:16:20 +08:00: 4001963293 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 03:16:20 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 3:16:20 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001963293[39m
+2023-08-30 03:16:20 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001963293',
+    gameCode: 'cocmw',
+    serverCode: '2',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 03:16:20 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001963293&gameCode=cocmw&serverCode=2&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 04:34:18 +08:00: 4002188305 首次抽中 reward_7 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 04:34:18 +08:00: 4002188305 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 04:34:18 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 4:34:18 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188305[39m
+2023-08-30 04:34:18 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188305',
+    gameCode: 'cocmw',
+    serverCode: '84',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 04:34:18 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188305&gameCode=cocmw&serverCode=84&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 05:13:32 +08:00: 4002094428 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 05:13:32 +08:00: 4002094428 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 05:13:32 +08:00: [32m[Nest] 17364   - [39m08/30/2023, 5:13:32 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002094428[39m
+2023-08-30 05:13:32 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002094428',
+    gameCode: 'cocmw',
+    serverCode: '47',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 05:13:32 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002094428&gameCode=cocmw&serverCode=47&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 05:13:39 +08:00: 4001951083 首次抽中 reward_1 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 05:13:39 +08:00: 4001951083 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 05:13:39 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 5:13:39 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001951083[39m
+2023-08-30 05:13:39 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001951083',
+    gameCode: 'cocmw',
+    serverCode: '6',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 05:13:39 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001951083&gameCode=cocmw&serverCode=6&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 05:20:26 +08:00: 4001953364-用户补发游戏次数： 0
+2023-08-30 05:20:26 +08:00: 4001953364-用户补扣游戏次数： 0
+2023-08-30 05:20:26 +08:00: 4001953364-用户通关游戏次数： 18
+2023-08-30 05:20:26 +08:00: 4001953364-用户游戏失败次数： 0
+2023-08-30 05:20:26 +08:00: 4001953364-用户挑战游戏次数： 18
+2023-08-30 05:20:26 +08:00: 4001953364-用户总游戏次数： 18
+2023-08-30 05:20:26 +08:00: 4001953364-用户剩余游戏次数： 0
+2023-08-30 05:20:26 +08:00: 4001953364-用户活动信息： {
+  dailyLoginCount: 13,
+  dailyStoreCount: 0,
+  gameAllNum: 18,
+  gameChallengeNum: 18,
+  gameSuccessNum: 18,
+  gameFailNum: 0,
+  gameSurplusNum: 0
+}
+2023-08-30 05:20:26 +08:00: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Request original url: /cocmw-one-year/getUserActInfo?gameCode=cocmw&activityCode=cocmwOneYear&language=ko-KR&platform=krly&userId=4001953364&loginSign=2830474643C996706A806C7DF3211D0E&loginTimestamp=1693343972449&crossdomain=true
+Method: GET
+IP: 223.62.150.44
+Response data: {"code":"1000","message":"success","data":{"dailyLoginCount":13,"dailyStoreCount":0,"gameAllNum":18,"gameChallengeNum":18,"gameSuccessNum":18,"gameFailNum":0,"gameSurplusNum":0}}
+Response Time: 34ms
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2023-08-30 05:20:26 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001953364&gameCode=cocmw&serverCode=5&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 05:37:16 +08:00: 4002065757 首次抽中 reward_2 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 05:37:16 +08:00: 4002065757 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 05:37:16 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 5:37:16 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002065757[39m
+2023-08-30 05:37:16 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002065757',
+    gameCode: 'cocmw',
+    serverCode: '39',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 05:37:16 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002065757&gameCode=cocmw&serverCode=39&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 05:38:30 +08:00: 4001986152 首次抽中 reward_2 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 05:38:30 +08:00: 4001986152 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 05:38:30 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 5:38:30 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001986152[39m
+2023-08-30 05:38:30 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001986152',
+    gameCode: 'cocmw',
+    serverCode: '3',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 05:38:30 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001986152&gameCode=cocmw&serverCode=3&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 06:27:29 +08:00: 4002133262 首次抽中 reward_6 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 06:27:29 +08:00: 4002133262 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 06:27:29 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 6:27:29 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002133262[39m
+2023-08-30 06:27:29 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002133262',
+    gameCode: 'cocmw',
+    serverCode: '56',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 06:27:29 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002133262&gameCode=cocmw&serverCode=56&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 06:30:42 +08:00: 4002001286 首次抽中 reward_5 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 06:30:42 +08:00: 4002001286 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 06:30:42 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 6:30:42 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002001286[39m
+2023-08-30 06:30:42 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002001286',
+    gameCode: 'cocmw',
+    serverCode: '18',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 06:30:42 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002001286&gameCode=cocmw&serverCode=18&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:05:01 +08:00: 4002011965 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:05:01 +08:00: 4002011965 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:05:01 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 7:05:01 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002011965[39m
+2023-08-30 07:05:01 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002011965',
+    gameCode: 'cocmw',
+    serverCode: '22',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:05:01 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002011965&gameCode=cocmw&serverCode=22&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:06:25 +08:00: 4002011965 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:06:25 +08:00: 4002011965 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:06:25 +08:00: [32m[Nest] 17364   - [39m08/30/2023, 7:06:25 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002011965[39m
+2023-08-30 07:06:25 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002011965',
+    gameCode: 'cocmw',
+    serverCode: '22',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:06:25 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002011965&gameCode=cocmw&serverCode=22&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:14:38 +08:00: 4002188335 login_3 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:14:38 +08:00: 4002188335 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:14:38 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 7:14:38 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188335[39m
+2023-08-30 07:14:38 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188335',
+    gameCode: 'cocmw',
+    serverCode: '58',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:14:39 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:15:32 +08:00: 4002188335-用户补发游戏次数： 0
+2023-08-30 07:15:32 +08:00: 4002188335-用户补扣游戏次数： 0
+2023-08-30 07:15:32 +08:00: 4002188335-用户通关游戏次数： 3
+2023-08-30 07:15:32 +08:00: 4002188335-用户游戏失败次数： 0
+2023-08-30 07:15:32 +08:00: 4002188335-用户挑战游戏次数： 3
+2023-08-30 07:15:32 +08:00: 4002188335-用户总游戏次数： 8
+2023-08-30 07:15:32 +08:00: 4002188335-用户剩余游戏次数： 5
+2023-08-30 07:15:32 +08:00: 4002188335-用户活动信息： {
+  dailyLoginCount: 7,
+  dailyStoreCount: 1,
+  gameAllNum: 8,
+  gameChallengeNum: 3,
+  gameSuccessNum: 3,
+  gameFailNum: 0,
+  gameSurplusNum: 5
+}
+2023-08-30 07:15:32 +08:00: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Request original url: /cocmw-one-year/getUserActInfo?gameCode=cocmw&activityCode=cocmwOneYear&language=ko-KR&platform=krly&userId=4002188335&loginSign=188FCF50B75678299AF85A5A12B19E48&loginTimestamp=1693350866784&crossdomain=true
+Method: GET
+IP: 211.234.181.229
+Response data: {"code":"1000","message":"success","data":{"dailyLoginCount":7,"dailyStoreCount":1,"gameAllNum":8,"gameChallengeNum":3,"gameSuccessNum":3,"gameFailNum":0,"gameSurplusNum":5}}
+Response Time: 43ms
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2023-08-30 07:15:32 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:37:31 +08:00: 4002188335 login_3 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:37:31 +08:00: 4002188335 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:37:31 +08:00: [32m[Nest] 17364   - [39m08/30/2023, 7:37:31 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188335[39m
+2023-08-30 07:37:31 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188335',
+    gameCode: 'cocmw',
+    serverCode: '58',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:37:31 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:48:17 +08:00: 4002188335 首次抽中 reward_3 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 07:48:17 +08:00: 4002188335 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:48:17 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 7:48:17 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188335[39m
+2023-08-30 07:48:17 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188335',
+    gameCode: 'cocmw',
+    serverCode: '58',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:48:17 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:48:26 +08:00: 4002188335 login_7 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:48:26 +08:00: 4002188335 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:48:26 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 7:48:26 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188335[39m
+2023-08-30 07:48:26 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188335',
+    gameCode: 'cocmw',
+    serverCode: '58',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:48:26 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 07:49:33 +08:00: 4002188335 login_7 是否满足 uidTotalLoginGameDays true
+2023-08-30 07:49:33 +08:00: 4002188335 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 07:49:33 +08:00: [32m[Nest] 17313   - [39m08/30/2023, 7:49:33 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002188335[39m
+2023-08-30 07:49:33 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002188335',
+    gameCode: 'cocmw',
+    serverCode: '58',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 07:49:33 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002188335&gameCode=cocmw&serverCode=58&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 08:07:41 +08:00: 4001951480-用户补发游戏次数： 0
+2023-08-30 08:07:41 +08:00: 4001951480-用户补扣游戏次数： 0
+2023-08-30 08:07:41 +08:00: 4001951480-用户通关游戏次数： 27
+2023-08-30 08:07:41 +08:00: 4001951480-用户游戏失败次数： 2
+2023-08-30 08:07:41 +08:00: 4001951480-用户挑战游戏次数： 29
+2023-08-30 08:07:41 +08:00: 4001951480-用户总游戏次数： 31
+2023-08-30 08:07:41 +08:00: 4001951480-用户剩余游戏次数： 2
+2023-08-30 08:07:41 +08:00: 4001951480-用户活动信息： {
+  dailyLoginCount: 13,
+  dailyStoreCount: 13,
+  gameAllNum: 31,
+  gameChallengeNum: 29,
+  gameSuccessNum: 27,
+  gameFailNum: 2,
+  gameSurplusNum: 2
+}
+2023-08-30 08:07:41 +08:00: <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Start 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Request original url: /cocmw-one-year/gameStart?gameCode=cocmw&activityCode=cocmwOneYear&language=ko-KR&platform=krly&userId=4001951480&loginSign=AA2F0400B7D4A4F82F8AF347A502F4A0&loginTimestamp=1693354055370&crossdomain=true&startTimestamp=1693354061533
+Method: GET
+IP: 118.235.14.32
+Response data: {"code":"1000","message":"success","data":{"gameAllNum":31,"gameSurplusNum":2,"gameId":"1693354061535-4001951480-47","cardList":["0-6_13-6","1-9_9-9","2-7_18-7","3-5_16-5","4-4_17-4","5-0_10-0","6-1_12-1","7-8_19-8","8-2_14-2","9-9_1-9","10-0_5-0","11-3_15-3","12-1_6-1","13-6_0-6","14-2_8-2","15-3_11-3","16-5_3-5","17-4_4-4","18-7_2-7","19-8_7-8"]}}
+Response Time: 42ms
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< End 响应数据 Response Data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2023-08-30 08:07:41 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002016025&gameCode=cocmw&serverCode=23&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 08:13:18 +08:00: 4002036109 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 08:13:18 +08:00: 4002036109 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 08:13:18 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 8:13:18 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002036109[39m
+2023-08-30 08:13:18 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002036109',
+    gameCode: 'cocmw',
+    serverCode: '30',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 08:13:18 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002036109&gameCode=cocmw&serverCode=30&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 09:03:28 +08:00: 4002104713 login_12 是否满足 uidTotalLoginGameDays true
+2023-08-30 09:03:28 +08:00: 4002104713 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 09:03:28 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 9:03:28 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002104713[39m
+2023-08-30 09:03:28 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002104713',
+    gameCode: 'cocmw',
+    serverCode: '50',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 09:03:28 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002104713&gameCode=cocmw&serverCode=50&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 10:29:57 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://pay.chaseol.com/paysystem/activityPay/getPayListGroupByDay.shtml?uid=4001872641&gameCode=cocmw&startTime=1692288000000&endTime=1693583999000&language=ko-KR 返回数据response.data {"code":"1000","data":[],"message":"성공","success":true,"successBySpecificCode":true}
+2023-08-30 10:29:57 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://assist.chaseol.com/retrieveLoginRecord.shtml?gameCode=cocmw&userId=4001872641&startTime=2023-08-18&endTime=2023-09-01&isParentGame=true&language=ko-KR 返回数据response.data {"code":"1000","data":["2023-08-18","2023-08-19","2023-08-20","2023-08-21","2023-08-22","2023-08-23","2023-08-24","2023-08-25","2023-08-26","2023-08-27","2023-08-28","2023-08-29","2023-08-30"],"message":"success"}
+2023-08-30 10:29:57 +08:00: 4001872641-用户每日登录游戏记录： [
+  '2023-08-18', '2023-08-19',
+  '2023-08-20', '2023-08-21',
+  '2023-08-22', '2023-08-23',
+  '2023-08-24', '2023-08-25',
+  '2023-08-26', '2023-08-27',
+  '2023-08-28', '2023-08-29',
+  '2023-08-30'
+]
+2023-08-30 10:29:57 +08:00: 4001872641-用户累登额外获取游戏次数： 5
+2023-08-30 10:29:57 +08:00: 4001872641-用户每日累储天数记录： []
+2023-08-30 10:29:57 +08:00: 4001872641-用户补发游戏次数： 0
+2023-08-30 10:29:57 +08:00: 4001872641-用户补扣游戏次数： 0
+2023-08-30 10:29:57 +08:00: 4001872641-用户通关游戏次数： 16
+2023-08-30 10:29:57 +08:00: 4001872641-用户游戏失败次数： 2
+2023-08-30 10:29:57 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001872641&gameCode=cocmw&serverCode=21&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 10:55:43 +08:00: 4001788308 首次抽中 reward_3 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 10:55:43 +08:00: 4001788308 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 10:55:43 +08:00: [32m[Nest] 17364   - [39m08/30/2023, 10:55:43 AM   [38;5;3m[get user roleInfo form api] [39m[32m4001788308[39m
+2023-08-30 10:55:43 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001788308',
+    gameCode: 'cocmw',
+    serverCode: '1',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 10:55:43 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001788308&gameCode=cocmw&serverCode=1&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 11:12:09 +08:00: 4002133262 首次抽中 reward_1 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 11:12:09 +08:00: 4002133262 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 11:12:09 +08:00: [32m[Nest] 17362   - [39m08/30/2023, 11:12:09 AM   [38;5;3m[get user roleInfo form api] [39m[32m4002133262[39m
+2023-08-30 11:12:09 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002133262',
+    gameCode: 'cocmw',
+    serverCode: '56',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 11:12:09 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002133262&gameCode=cocmw&serverCode=56&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 12:09:08 +08:00: 4001936210 首次抽中 reward_7 是否售空 false 此用户领取是否已达最大限制 false
+2023-08-30 12:09:08 +08:00: 4001936210 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 12:09:08 +08:00: [32m[Nest] 31349   - [39m08/30/2023, 12:09:08 PM   [38;5;3m[get user roleInfo form api] [39m[32m4001936210[39m
+2023-08-30 12:09:08 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4001936210',
+    gameCode: 'cocmw',
+    serverCode: '1',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 12:09:08 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4001936210&gameCode=cocmw&serverCode=1&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}
+--
+2023-08-30 13:27:08 +08:00: 4002010206 login_3 是否满足 uidTotalLoginGameDays true
+2023-08-30 13:27:08 +08:00: 4002010206 条件判断ok，进入发奖逻辑，开始发奖
+2023-08-30 13:27:08 +08:00: [32m[Nest] 31349   - [39m08/30/2023, 1:27:08 PM   [38;5;3m[get user roleInfo form api] [39m[32m4002010206[39m
+2023-08-30 13:27:08 +08:00: 请求外部接口---请求信息 {
+  url: 'https://game.chaseol.com/gameRole_findRole.shtml',
+  method: 'get',
+  data: undefined,
+  params: {
+    uid: '4002010206',
+    gameCode: 'cocmw',
+    serverCode: '40',
+    language: 'ko-KR'
+  },
+  headers: {
+    common: { Accept: 'application/json, text/plain, */*' },
+    delete: {},
+    get: {},
+    head: {},
+    post: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    put: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    patch: { 'Content-Type': 'application/x-www-form-urlencoded' }
+  }
+}
+2023-08-30 13:27:08 +08:00: 请求外部接口(如此处打印的get请求参数空格变+号，不用理会，后端接口正常接收到的会是空格) https://game.chaseol.com/gameRole_findRole.shtml?uid=4002010206&gameCode=cocmw&serverCode=40&language=ko-KR 返回数据response.data {"code":"1001","message":"캐릭터가 없습니다."}

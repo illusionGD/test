@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>error</title>
+    <script src="https://restn-download.movergames.com/res_tn/util/jquery/jquery.min.js"></script>
+
+</head>
+
+<body>
+</body>
+<script src="./res/email.json"></script>
+<script>
+    fetch('./res/email.json')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // 处理 JSON 数据
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    function request({ config, params }) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                ...config,
+                data: {
+                    ...params,
+                },
+                success: (res) => {
+                    console.log("🚀 ~ file: index.html:32 ~ res:", res)
+                    if (res && res instanceof Array && res.length) {
+                        resolve(res[0])
+                    } else {
+                        resolve(typeof res === 'string' ? JSON.parse(res) : res)
+                    }
+                },
+                error: (err) => {
+                    reject(err)
+                },
+            })
+        })
+    }
+</script>
+<!-- <script>
+
+    const data = request('').then(res => {
+        console.log("🚀 ~ file: index.html:21 ~ res:", res)
+
+    })
+
+    function request({ config, params }) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                ...config,
+                data: {
+                    ...params,
+                },
+                success: (res) => {
+                    console.log("🚀 ~ file: index.html:32 ~ res:", res)
+                    if (res && res instanceof Array && res.length) {
+                        resolve(res[0])
+                    } else {
+                        resolve(typeof res === 'string' ? JSON.parse(res) : res)
+                    }
+                },
+                error: (err) => {
+                    reject(err)
+                },
+            })
+        })
+    }
+
+</script> -->
+
+
+</html>
