@@ -1,10 +1,14 @@
 import {
     fragmentSource,
+    matFragmentSource,
+    matVertexSource,
     textureFragmentSource,
     textureVertexSource,
     vertexSource,
 } from './shaders/index.js'
 import { bindBuffer, initBuffer } from './utils/buffer.js'
+import { mat4, mat3, glMatrix, vec3 } from './utils/gl-matrix/index.js'
+import { transformMat4 } from './utils/gl-matrix/vec3.js'
 import { clearWebglCanvas, mergePoints } from './utils/index.js'
 import { initShader, setShaderVariable } from './utils/shader.js'
 import { initTextures } from './utils/texture.js'
@@ -53,11 +57,14 @@ function testTexture() {
         [0.5, 0.5, 0.0, 1.0, 1.0],
         [0.5, -0.5, 0.0, 1.0, 0.0],
     ]
+
+    const t_mat = mat4.fromTranslation(mat4.create(), [0.0, 1.0, 0.0])
+    console.log('🚀 ~ file: index.js:62 ~ t_mat:', t_mat)
     const vertices = new Float32Array(mergePoints(points))
     const size = vertices.BYTES_PER_ELEMENT
 
-    initShader(gl, textureVertexSource, textureFragmentSource)
-
+    initShader(gl, matVertexSource, matFragmentSource)
+    setShaderVariable(gl, 'uniform', 'u_ViewMatrix4', t_mat)
     bindBuffer(gl, vertices)
 
     initBuffer(gl, 'a_position', 3, points[0].length * size, 0)
@@ -67,3 +74,5 @@ function testTexture() {
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, points.length)
     })
 }
+
+function testMatrix() {}
