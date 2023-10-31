@@ -5,7 +5,8 @@
  */
 export function clearWebglCanvas(gl, vec4 = [0.0, 0.0, 0.0, 1.0]) {
     gl.clearColor(...vec4)
-    gl.clear(gl.COLOR_BUFFER_BIT)
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+    gl.enable(gl.DEPTH_TEST)
 }
 
 export function mergePoints(arr) {
@@ -13,5 +14,5 @@ export function mergePoints(arr) {
     arr.forEach((item) => {
         points.push(...item)
     })
-    return points
+    return new Float32Array(points)
 }

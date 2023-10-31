@@ -27,11 +27,12 @@ export function initBuffer(gl, attribute, size, stride, offset) {
  * @param {*} gl
  * @param {*} vertices buffer数据
  */
-export function bindBuffer(gl, vertices) {
+export function bindBuffer(gl, vertices, type = gl.ARRAY_BUFFER) {
     // 创建顶点缓冲区
     const vertexBuffer = gl.createBuffer()
     // 绑定buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
+    gl.bindBuffer(type, vertexBuffer)
     // 绑定buffer数据
-    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
+    gl.bufferData(type, vertices, gl.STATIC_DRAW)
+    return vertexBuffer
 }
