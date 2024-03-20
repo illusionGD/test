@@ -15,13 +15,13 @@ export function initShader(gl, vertexSource, fragmentSource) {
 /**
  * 创建shader
  * @param {*} gl
- * @param {*} type
- * @param {*} source
+ * @param {*} type shader类型
+ * @param {*} source shader代码
  */
 export function createShader(gl, type, source) {
     // 创建shader
     const shader = gl.createShader(type)
-    // shader赋值
+    // shader赋值（将shader代码付给shader）
     gl.shaderSource(shader, source)
     // 编译shader
     gl.compileShader(shader)
@@ -35,7 +35,7 @@ export function createShader(gl, type, source) {
 }
 
 /**
- * 创建program
+ * 创建program&附加shader
  * @param {*} gl
  */
 export function createProgram(gl, shaderArray = []) {

@@ -19,7 +19,6 @@ const canvas = document.getElementById('webglCanvas')
 const gl = canvas.getContext('webgl')
 
 // testBuffer()
-// testTexture()
 function testBuffer() {
     const points = [
         [-0.5, 0.0, 0.0, 1.0, 0.0, 0.0],
@@ -40,9 +39,8 @@ function testBuffer() {
 
     const size = vertices.BYTES_PER_ELEMENT
 
-    initShader(gl, vertexSource, fragmentSource)
-
     bindBuffer(gl, vertices)
+    initShader(gl, vertexSource, fragmentSource)
 
     initBuffer(gl, 'a_position', positionSize, pointSize * size, 0)
 
@@ -53,6 +51,7 @@ function testBuffer() {
     gl.drawArrays(gl.LINE_LOOP, 0, pointCount)
 }
 
+testTexture()
 function testTexture() {
     const points = [
         [-0.5, 0.5, 0.0, 0.0, 1.0],
@@ -61,7 +60,7 @@ function testTexture() {
         [0.5, -0.5, 0.0, 1.0, 0.0],
     ]
 
-    const t_mat = mat4.fromTranslation(mat4.create(), [0.0, 1.0, 0.0])
+    const t_mat = mat4.fromTranslation(mat4.create(), [0.0, 0.0, 0.0])
     console.log('🚀 ~ file: index.js:62 ~ t_mat:', t_mat)
     const vertices = new Float32Array(mergePoints(points))
     const size = vertices.BYTES_PER_ELEMENT
@@ -78,7 +77,7 @@ function testTexture() {
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, points.length)
     })
 }
-testCube()
+// testCube()
 function testCube() {
     initShader(gl, cubeVertexSource, cubeFragmentSOurce)
     bindBuffer(gl, cubePoints)
