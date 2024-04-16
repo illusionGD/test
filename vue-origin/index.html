@@ -11,9 +11,12 @@
     </body>
     <script>
         const weakMap = new WeakMap() // 存储全部监听的对象
+        const jobQueue = new Set() // 任务队列，延迟执行副作用函数队列，防止同时多次修改一个值，导致多次调用副作用函数
         const effectStack = [] // 副作用函数栈，解决effect嵌套导致的副作用函数绑定错误的问题呢，每次从栈中弹出的fn就是正确的副作用函数
+        let activeEffect = null
         let test = 1
-
+        let first = false
+        let i = 0
         const data = new Proxy(
             {
                 info: '1',
@@ -21,7 +24,6 @@
             },
             {
                 get(target, key) {
-                    const activeEffect = effectStack.pop()
                     if (!activeEffect) {
                         return target[key]
                     }
@@ -49,7 +51,6 @@
                     return target[key]
                 },
                 set(target, key, newVal, oldVal) {
-                    console.log('set')
                     target[key] = newVal
                     // 取出对象的map
                     const map = weakMap.get(target)
@@ -60,41 +61,120 @@
                     // 执行桶中全部副作用函数
                     if (bucket) {
                         // new set的原因：因为原理的set中，正在清除fn（副作用函数）的绑定，如果直接对原set遍历，会出现无线循环（一边delete一边add造成的循环）
-                        const effectToRun = new Set(bucket)
-                        effectToRun.forEach((fn) => fn())
+                        const effectToRun = new Set()
+                        bucket.forEach((fn) => {
+                            // 避免同时get和set导致同一个副作用函数循环执行
+                            if (activeEffect !== fn) {
+                                effectToRun.add(fn)
+                            }
+                        })
+                        effectToRun.forEach((fn) => {
+                            // 如果有调度器，则传给调度器，让开发者自行调用
+                            if (fn.options.scheduler) {
+                                fn.options.scheduler(fn)
+                            } else {
+                                fn()
+                            }
+                        })
                     }
 
                     return true
                 },
             }
         )
-        let i = 1
-        effect(() => {
-            // data.info = '2'
-            window.document.querySelector('.test').innerHTML = data.info
-            // console.log(data.info)
-            // console.log('fn1')
-            // effect(() => {
-            //     console.log('fn2')
-            //     text = data.ok
-            // })
-            // text = data.info
-            // console.log('effect' + i++)
-        })
 
+        const newObj = computed(() => {
+            window.document.querySelector('.test').innerHTML = data.info
+            console.log(i)
+            i++
+            // data.info += 2
+            return data.info
+        })
+        newObj.value
+        watch(data, () => {
+            console.log('watch')
+        })
+        // data.info = '2'
+        // console.log('newObj.value:', newObj.value)
+        // data.info = '3'
+        // console.log('newObj.value:', newObj.value)
+        // data.info++
+        // data.info++
+        // console.log();
         setTimeout(() => {
             data.info = '3'
-        }, 1000)
-        // data.ok = false
-        function effect(fn) {
+        }, 2000)
+
+        function watch(obj, cb) {
+            effect(() => obj.info, {
+                scheduler: (fn) => {
+                    // fn()
+                    cb()
+                },
+            })
+        }
+
+        function computed(getter) {
+            let val
+            let dirty = true
+            const effectFn = effect(getter, {
+                scheduler(fn) {
+                    // 标记脏数据
+                    dirty = true
+
+                    jobQueue.add(fn)
+                    if (!first) {
+                        first = true
+                        setTimeout(() => {
+                            jobQueue.forEach((fn) => fn())
+                            first = false
+                        })
+                    }
+                },
+                lazy: true, // 刚开始不执行副作用函数
+            })
+
+            // 访问value才执行副作用函数
+            const obj = {
+                get value() {
+                    // 数据为脏数据时更新
+                    if (dirty) {
+                        val = effectFn()
+                        dirty = false
+                    }
+                    return val
+                },
+            }
+
+            return obj
+        }
+
+        function effect(fn, options) {
             // 加一层，做一些其他操作
             const effectFn = () => {
                 clearBucket(effectFn)
                 effectStack.push(effectFn)
-                fn()
+                const { scheduler } = effectFn.options
+                activeEffect = effectFn
+                const res = fn()
+
+                // 弹出当前已经绑定的副作用函数
+                effectStack.pop()
+                // 刷新当前副作用函数
+                activeEffect = effectStack[effectStack.length - 1]
+
+                return res
             }
+
             effectFn.buckets = []
-            effectFn()
+            // 挂在配置
+            effectFn.options = options || {}
+
+            // 如果非懒惰执行
+            if (options && !options.lazy) {
+                effectFn()
+            }
+            return effectFn
         }
 
         function clearBucket(effectFn) {
